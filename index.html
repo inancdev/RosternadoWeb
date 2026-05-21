@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosternado — Flight roster sharing for crew</title>
+  <meta name="description"
+    content="Rosternado is a flight roster app for aviation crew. Import your roster, track your flights, and share your schedule with friends and family." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-top: #4a1d5c;
+      --bg-mid: #2a1745;
+      --bg-bottom: #0d1230;
+      --card: #1a1f3d;
+      --accent: #f4b740;
+      --text: #f5f5fa;
+      --text-dim: #a0a3bd;
+      --border: #2d3358;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 35%, var(--bg-bottom) 70%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 0 56px;
+    }
+
+    .logo {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 19px;
+      font-weight: 500;
+      margin-top: 14px;
+      color: var(--text);
+    }
+
+    .subpitch {
+      font-size: 15.5px;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 14px auto 0;
+    }
+
+    .store-note {
+      display: inline-block;
+      margin-top: 26px;
+      font-size: 13px;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 18px;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 44px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .feature h3 {
+      font-size: 15.5px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .audience {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .aud-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .aud-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .aud-card p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 36px 0 48px;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 13.5px;
+    }
+
+    footer .links {
+      margin-bottom: 10px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer .copy {
+      font-size: 12.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="logo">ROSTERNADO</div>
+      <div class="tagline">Flight roster sharing for crew</div>
+      <p class="subpitch">
+        Rosternado keeps your flight schedule in one place &mdash; import it from your
+        airline, see every duty at a glance, and share it with the people who want to
+        know where you are.
+      </p>
+      <span class="store-note">Coming soon to the App Store &amp; Google Play</span>
+    </div>
+
+    <section>
+      <h2>What it does</h2>
+      <div class="features">
+        <div class="feature">
+          <h3>Import your roster</h3>
+          <p>Open your airline's roster website inside the app and import your duties in one tap. Supported airlines are
+            added over time.</p>
+        </div>
+        <div class="feature">
+          <h3>Every duty, clearly</h3>
+          <p>Flights, standby, training, days off and leave &mdash; shown in a clean chronological list, with multi-leg
+            flights grouped together.</p>
+        </div>
+        <div class="feature">
+          <h3>Share with friends</h3>
+          <p>Send a friend request and, once accepted, your friends and family can follow your upcoming flights. Private
+            by default.</p>
+        </div>
+        <div class="feature">
+          <h3>Built for UTC</h3>
+          <p>All times handled in UTC with airline-grade timezone accuracy. View duties in UTC, device time, or your
+            base time.</p>
+        </div>
+        <div class="feature">
+          <h3>Works offline</h3>
+          <p>Your roster is cached on your device, so it's there even with no signal &mdash; mid-flight or far from a
+            tower.</p>
+        </div>
+        <div class="feature">
+          <h3>Add duties manually</h3>
+          <p>No parser for your airline yet? Add and edit any duty by hand, including multi-leg flights.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Who it's for</h2>
+      <div class="audience">
+        <div class="aud-card">
+          <h3>Aviation crew</h3>
+          <p>Pilots and cabin crew &mdash; keep your roster organised, track the flight you're on, and let loved ones
+            see your schedule.</p>
+        </div>
+        <div class="aud-card">
+          <h3>Friends &amp; family</h3>
+          <p>Not crew? Follow one crew member's roster and always know when they're flying, landing, or finally home.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:inancdev@gmail.com">Contact</a>
+      </div>
+      <div class="copy">&copy; 2026 İnanç Atil. All rights reserved.</div>
+    </footer>
+
+  </div>
+</body>
+
+</html>
