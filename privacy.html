@@ -1,60 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Rosternado</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 850px; margin: 40px auto; padding: 0 20px; background-color: #fff; }
-        h1 { border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; color: #1a1a1a; }
-        h2 { margin-top: 30px; color: #0066cc; font-size: 1.4rem; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
-        .last-updated { font-style: italic; color: #777; margin-bottom: 30px; }
-        .highlight-box { background: #f4f7fa; padding: 20px; border-radius: 10px; border-left: 5px solid #0066cc; margin: 20px 0; }
-        .contact-info { background: #1a1a1a; color: white; padding: 20px; border-radius: 10px; margin-top: 40px; }
-        .contact-info a { color: #4dabff; text-decoration: none; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosternado — Privacy Policy</title>
+  <meta name="description" content="Privacy Policy for Rosternado, the flight roster sharing app for aviation crew." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-top: #4a1d5c;
+      --bg-bottom: #0d1230;
+      --card: #1a1f3d;
+      --accent: #f4b740;
+      --text: #f5f5fa;
+      --text-dim: #a0a3bd;
+      --border: #2d3358;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 40%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px;
+      line-height: 1.7;
+    }
+    .wrap { width: 100%; max-width: 720px; }
+    header { text-align: center; margin-bottom: 32px; }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+    h1 { font-size: 22px; font-weight: 600; margin-top: 10px; }
+    .effective { color: var(--text-dim); font-size: 13px; margin-top: 6px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 18px;
+    }
+    h2 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 16px 0 6px;
+      color: var(--text);
+    }
+    p, li { color: var(--text-dim); font-size: 14.5px; margin-bottom: 10px; }
+    ul { padding-left: 22px; }
+    li { margin-bottom: 6px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    strong { color: var(--text); font-weight: 600; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 13.5px;
+    }
+    th, td {
+      text-align: left;
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-dim);
+      vertical-align: top;
+    }
+    th { color: var(--text); font-weight: 600; }
+    footer {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+      margin-top: 12px;
+    }
+    footer a { color: var(--text-dim); text-decoration: underline; }
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div class="logo">ROSTERNADO</div>
+      <h1>Privacy Policy</h1>
+      <div class="effective">Effective date: 21 May 2026</div>
+    </header>
 
-    <h1>Privacy Policy</h1>
-    <p class="last-updated">Last Updated: May 5, 2026</p>
-
-    <p>Welcome to <strong>Rosternado</strong>. We are committed to protecting your personal information and your right to privacy. This policy explains what information we collect, how we use it, and what rights you have in relation to it.</p>
-
-    <h2>1. Information We Collect</h2>
-    <p>We collect personal information that you voluntarily provide to us when you register on the App. This includes:</p>
-    <ul>
-        <li><strong>Account Data:</strong> Name, Email address, and authentication identifiers from Google or Apple ID.</li>
-        <li><strong>Roster Data:</strong> Professional flight schedules or duty rosters that you upload or sync to the App.</li>
-    </ul>
-
-    <h2>2. Social Features & Roster Sharing</h2>
-    <div class="highlight-box">
-        <p><strong>Friend Roster Viewing:</strong> Rosternado allows you to connect with friends. By connecting, you agree to share your monthly schedule visibility with your confirmed friends. You can manage your connections and visibility settings directly within the app's settings.</p>
+    <div class="card">
+      <h2>1. Introduction</h2>
+      <p>Rosternado ("the app", "we", "us") is a flight roster and flight-tracking app for aviation professionals and the people they choose to share their schedule with. This Privacy Policy explains what personal data we collect, why we collect it, who we share it with, and the choices and rights you have.</p>
+      <p>The app is operated by <strong>İnanç Atil</strong> ("the developer"). By creating an account and using the app, you agree to the practices described here.</p>
+      <p>Rosternado is <strong>not affiliated with, endorsed by, or sponsored by any airline.</strong> Airline names and codes are used only to identify your employer and your duties.</p>
     </div>
 
-    <h2>3. Third-Party Services</h2>
-    <p>To provide a seamless experience, we use the following third-party service providers:</p>
-    <ul>
-        <li><strong>Supabase:</strong> Used as our primary database to securely store your profile and roster information.</li>
-        <li><strong>Firebase:</strong> Used specifically for sending push notifications regarding schedule updates or friend requests.</li>
-        <li><strong>RevenueCat:</strong> Used to manage in-app subscriptions and verify purchase status.</li>
-    </ul>
+    <div class="card">
+      <h2>2. Data We Collect</h2>
 
-    <h2>4. Data Deletion & Retention</h2>
-    <p>We retain your information only for as long as necessary to provide our services. <strong>You have the right to delete your data at any time.</strong></p>
-    <p>Rosternado provides a dedicated "Delete Account" option within the app settings. Once triggered, this will remove your profile, authentication links, and all stored roster data from our primary databases.</p>
+      <h3>2.1 Account &amp; profile data</h3>
+      <p>When you register, we collect and store:</p>
+      <table>
+        <tr><th>Data</th><th>Purpose</th></tr>
+        <tr><td>First name &amp; last name</td><td>Identify you to your friends and in friend search</td></tr>
+        <tr><td>Email address</td><td>Account login, account recovery, security notices</td></tr>
+        <tr><td>Password</td><td>Account login &mdash; stored only as a salted hash, never in plain text</td></tr>
+        <tr><td>Account type (crew / non-crew)</td><td>Determine app features available to you</td></tr>
+        <tr><td>Airline, base airport, crew ID</td><td>Crew accounts only &mdash; roster context and duty pre-fill</td></tr>
+        <tr><td>Profile photo (optional)</td><td>Displayed to your friends; you choose whether to add one</td></tr>
+      </table>
 
-    <h2>5. Security</h2>
-    <p>We implement technical and organizational security measures designed to protect the security of any personal information we process. However, please remember that no electronic transmission over the internet can be guaranteed 100% secure.</p>
+      <h3>2.2 Sign in with Google / Apple</h3>
+      <p>If you choose to sign in with Google or Apple, the provider returns your name and email address to create your account. We do not receive your Google or Apple password. If you use Apple's <strong>"Hide My Email"</strong> feature, we receive only the private relay address Apple generates; we treat it as your contact email until you choose to provide a different one.</p>
 
-    <h2>6. Contact Us</h2>
-    <div class="contact-info">
-        <p>If you have questions or comments about this policy, you may email us at:</p>
-        <p><strong>Email:</strong> <a href="mailto:inancdev@gmail.com">inancdev@gmail.com</a></p>
+      <h3>2.3 Roster &amp; duty data</h3>
+      <p>The core of the app is your flight roster &mdash; flights, standby, training, days off, leave and other duties, including airports, times (in UTC), and flight numbers. This data is created in one of two ways:</p>
+      <ul>
+        <li><strong>Manual entry</strong> &mdash; you add or edit duties yourself.</li>
+        <li><strong>Roster import</strong> &mdash; see Section 3 below.</li>
+      </ul>
+
+      <h3>2.4 Friendships</h3>
+      <p>We store the friend requests you send and receive, their accepted/pending/rejected status, and (for non-crew users) which friend you have marked as a favorite.</p>
+
+      <h3>2.5 Device &amp; technical data</h3>
+      <ul>
+        <li><strong>Push notification token</strong> &mdash; a device identifier issued by Apple/Google so we can send you friend-request notifications.</li>
+        <li><strong>Subscription status</strong> &mdash; whether you hold an active Pro subscription, and your monthly usage counters.</li>
+        <li><strong>App preferences</strong> &mdash; theme and time-display settings. These are stored <strong>only on your device</strong> and are never uploaded.</li>
+      </ul>
+      <p>We do <strong>not</strong> use third-party advertising or analytics SDKs, and we do not track you across other apps or websites.</p>
     </div>
 
+    <div class="card">
+      <h2>3. Roster Import via In-App Browser</h2>
+      <p>Crew users can import a roster directly from their airline's own crew/roster website. This works as follows, and it is important you understand it:</p>
+      <ul>
+        <li>The app opens your airline's official roster website inside an <strong>in-app browser window</strong>.</li>
+        <li>You log in to that website using <strong>your own airline credentials</strong>, directly on the airline's page.</li>
+        <li>Rosternado <strong>does not collect, read, store, or transmit your airline username, password, or login session.</strong> Those credentials are entered on the airline's website, not into Rosternado.</li>
+        <li>When you tap <strong>Save</strong>, the app reads the roster information displayed on that page and converts it into duty entries. <strong>Only the resulting roster data</strong> (flights, times, duty codes) is sent to our servers.</li>
+        <li>We do not access your airline email, payslips, personal messages, or any page other than the roster you are viewing.</li>
+      </ul>
+      <p>You are responsible for using your airline's website in accordance with that airline's own terms of use.</p>
+    </div>
+
+    <div class="card">
+      <h2>4. How Roster Sharing &amp; Consent Works</h2>
+      <p>Your roster is <strong>private by default.</strong> No one can see it unless you take action.</p>
+      <ul>
+        <li>Sharing happens only through a <strong>two-way friendship</strong>. One person sends a friend request; the other must explicitly accept it. Either side can remove the friendship at any time.</li>
+        <li>Once a friendship is accepted, that friend can view your current and upcoming duties. Past duties that have already ended are not shared.</li>
+        <li><strong>Accepting a friend request is your consent</strong> to share your active and future roster with that person. If you do not want someone to see your roster, do not accept (or remove) the friendship.</li>
+        <li>In friend search, other users can find you by <strong>first and last name only</strong>. Your <strong>email address is never shown in search</strong> or exposed to other users.</li>
+        <li>Non-crew users do not have a roster and only view the roster of crew friends who have accepted them.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5. How We Use Your Data</h2>
+      <ul>
+        <li>Create and operate your account and authenticate you at login.</li>
+        <li>Store and display your roster, and share it with friends you have approved.</li>
+        <li>Operate the friend-request and friend-search features.</li>
+        <li>Send push notifications for friend requests and acceptances.</li>
+        <li>Manage subscriptions and enforce free-tier usage limits.</li>
+        <li>Provide account recovery (password reset, email change) and respond to support requests.</li>
+        <li>Protect the security and integrity of the service.</li>
+      </ul>
+      <p>We do not sell your personal data, and we do not use it for advertising.</p>
+    </div>
+
+    <div class="card">
+      <h2>6. Third-Party Service Providers</h2>
+      <p>We rely on a small number of trusted providers ("processors") to run the app. They process data only on our behalf:</p>
+      <table>
+        <tr><th>Provider</th><th>Role</th><th>Data involved</th></tr>
+        <tr><td>Supabase</td><td>Database, authentication, file storage and hosting of all account and roster data</td><td>All account, roster and friendship data; profile photos</td></tr>
+        <tr><td>RevenueCat</td><td>Subscription and in-app purchase management</td><td>Your account ID and subscription status</td></tr>
+        <tr><td>Apple App Store / Google Play</td><td>Process subscription payments</td><td>Payment details &mdash; handled entirely by Apple/Google; we never see your card data</td></tr>
+        <tr><td>Expo push service, Apple APNs, Google FCM</td><td>Deliver push notifications</td><td>Your push notification token and the notification content</td></tr>
+        <tr><td>Google / Apple Sign-In</td><td>Optional social login</td><td>Your name and email, only if you choose this login method</td></tr>
+      </table>
+      <p>Each provider operates under its own privacy policy. We share with them only what is needed to perform their function.</p>
+    </div>
+
+    <div class="card">
+      <h2>7. Data Storage, Location &amp; Security</h2>
+      <ul>
+        <li>Your data is stored on Supabase's managed infrastructure. Depending on your location, this may involve transferring data to servers in another country; where required, appropriate safeguards apply.</li>
+        <li>All data is transmitted over encrypted (HTTPS/TLS) connections.</li>
+        <li>Database access is restricted by row-level security rules so that each user can access only their own data and the rosters of accepted friends.</li>
+        <li>Passwords are stored only as salted hashes.</li>
+        <li>No method of transmission or storage is 100% secure; we cannot guarantee absolute security, but we take reasonable measures to protect your data.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>8. Data Retention</h2>
+      <p>We keep your account and roster data for as long as your account is active. When you delete your account, your profile, roster, friendships and associated data are permanently removed from our systems. Some records may persist briefly in encrypted backups before being overwritten. Subscription/payment records held by Apple or Google are retained by them under their own policies.</p>
+    </div>
+
+    <div class="card">
+      <h2>9. Your Rights &amp; Choices</h2>
+      <h3>Delete your account</h3>
+      <p>You can permanently delete your account at any time from <strong>Settings &rarr; Delete Account</strong> inside the app. This removes your profile, roster and friendships.</p>
+      <h3>Access &amp; correction</h3>
+      <p>You can view and edit your profile and roster directly in the app. For any data not editable in-app, contact us using the details below.</p>
+      <h3>Push notifications</h3>
+      <p>You can disable notifications at any time in your device settings.</p>
+      <h3>Legal rights</h3>
+      <p>Depending on where you live (for example the EEA, the UK, California, or Turkey), you may have additional rights &mdash; including the right to access, correct, delete, export, or restrict the processing of your personal data, and to object to certain processing. To exercise these rights, contact us at the email below. You also have the right to lodge a complaint with your local data protection authority.</p>
+    </div>
+
+    <div class="card">
+      <h2>10. Children's Privacy</h2>
+      <p>Rosternado is intended for aviation professionals and adults. It is not directed to children, and we do not knowingly collect personal data from anyone under the age of 16. If you believe a child has provided us with personal data, contact us and we will delete it.</p>
+    </div>
+
+    <div class="card">
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will revise the "Effective date" at the top of this page. Significant changes will be communicated through the app. Continued use of the app after an update means you accept the revised policy.</p>
+    </div>
+
+    <div class="card">
+      <h2>12. Contact Us</h2>
+      <p>For any privacy question or request, contact:</p>
+      <p><strong>İnanç Atil</strong><br />
+      <a href="mailto:inancdev@gmail.com">inancdev@gmail.com</a></p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 İnanç Atil. All rights reserved.</p>
+      <p><a href="index.html">Support</a></p>
+    </footer>
+  </div>
 </body>
 </html>
