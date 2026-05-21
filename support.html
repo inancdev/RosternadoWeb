@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosternado — Support</title>
+  <meta name="description" content="Support and contact information for Rosternado, the flight roster sharing app for aviation crew." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-top: #4a1d5c;
+      --bg-bottom: #0d1230;
+      --card: #1a1f3d;
+      --accent: #f4b740;
+      --text: #f5f5fa;
+      --text-dim: #a0a3bd;
+      --border: #2d3358;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 55%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 20px;
+      line-height: 1.6;
+    }
+    .wrap { width: 100%; max-width: 640px; }
+    header { text-align: center; margin-bottom: 40px; }
+    .logo {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+    .tagline { color: var(--text-dim); font-size: 15px; margin-top: 6px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    p { color: var(--text-dim); font-size: 15px; margin-bottom: 10px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .email {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .faq-item { margin-bottom: 18px; }
+    .faq-item:last-child { margin-bottom: 0; }
+    .faq-q { font-weight: 600; color: var(--text); font-size: 15px; margin-bottom: 4px; }
+    .faq-a { color: var(--text-dim); font-size: 14px; }
+    footer {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+      margin-top: 20px;
+    }
+    footer a { color: var(--text-dim); text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">ROSTERNADO</div>
+      <div class="tagline">Flight roster sharing for crew</div>
+    </header>
+
+    <div class="card">
+      <h2>Contact &amp; Support</h2>
+      <p>Questions, bug reports, or feedback? We respond within 2&ndash;3 business days.</p>
+      <a class="email" href="mailto:inancdev@gmail.com">inancdev@gmail.com</a>
+    </div>
+
+    <div class="card">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">How do I upload my roster?</div>
+        <div class="faq-a">Pull down on the roster screen. Your airline's roster website opens in-app &mdash; sign in and tap Save to import your duties.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Who can see my roster?</div>
+        <div class="faq-a">Only friends you have accepted. Rosters are private by default and never appear in search.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">My airline isn't supported for upload.</div>
+        <div class="faq-a">You can still add duties manually. Email us your airline &mdash; we add parsers over time.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How do I delete my account?</div>
+        <div class="faq-a">Settings &rarr; Delete Account. This permanently removes your profile, roster, and friendships.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How do I manage my subscription?</div>
+        <div class="faq-a">Subscriptions are managed through your App Store account settings on your device.</div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 İnanç Atil. All rights reserved.</p>
+      <p><a href="privacy.html">Privacy Policy</a></p>
+    </footer>
+  </div>
+</body>
+</html>
