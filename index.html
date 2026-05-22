@@ -71,14 +71,36 @@
       margin: 14px auto 0;
     }
 
-    .store-note {
-      display: inline-block;
+    .store-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
       margin-top: 26px;
-      font-size: 13px;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--bg-bottom);
+      background: var(--accent);
       border-radius: 999px;
-      padding: 8px 18px;
+      padding: 11px 22px;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .store-btn:hover {
+      opacity: 0.85;
+    }
+
+    .store-btn.secondary {
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
     }
 
     /* Sections */
@@ -182,7 +204,10 @@
         airline, see every duty at a glance, and share it with the people who want to
         know where you are.
       </p>
-      <span class="store-note">Coming soon to the App Store &amp; Google Play</span>
+      <div class="store-links">
+        <a class="store-btn" href="https://apps.apple.com/us/app/rosternado/id6766887800">Download on the App Store</a>
+        <a class="store-btn secondary" href="https://play.google.com/store/apps/details?id=com.inancatil.rosternado">Get it on Google Play</a>
+      </div>
     </div>
 
     <section>
@@ -239,6 +264,7 @@
     <footer>
       <div class="links">
         <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
         <a href="support.html">Support</a>
         <a href="mailto:inancdev@gmail.com">Contact</a>
       </div>
