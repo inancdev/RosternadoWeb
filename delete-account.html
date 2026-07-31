@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,8 +20,18 @@
       --text-dim: #a0a3bd;
       --border: #2d3358;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
     body {
       font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
       background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 55%);
@@ -33,15 +44,30 @@
       padding: 48px 20px;
       line-height: 1.6;
     }
-    .wrap { width: 100%; max-width: 640px; }
-    header { text-align: center; margin-bottom: 40px; }
+
+    .wrap {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
     .logo {
       font-size: 32px;
       font-weight: 700;
       letter-spacing: 2px;
       color: var(--accent);
     }
-    .tagline { color: var(--text-dim); font-size: 15px; margin-top: 6px; }
+
+    .tagline {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin-top: 6px;
+    }
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -49,22 +75,53 @@
       padding: 28px;
       margin-bottom: 20px;
     }
+
     h2 {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 14px;
       color: var(--text);
     }
-    p { color: var(--text-dim); font-size: 15px; margin-bottom: 10px; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    ol, ul { color: var(--text-dim); font-size: 15px; padding-left: 20px; margin: 6px 0 4px; }
-    li { margin-bottom: 6px; }
-    li strong { color: var(--text); }
+
+    p {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    ol,
+    ul {
+      color: var(--text-dim);
+      font-size: 15px;
+      padding-left: 20px;
+      margin: 6px 0 4px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    li strong {
+      color: var(--text);
+    }
+
     .danger-card {
       border-color: var(--danger);
     }
-    .danger-card h2 { color: var(--danger); }
+
+    .danger-card h2 {
+      color: var(--danger);
+    }
+
     .btn {
       display: inline-block;
       margin-top: 16px;
@@ -77,16 +134,26 @@
       text-decoration: none;
       transition: opacity 0.15s ease;
     }
-    .btn:hover { opacity: 0.85; text-decoration: none; }
+
+    .btn:hover {
+      opacity: 0.85;
+      text-decoration: none;
+    }
+
     footer {
       text-align: center;
       color: var(--text-dim);
       font-size: 13px;
       margin-top: 20px;
     }
-    footer a { color: var(--text-dim); text-decoration: underline; }
+
+    footer a {
+      color: var(--text-dim);
+      text-decoration: underline;
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header>
@@ -118,19 +185,30 @@
 
     <div class="card">
       <h2>Option 2 &mdash; Request by email</h2>
-      <p>Already uninstalled the app? Email us from the address linked to your account and we'll process the deletion.</p>
-      <a class="btn" href="mailto:info@rosternado.com?subject=Rosternado%20Account%20Deletion%20Request">Request deletion via email</a>
+      <p>Already uninstalled the app? Email us from the address linked to your account and we'll process the deletion.
+      </p>
+      <a class="btn" href="mailto:info@rosternado.com?subject=Rosternado%20Account%20Deletion%20Request">Request
+        deletion via email</a>
     </div>
 
     <div class="card">
       <h2>Data retention</h2>
-      <p>Once processed, your data is permanently removed from our Supabase databases. Subscription billing history held by the App Store / Google Play and RevenueCat may be retained for accounting and legal compliance as required by law.</p>
+      <p>Once processed, your personal data (profile, roster, friendships and related records) is permanently removed
+        from our Supabase databases. Subscription billing history held by the App Store / Google Play and RevenueCat may
+        be retained for accounting and legal compliance as required by law.</p>
+      <p>To prevent abuse of one-time free benefits (such as the free roster upload) by repeatedly deleting and
+        recreating accounts, we retain a <strong>one-way, irreversible hash</strong> of your email address and social
+        sign-in identifier. This value cannot be reversed to recover your email or identify you, and is kept solely for
+        fraud prevention on the basis of our legitimate interest.</p>
     </div>
 
     <footer>
       <p>&copy; 2026 İnanç Atil. All rights reserved.</p>
-      <p><a href="index.html">Home</a> &nbsp;&middot;&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;&middot;&nbsp; <a href="terms.html">Terms of Use</a> &nbsp;&middot;&nbsp; <a href="support.html">Support</a></p>
+      <p><a href="index.html">Home</a> &nbsp;&middot;&nbsp; <a href="privacy.html">Privacy Policy</a>
+        &nbsp;&middot;&nbsp; <a href="terms.html">Terms of Use</a> &nbsp;&middot;&nbsp; <a
+          href="support.html">Support</a></p>
     </footer>
   </div>
 </body>
+
 </html>
