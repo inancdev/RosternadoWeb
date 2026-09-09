@@ -1,93 +1,366 @@
 ---
+import { Picture, Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import StoreButtons from '../components/StoreButtons.astro';
+import { verified, beta, requestMailto } from '../content/airlines';
+
+import a320 from '../assets/brand/a320.png';
+import cloud1 from '../assets/brand/02.webp';
+import cloud2 from '../assets/brand/06.webp';
+import cloud3 from '../assets/brand/09.webp';
+
+import roster from '../assets/shots/roster.png';
+import addDuty from '../assets/shots/add-duty.png';
+import radarMap from '../assets/shots/friend-radar-map.png';
+import radarFlight from '../assets/shots/friend-radar-flight.png';
+import meetup from '../assets/shots/meetup.png';
+import utcTimes from '../assets/shots/utc-times.png';
+
+// fallbackFormat webp, not the source PNG: the <img> fallback inside a <picture> is
+// never fetched by a browser that takes AVIF, but it is what ships in dist and what
+// old browsers download. A 600kB PNG fallback for a 40kB AVIF is not a trade worth
+// making when WebP is universally supported.
+const shot = {
+  formats: ['avif', 'webp'] as const,
+  fallbackFormat: 'webp' as const,
+  widths: [300, 600, 900],
+};
+const airlineCount = verified.length + beta.length;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Rosternado',
+  operatingSystem: 'iOS, Android',
+  applicationCategory: 'TravelApplication',
+  description:
+    'Rosternado is a flight roster app for aviation crew. Import your roster, track your flights, and share your schedule with friends and family.',
+  url: 'https://rosternado.com',
+  offers: {
+    '@type': 'Offer',
+    price: '2.00',
+    priceCurrency: 'USD',
+  },
+  sameAs: [
+    'https://apps.apple.com/app/rosternado/6766887800',
+    'https://play.google.com/store/apps/details?id=com.inancatil.rosternado',
+  ],
+};
 ---
 
 <Layout
   title="Rosternado — Flight roster sharing for crew"
   description="Rosternado is a flight roster app for aviation crew. Import your roster, track your flights, and share your schedule with friends and family."
+  wide
 >
-  <div class="wrap wrap--narrow home">
-    <div class="hero">
-        <div class="tagline">Flight roster sharing for crew</div>
-        <p class="subpitch">
-          Rosternado keeps your flight schedule in one place &mdash; import it from your
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__sky" aria-hidden="true">
+      <Image src={cloud1} alt="" class="cloud cloud--1" width={560} loading="eager" />
+      <Image src={cloud2} alt="" class="cloud cloud--2" width={560} loading="eager" />
+      <Image src={cloud3} alt="" class="cloud cloud--3" width={560} loading="eager" />
+      <Image src={a320} alt="" class="hero__plane" width={760} loading="eager" />
+    </div>
+
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <h1>Flight roster sharing for crew</h1>
+        <p class="lede">
+          Rosternado keeps your flight schedule in one place — import it from your
           airline, see every duty at a glance, and share it with the people who want to
           know where you are.
         </p>
-        <div class="store-links">
-          <a class="btn" href="https://apps.apple.com/us/app/rosternado/id6766887800">Download on the App Store</a>
-          <a class="btn btn--ghost" href="https://play.google.com/store/apps/details?id=com.inancatil.rosternado">Get
-            it on Google Play</a>
-        </div>
+        <StoreButtons align="start" />
+        <p class="hero__meta">Free to use. No ads, no analytics, no tracking.</p>
       </div>
-    
-      <section>
-        <h2>What it does</h2>
-        <div class="features">
-          <div class="feature">
-            <h3>Import your roster</h3>
-            <p>Open your airline's roster website inside the app and import your duties in one tap. Supported airlines are
-              added over time.</p>
-          </div>
-          <div class="feature">
-            <h3>Every duty, clearly</h3>
-            <p>Flights, standby, training, days off and leave &mdash; shown in a clean chronological list, with multi-leg
-              flights grouped together.</p>
-          </div>
-          <div class="feature">
-            <h3>Share with friends</h3>
-            <p>Send a friend request and, once accepted, your friends and family can follow your upcoming flights. Private
-              by default.</p>
-          </div>
-          <div class="feature">
-            <h3>Built for UTC</h3>
-            <p>All times handled in UTC with airline-grade timezone accuracy. View duties in UTC, device time, or your
-              base time.</p>
-          </div>
-          <div class="feature">
-            <h3>Works offline</h3>
-            <p>Your roster is cached on your device, so it's there even with no signal &mdash; mid-flight or far from a
-              tower.</p>
-          </div>
-          <div class="feature">
-            <h3>Add duties manually</h3>
-            <p>No parser for your airline yet? Add and edit any duty by hand, including multi-leg flights.</p>
-          </div>
-        </div>
-      </section>
-    
-      <section>
-        <h2>Who it's for</h2>
-        <div class="audience">
-          <div class="aud-card">
-            <h3>Aviation crew</h3>
-            <p>Pilots and cabin crew &mdash; keep your roster organised, track the flight you're on, and let loved ones
-              see your schedule.</p>
-          </div>
-          <div class="aud-card">
-            <h3>Friends &amp; family</h3>
-            <p>Not crew? Follow one crew member's roster and always know when they're flying, landing, or finally home.
-            </p>
-          </div>
-        </div>
-      </section>
-    
-      <section>
+
+      <PhoneFrame class="hero__phone">
+        <Picture
+          src={roster}
+          {...shot}
+          sizes="(max-width: 900px) 280px, 340px"
+          alt="The Rosternado roster screen, showing a fortnight of duties: flights from Istanbul to London and Beirut, a simulator check, dangerous-goods training and annual leave."
+          loading="eager"
+          fetchpriority="high"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Import your roster -->
+  <section class="band">
+    <div class="wrap feature feature--reverse">
+      <div class="feature__copy">
+        <p class="eyebrow">Import your roster</p>
+        <h2>Your airline's roster, in one tap</h2>
+        <p>
+          Open your airline's roster website inside the app, sign in, and save. Your
+          duties are parsed and laid out for you — no retyping, no copying dates across
+          from a PDF.
+        </p>
+        <p>
+          {airlineCount} airlines have a parser today, and around 75 more are selectable for
+          manual entry. <a href="/airlines.html">See the full list</a>.
+        </p>
+      </div>
+      <PhoneFrame class="feature__shot">
+        <Picture
+          src={addDuty}
+          {...shot}
+          sizes="(max-width: 900px) 260px, 300px"
+          alt="The Add Duty screen, with a flight leg from Istanbul to Amsterdam and departure and arrival times marked UTC."
+          loading="lazy"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Every duty, clearly -->
+  <section class="band band--alt">
+    <div class="wrap feature">
+      <div class="feature__copy">
+        <p class="eyebrow">Every duty, clearly</p>
+        <h2>One list, colour-coded</h2>
+        <p>
+          Flights, standby, training, days off, leave and office duties in a clean
+          chronological list. Multi-leg flights group under a single card, so a
+          three-sector day reads as one duty, not three.
+        </p>
+        <ul class="dot-key">
+          <li><span class="dot" style="--dot: var(--duty-flight)"></span>Flight</li>
+          <li><span class="dot" style="--dot: var(--duty-standby)"></span>Standby</li>
+          <li><span class="dot" style="--dot: var(--duty-training)"></span>Training</li>
+          <li><span class="dot" style="--dot: var(--duty-dayoff)"></span>Day off</li>
+          <li><span class="dot" style="--dot: var(--duty-leave)"></span>Leave</li>
+          <li><span class="dot" style="--dot: var(--duty-office)"></span>Office</li>
+          <li><span class="dot" style="--dot: var(--duty-transfer)"></span>Transfer</li>
+        </ul>
+      </div>
+      <PhoneFrame class="feature__shot">
+        <Picture
+          src={roster}
+          {...shot}
+          sizes="(max-width: 900px) 260px, 300px"
+          alt="A roster with a multi-leg Istanbul–Beirut–Istanbul duty expanded to show both sectors under one card."
+          loading="lazy"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Friend Radar -->
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" style="--eyebrow: var(--radar)">Friend Radar</p>
+        <h2>See roughly where they are</h2>
+        <p class="lede">
+          When a friend is flying, Friend Radar puts them on a map with their flight and
+          an estimated arrival.
+        </p>
+      </div>
+
+      <div class="shots-pair">
+        <figure>
+          <PhoneFrame>
+            <Picture
+              src={radarMap}
+              {...shot}
+              sizes="(max-width: 700px) 80vw, 320px"
+              alt="A map of Türkiye and the Black Sea with four crew friends pinned at Istanbul, Ankara, Antalya, and one in the air over Romania."
+              loading="lazy"
+            />
+          </PhoneFrame>
+          <figcaption>
+            Friends you have accepted appear at their base, or along their route when
+            they're flying.
+          </figcaption>
+        </figure>
+        <figure>
+          <PhoneFrame>
+            <Picture
+              src={radarFlight}
+              {...shot}
+              sizes="(max-width: 700px) 80vw, 320px"
+              alt="A flight card for an Istanbul to Amsterdam sector, showing progress along the route and an estimated arrival time."
+              loading="lazy"
+            />
+          </PhoneFrame>
+          <figcaption>
+            Positions are approximate and updated every few minutes — this is a rough
+            picture for friends and family, not a tracking or air traffic service.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plan a Meetup -->
+  <section class="band band--alt">
+    <div class="wrap feature feature--reverse">
+      <div class="feature__copy">
+        <p class="eyebrow">Plan a Meetup</p>
+        <h2>Find the gap you both have free</h2>
+        <p>
+          Pick a few crew friends and Rosternado reads across everyone's roster to find
+          the windows where you are all off at the same time, in the same place — with
+          the length of each window and the local times.
+        </p>
+        <p>
+          It is the part of crew life that is genuinely hard to work out by hand,
+          especially across bases and time zones.
+        </p>
+      </div>
+      <PhoneFrame class="feature__shot">
+        <Picture
+          src={meetup}
+          {...shot}
+          sizes="(max-width: 900px) 260px, 300px"
+          alt="The Plan a Meetup sheet with two friends selected and a suggested nine hour fifty minute window in Istanbul."
+          loading="lazy"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Built for UTC -->
+  <section class="band">
+    <div class="wrap feature">
+      <div class="feature__copy">
+        <p class="eyebrow">Built for UTC</p>
+        <h2>Four ways to read the same time</h2>
+        <p>
+          Every duty is stored in UTC and converted with a full IANA time zone database,
+          so daylight saving and odd offsets are handled properly rather than guessed at
+          with a fixed number of hours.
+        </p>
+        <p>
+          Show times in <strong>UTC</strong>, <strong>airport local</strong>,
+          <strong>your base</strong>, or <strong>your device's</strong> time zone —
+          whichever you think in.
+        </p>
+      </div>
+      <figure class="feature__shot feature__shot--flat">
+        <Picture
+          src={utcTimes}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[400, 800, 1085]}
+          sizes="(max-width: 900px) 90vw, 460px"
+          alt="A departure and arrival row showing 10:30 and 12:30 in airport local time with 07:30 and 10:30 UTC beneath them."
+          loading="lazy"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- Works offline + Who it's for -->
+  <section class="band band--alt">
+    <div class="wrap">
+      <div class="cards">
+        <article class="card">
+          <h3>Works offline</h3>
+          <p>
+            Your roster is cached on your device, so it is there with no signal —
+            mid-flight, or far from a tower.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Aviation crew</h3>
+          <p>
+            Pilots and cabin crew — keep your roster organised, track the flight you're
+            on, and let the people at home see your schedule.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Friends &amp; family</h3>
+          <p>
+            Not crew? Follow one crew member's roster and always know when they're
+            flying, landing, or finally home.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="band">
+    <div class="wrap">
+      <div class="privacy-block">
+        <p class="eyebrow">Privacy</p>
+        <h2>Nothing is watching you</h2>
+        <p class="lede">
+          Rosternado carries no ads, no analytics, no tracking SDKs, and no App Tracking
+          Transparency prompt — because there is nothing to ask you for.
+        </p>
+        <ul class="ticks ticks--wide">
+          <li>Your roster is private by default and never appears in search</li>
+          <li>Only friends you have accepted can see your schedule</li>
+          <li>No third-party advertising or analytics SDK is bundled in the app</li>
+          <li>This website loads no third-party scripts, fonts or trackers either</li>
+        </ul>
+        <p><a href="/privacy.html">Read the full privacy policy</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing summary -->
+  <section class="band band--alt">
+    <div class="wrap">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Pricing</p>
+        <h2>Free to follow, cheap to fly</h2>
+      </div>
+      <div class="cards cards--3">
+        <article class="card">
+          <h3>Friends &amp; family</h3>
+          <p class="price">Free forever</p>
+          <p>Follow one crew friend's roster. No import.</p>
+        </article>
+        <article class="card">
+          <h3>Crew — Free</h3>
+          <p class="price">Free</p>
+          <p>
+            5 duty operations a month, one lifetime roster import, unlimited viewing.
+          </p>
+        </article>
+        <article class="card card--accent">
+          <h3>Crew — Pro</h3>
+          <p class="price">$2 <span>/ month</span></p>
+          <p>Or $20 a year. Unlimited operations and imports.</p>
+        </article>
+      </div>
+      <p class="center-note"><a href="/pricing.html">Full pricing details</a></p>
+    </div>
+  </section>
+
+  <!-- Request your airline -->
+  <section class="band">
+    <div class="wrap wrap--narrow">
+      <div class="cta-card">
         <h2>Want your airline added?</h2>
-        <div class="airline-card">
-          <p>
-            Roster import is built airline by airline, and we add new ones over time. Don't see
-            yours yet? Tell us which airline you fly for and we'll look into building a parser for it.
-          </p>
-          <p>
-            Include your <strong>airline name</strong>, the <strong>roster website</strong> you sign in
-            to, and a <strong>screenshot or sample of your roster page</strong> &mdash; it helps us build
-            the parser faster.
-          </p>
-          <a class="btn"
-            href="mailto:info@rosternado.com?subject=Add%20my%20airline%20to%20Rosternado&body=Airline%20name%3A%20%0ARoster%20website%20URL%3A%20%0A%0A(Please%20attach%20a%20screenshot%20or%20sample%20of%20your%20roster%20page.)%0A">Request
-            your airline</a>
-        </div>
-      </section>
-  </div>
+        <p>
+          Roster import is built airline by airline. Tell us which airline you fly for
+          and we'll look into building a parser for it — include your
+          <strong>airline name</strong>, the <strong>roster website</strong> you sign in
+          to, and a <strong>screenshot or sample of your roster page</strong>.
+        </p>
+        <a class="btn" href={requestMailto}>Request your airline</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing store buttons -->
+  <section class="band band--close">
+    <div class="wrap">
+      <div class="section-head section-head--center">
+        <h2>Get Rosternado</h2>
+        <p class="lede">Free on iOS and Android.</p>
+      </div>
+      <StoreButtons />
+    </div>
+  </section>
 </Layout>

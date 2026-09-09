@@ -1,0 +1,31 @@
+---
+interface Props {
+  align?: 'start' | 'center';
+}
+const { align = 'center' } = Astro.props;
+---
+
+<div class:list={['store-buttons', `store-buttons--${align}`]}>
+  <a class="btn" href="https://apps.apple.com/app/rosternado/6766887800">
+    Download on the App Store
+  </a>
+  <a class="btn btn--ghost" href="https://play.google.com/store/apps/details?id=com.inancatil.rosternado">
+    Get it on Google Play
+  </a>
+</div>
+
+<style>
+  .store-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .store-buttons--center {
+    justify-content: center;
+  }
+
+  .store-buttons--start {
+    justify-content: flex-start;
+  }
+</style>

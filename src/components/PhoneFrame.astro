@@ -1,0 +1,38 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={['phone', className]}>
+  <div class="phone__screen">
+    <slot />
+  </div>
+</div>
+
+<style>
+  /* A plain rounded-rect bezel. No fake notch — the screenshots are real captures and
+     already carry the device's own status bar. */
+  .phone {
+    border-radius: 34px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 6px;
+    box-shadow:
+      0 24px 60px -20px rgba(0, 0, 0, 0.65),
+      0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+
+  .phone__screen {
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .phone__screen :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
