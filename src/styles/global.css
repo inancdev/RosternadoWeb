@@ -813,13 +813,6 @@ a:hover {
   width: min(280px, 70vw);
 }
 
-.feature__shot--flat {
-  width: min(460px, 92vw);
-  margin: 0;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid var(--separator);
-}
 
 @media (min-width: 900px) {
   .feature {
@@ -839,9 +832,6 @@ a:hover {
     width: 300px;
   }
 
-  .feature__shot--flat {
-    width: 460px;
-  }
 }
 
 /* Duty-type key */

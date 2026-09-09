@@ -15,7 +15,6 @@ import addDuty from '../assets/shots/add-duty.png';
 import radarMap from '../assets/shots/friend-radar-map.png';
 import radarFlight from '../assets/shots/friend-radar-flight.png';
 import meetup from '../assets/shots/meetup.png';
-import utcTimes from '../assets/shots/utc-times.png';
 
 // fallbackFormat webp, not the source PNG: the <img> fallback inside a <picture> is
 // never fetched by a browser that takes AVIF, but it is what ships in dist and what
@@ -226,39 +225,9 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Built for UTC -->
-  <section class="band">
-    <div class="wrap feature">
-      <div class="feature__copy">
-        <p class="eyebrow">Built for UTC</p>
-        <h2>Four ways to read the same time</h2>
-        <p>
-          Every duty is stored in UTC and converted with a full IANA time zone database,
-          so daylight saving and odd offsets are handled properly rather than guessed at
-          with a fixed number of hours.
-        </p>
-        <p>
-          Show times in <strong>UTC</strong>, <strong>airport local</strong>,
-          <strong>your base</strong>, or <strong>your device's</strong> time zone —
-          whichever you think in.
-        </p>
-      </div>
-      <figure class="feature__shot feature__shot--flat">
-        <Picture
-          src={utcTimes}
-          formats={['avif', 'webp']}
-          fallbackFormat="webp"
-          widths={[400, 800, 1085]}
-          sizes="(max-width: 900px) 90vw, 460px"
-          alt="A departure and arrival row showing 10:30 and 12:30 in airport local time with 07:30 and 10:30 UTC beneath them."
-          loading="lazy"
-        />
-      </figure>
-    </div>
-  </section>
 
   <!-- Works offline + Who it's for -->
-  <section class="band band--alt">
+  <section class="band">
     <div class="wrap">
       <div class="cards">
         <article class="card">
@@ -287,7 +256,7 @@ const jsonLd = {
   </section>
 
   <!-- Privacy -->
-  <section class="band">
+  <section class="band band--alt">
     <div class="wrap">
       <div class="privacy-block">
         <p class="eyebrow">Privacy</p>
@@ -308,7 +277,7 @@ const jsonLd = {
   </section>
 
   <!-- Pricing summary -->
-  <section class="band band--alt">
+  <section class="band">
     <div class="wrap">
       <div class="section-head section-head--center">
         <p class="eyebrow">Pricing</p>
@@ -338,7 +307,7 @@ const jsonLd = {
   </section>
 
   <!-- Request your airline -->
-  <section class="band">
+  <section class="band band--alt">
     <div class="wrap wrap--narrow">
       <div class="cta-card">
         <h2>Want your airline added?</h2>
