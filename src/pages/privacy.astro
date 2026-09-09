@@ -28,36 +28,38 @@ import Layout from '../layouts/Layout.astro';
     
         <h3>2.1 Account &amp; profile data</h3>
         <p>When you register, we collect and store:</p>
-        <table>
-          <tr>
-            <th>Data</th>
-            <th>Purpose</th>
-          </tr>
-          <tr>
-            <td>First name &amp; last name</td>
-            <td>Identify you to your friends and in friend search</td>
-          </tr>
-          <tr>
-            <td>Email address</td>
-            <td>Account login, account recovery, security notices</td>
-          </tr>
-          <tr>
-            <td>Password</td>
-            <td>Account login &mdash; stored only as a salted hash, never in plain text</td>
-          </tr>
-          <tr>
-            <td>Account type (crew / non-crew)</td>
-            <td>Determine app features available to you</td>
-          </tr>
-          <tr>
-            <td>Airline, base airport, crew ID</td>
-            <td>Crew accounts only &mdash; roster context and duty pre-fill</td>
-          </tr>
-          <tr>
-            <td>Profile photo (optional)</td>
-            <td>Displayed to your friends; you choose whether to add one</td>
-          </tr>
-        </table>
+        <div class="table-scroll">
+          <table>
+            <tr>
+              <th>Data</th>
+              <th>Purpose</th>
+            </tr>
+            <tr>
+              <td>First name &amp; last name</td>
+              <td>Identify you to your friends and in friend search</td>
+            </tr>
+            <tr>
+              <td>Email address</td>
+              <td>Account login, account recovery, security notices</td>
+            </tr>
+            <tr>
+              <td>Password</td>
+              <td>Account login &mdash; stored only as a salted hash, never in plain text</td>
+            </tr>
+            <tr>
+              <td>Account type (crew / non-crew)</td>
+              <td>Determine app features available to you</td>
+            </tr>
+            <tr>
+              <td>Airline, base airport, crew ID</td>
+              <td>Crew accounts only &mdash; roster context and duty pre-fill</td>
+            </tr>
+            <tr>
+              <td>Profile photo (optional)</td>
+              <td>Displayed to your friends; you choose whether to add one</td>
+            </tr>
+          </table>
+        </div>
     
         <h3>2.2 Sign in with Google / Apple</h3>
         <p>If you choose to sign in with Google or Apple, the provider returns your name and email address to create your
@@ -143,38 +145,40 @@ import Layout from '../layouts/Layout.astro';
         <h2>6. Third-Party Service Providers</h2>
         <p>We rely on a small number of trusted providers ("processors") to run the app. They process data only on our
           behalf:</p>
-        <table>
-          <tr>
-            <th>Provider</th>
-            <th>Role</th>
-            <th>Data involved</th>
-          </tr>
-          <tr>
-            <td>Supabase</td>
-            <td>Database, authentication, file storage and hosting of all account and roster data</td>
-            <td>All account, roster and friendship data; profile photos</td>
-          </tr>
-          <tr>
-            <td>RevenueCat</td>
-            <td>Subscription and in-app purchase management</td>
-            <td>Your account ID and subscription status</td>
-          </tr>
-          <tr>
-            <td>Apple App Store / Google Play</td>
-            <td>Process subscription payments</td>
-            <td>Payment details &mdash; handled entirely by Apple/Google; we never see your card data</td>
-          </tr>
-          <tr>
-            <td>Expo push service, Apple APNs, Google FCM</td>
-            <td>Deliver push notifications</td>
-            <td>Your push notification token and the notification content</td>
-          </tr>
-          <tr>
-            <td>Google / Apple Sign-In</td>
-            <td>Optional social login</td>
-            <td>Your name and email, only if you choose this login method</td>
-          </tr>
-        </table>
+        <div class="table-scroll">
+          <table>
+            <tr>
+              <th>Provider</th>
+              <th>Role</th>
+              <th>Data involved</th>
+            </tr>
+            <tr>
+              <td>Supabase</td>
+              <td>Database, authentication, file storage and hosting of all account and roster data</td>
+              <td>All account, roster and friendship data; profile photos</td>
+            </tr>
+            <tr>
+              <td>RevenueCat</td>
+              <td>Subscription and in-app purchase management</td>
+              <td>Your account ID and subscription status</td>
+            </tr>
+            <tr>
+              <td>Apple App Store / Google Play</td>
+              <td>Process subscription payments</td>
+              <td>Payment details &mdash; handled entirely by Apple/Google; we never see your card data</td>
+            </tr>
+            <tr>
+              <td>Expo push service, Apple APNs, Google FCM</td>
+              <td>Deliver push notifications</td>
+              <td>Your push notification token and the notification content</td>
+            </tr>
+            <tr>
+              <td>Google / Apple Sign-In</td>
+              <td>Optional social login</td>
+              <td>Your name and email, only if you choose this login method</td>
+            </tr>
+          </table>
+        </div>
         <p>Each provider operates under its own privacy policy. We share with them only what is needed to perform their
           function.</p>
       </div>

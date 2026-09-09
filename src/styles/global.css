@@ -875,7 +875,10 @@ a:hover {
 
 .shots-pair {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  /* Track max is the figure's own max-width, not 1fr, so a track never grows wider
+     than the shot inside it. justify-content then centres the whole block. */
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 22rem));
+  justify-content: center;
   gap: clamp(1.75rem, 1.4rem + 2vw, 3rem);
   justify-items: center;
 }
@@ -965,4 +968,18 @@ a:hover {
 .ticks--wide li {
   color: var(--text);
   font-size: var(--step-0);
+}
+
+/* The privacy policy's provider tables are three columns of prose. They cannot reflow
+   below roughly 390px, so they scroll inside their own box rather than dragging the
+   whole page sideways on a phone. */
+.legal .table-scroll {
+  overflow-x: auto;
+  margin: 0.4rem 0 0.9rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.legal .table-scroll table {
+  min-width: 24rem;
+  margin: 0;
 }
