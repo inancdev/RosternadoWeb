@@ -27,7 +27,16 @@ const { class: className } = Astro.props;
   .phone__screen {
     border-radius: 28px;
     overflow: hidden;
-    display: flex;
+  }
+
+  /* <Picture> renders <picture><source><img></picture>. As a flex item the <picture>
+     sized itself from the img, while the img's width:100% resolved against the
+     <picture> — circular, and it settled a few percent short of the frame, pinned
+     left. That is the sliver of background down the right edge of every shot.
+     Block layout with an explicit 100% on both removes the circularity. */
+  .phone__screen :global(picture) {
+    display: block;
+    width: 100%;
   }
 
   .phone__screen :global(img) {
