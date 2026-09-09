@@ -1,0 +1,211 @@
+---
+import { Image } from 'astro:assets';
+import icon from '../assets/brand/icon.png';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  wide?: boolean;
+}
+
+const { title, description, ogImage = '/og.png', wide = false } = Astro.props;
+
+// build.format:'file' makes Astro.url.pathname '/index.html' on the home page.
+// The served canonical for the apex is '/', so normalise it here — every other
+// page keeps its .html, which is the URL shipped inside app builds (R1).
+const pathname = Astro.url.pathname.replace(/\/index\.html$/, "/");
+const canonical = new URL(pathname, Astro.site).href;
+const ogUrl = new URL(ogImage, Astro.site).href;
+
+// Every link here keeps its .html extension. Four of these URLs are hardcoded in
+// shipped app builds and in the store listings, and there is no OTA channel — moving
+// them 404s live users. See R1.
+const nav = [
+  { href: '/airlines.html', label: 'Airlines' },
+  { href: '/pricing.html', label: 'Pricing' },
+  { href: '/support.html', label: 'Support' },
+];
+
+const footerLinks = [
+  { href: '/privacy.html', label: 'Privacy Policy' },
+  { href: '/terms.html', label: 'Terms of Use' },
+  { href: '/support.html', label: 'Support' },
+  { href: '/delete-account.html', label: 'Delete Account' },
+  { href: 'mailto:info@rosternado.com', label: 'Contact' },
+];
+
+const path = pathname;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rosternado" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <meta name="theme-color" content="#0b1130" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <slot name="head" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <a class="brand" href="/" aria-label="Rosternado — home">
+          <Image src={icon} alt="" width={32} height={32} class="brand__mark" />
+          <span class="brand__word">ROSTERNADO</span>
+        </a>
+        <nav aria-label="Main">
+          <ul class="site-nav">
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class={wide ? 'site-main site-main--wide' : 'site-main'}>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <ul class="site-footer__links">
+          {
+            footerLinks.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="site-footer__copy">&copy; 2026 İnanç Atil. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11, 17, 48, 0.82);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--separator);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 60px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .brand:hover {
+    text-decoration: none;
+  }
+
+  .brand__mark {
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand__word {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.9rem, 2.5vw, 1.75rem);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .site-nav a {
+    color: var(--text-dim);
+    font-size: var(--step--1);
+    font-weight: 500;
+    text-decoration: none;
+    padding-block: 0.4rem;
+  }
+
+  .site-nav a:hover,
+  .site-nav a[aria-current='page'] {
+    color: var(--text);
+  }
+
+  .site-main {
+    flex: 1;
+  }
+
+  .site-footer {
+    margin-top: auto;
+    padding-block: 2.5rem 3rem;
+    border-top: 1px solid var(--separator);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: var(--step--1);
+  }
+
+  .site-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+
+  .site-footer__links a {
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+
+  .site-footer__links a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Rosternado — Delete Account"
+  description="How to delete your Rosternado account and what data is removed."
+>
+  <div class="wrap wrap--narrow legal">
+    <header class="page-head">
+        <h1>Delete Account</h1>
+      </header>
+    
+      <div class="card card--text danger-card">
+        <h2>Delete your account</h2>
+        <p>Sorry to see you go. Deleting your account permanently removes the following data:</p>
+        <ul>
+          <li>Your <strong>profile</strong> (name, email, profile picture).</li>
+          <li>All uploaded <strong>roster and schedule</strong> data.</li>
+          <li>Your <strong>friend connections</strong> and sharing permissions.</li>
+          <li>Push <strong>notification tokens</strong> tied to your device.</li>
+        </ul>
+      </div>
+    
+      <div class="card card--text">
+        <h2>Option 1 &mdash; Delete in the app (recommended)</h2>
+        <p>The fastest way to remove your data is from inside Rosternado:</p>
+        <ol>
+          <li>Open the <strong>Rosternado</strong> app.</li>
+          <li>Go to your <strong>Profile</strong>.</li>
+          <li>Scroll to <strong>Delete Account</strong>.</li>
+          <li>Tap it and <strong>confirm</strong>.</li>
+        </ol>
+      </div>
+    
+      <div class="card card--text">
+        <h2>Option 2 &mdash; Request by email</h2>
+        <p>Already uninstalled the app? Email us from the address linked to your account and we'll process the deletion.
+        </p>
+        <a class="btn" href="mailto:info@rosternado.com?subject=Rosternado%20Account%20Deletion%20Request">Request
+          deletion via email</a>
+      </div>
+    
+      <div class="card card--text">
+        <h2>Data retention</h2>
+        <p>Once processed, your personal data (profile, roster, friendships and related records) is permanently removed
+          from our Supabase databases. Subscription billing history held by the App Store / Google Play and RevenueCat may
+          be retained for accounting and legal compliance as required by law.</p>
+        <p>To prevent abuse of one-time free benefits (such as the free roster upload) by repeatedly deleting and
+          recreating accounts, we retain a <strong>one-way, irreversible hash</strong> of your email address and social
+          sign-in identifier. This value cannot be reversed to recover your email or identify you, and is kept solely for
+          fraud prevention on the basis of our legitimate interest.</p>
+      </div>
+  </div>
+</Layout>

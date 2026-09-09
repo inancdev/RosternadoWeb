@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Pricing — Rosternado"
+  description="Rosternado pricing: free for friends and family, a free crew tier, and Pro at $2 a month or $20 a year for unlimited roster imports and duty edits."
+>
+  <div class="wrap page">
+    <header class="page-head page-head--center">
+      <p class="eyebrow">Pricing</p>
+      <h1>Simple, and mostly free</h1>
+      <p class="lede">
+        Following a friend's roster costs nothing, forever. Crew get a free tier, and Pro
+        lifts the limits.
+      </p>
+    </header>
+
+    <div class="tiers">
+      <section class="tier-card">
+        <h2>Friends &amp; family</h2>
+        <p class="tier-card__price">Free <span>forever</span></p>
+        <ul class="ticks">
+          <li>View one crew friend's roster</li>
+          <li>See when they're flying, landing, or home</li>
+          <li>No roster import — this tier is for following, not flying</li>
+        </ul>
+      </section>
+
+      <section class="tier-card">
+        <h2>Crew — Free</h2>
+        <p class="tier-card__price">Free</p>
+        <ul class="ticks">
+          <li>5 duty operations a month — adds, edits and deletes combined</li>
+          <li>A multi-leg flight counts as one operation</li>
+          <li>The count resets on the 1st</li>
+          <li>One lifetime roster import</li>
+          <li>Unlimited viewing of friends' rosters</li>
+        </ul>
+      </section>
+
+      <section class="tier-card tier-card--featured">
+        <p class="tier-card__badge">Pro</p>
+        <h2>Crew — Pro</h2>
+        <p class="tier-card__price">$2 <span>/ month</span></p>
+        <p class="tier-card__alt">or $20 a year</p>
+        <ul class="ticks">
+          <li>Unlimited duty operations</li>
+          <li>Unlimited roster imports</li>
+          <li>Everything in the free crew tier</li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="billing-note">
+      Subscriptions are billed through the App Store or Google Play, and are managed and
+      cancelled there — in your device's account settings, not in the app.
+    </p>
+  </div>
+</Layout>

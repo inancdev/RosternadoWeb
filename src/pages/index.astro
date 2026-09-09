@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Rosternado — Flight roster sharing for crew"
+  description="Rosternado is a flight roster app for aviation crew. Import your roster, track your flights, and share your schedule with friends and family."
+>
+  <div class="wrap wrap--narrow home">
+    <div class="hero">
+        <div class="tagline">Flight roster sharing for crew</div>
+        <p class="subpitch">
+          Rosternado keeps your flight schedule in one place &mdash; import it from your
+          airline, see every duty at a glance, and share it with the people who want to
+          know where you are.
+        </p>
+        <div class="store-links">
+          <a class="btn" href="https://apps.apple.com/us/app/rosternado/id6766887800">Download on the App Store</a>
+          <a class="btn btn--ghost" href="https://play.google.com/store/apps/details?id=com.inancatil.rosternado">Get
+            it on Google Play</a>
+        </div>
+      </div>
+    
+      <section>
+        <h2>What it does</h2>
+        <div class="features">
+          <div class="feature">
+            <h3>Import your roster</h3>
+            <p>Open your airline's roster website inside the app and import your duties in one tap. Supported airlines are
+              added over time.</p>
+          </div>
+          <div class="feature">
+            <h3>Every duty, clearly</h3>
+            <p>Flights, standby, training, days off and leave &mdash; shown in a clean chronological list, with multi-leg
+              flights grouped together.</p>
+          </div>
+          <div class="feature">
+            <h3>Share with friends</h3>
+            <p>Send a friend request and, once accepted, your friends and family can follow your upcoming flights. Private
+              by default.</p>
+          </div>
+          <div class="feature">
+            <h3>Built for UTC</h3>
+            <p>All times handled in UTC with airline-grade timezone accuracy. View duties in UTC, device time, or your
+              base time.</p>
+          </div>
+          <div class="feature">
+            <h3>Works offline</h3>
+            <p>Your roster is cached on your device, so it's there even with no signal &mdash; mid-flight or far from a
+              tower.</p>
+          </div>
+          <div class="feature">
+            <h3>Add duties manually</h3>
+            <p>No parser for your airline yet? Add and edit any duty by hand, including multi-leg flights.</p>
+          </div>
+        </div>
+      </section>
+    
+      <section>
+        <h2>Who it's for</h2>
+        <div class="audience">
+          <div class="aud-card">
+            <h3>Aviation crew</h3>
+            <p>Pilots and cabin crew &mdash; keep your roster organised, track the flight you're on, and let loved ones
+              see your schedule.</p>
+          </div>
+          <div class="aud-card">
+            <h3>Friends &amp; family</h3>
+            <p>Not crew? Follow one crew member's roster and always know when they're flying, landing, or finally home.
+            </p>
+          </div>
+        </div>
+      </section>
+    
+      <section>
+        <h2>Want your airline added?</h2>
+        <div class="airline-card">
+          <p>
+            Roster import is built airline by airline, and we add new ones over time. Don't see
+            yours yet? Tell us which airline you fly for and we'll look into building a parser for it.
+          </p>
+          <p>
+            Include your <strong>airline name</strong>, the <strong>roster website</strong> you sign in
+            to, and a <strong>screenshot or sample of your roster page</strong> &mdash; it helps us build
+            the parser faster.
+          </p>
+          <a class="btn"
+            href="mailto:info@rosternado.com?subject=Add%20my%20airline%20to%20Rosternado&body=Airline%20name%3A%20%0ARoster%20website%20URL%3A%20%0A%0A(Please%20attach%20a%20screenshot%20or%20sample%20of%20your%20roster%20page.)%0A">Request
+            your airline</a>
+        </div>
+      </section>
+  </div>
+</Layout>

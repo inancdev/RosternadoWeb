@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { verified, beta, betaCaveat, manualNote, requestMailto } from '../content/airlines';
+---
+
+<Layout
+  title="Supported airlines — Rosternado"
+  description="Airlines Rosternado can import a roster from, split into verified and beta support, plus manual duty entry for around 75 more."
+>
+  <div class="wrap wrap--narrow page">
+    <header class="page-head">
+      <p class="eyebrow">Roster import</p>
+      <h1>Supported airlines</h1>
+      <p class="lede">
+        Roster import is built airline by airline. Nineteen airlines have a parser today,
+        and manual entry covers the rest.
+      </p>
+    </header>
+
+    <section class="tier" aria-labelledby="tier-verified">
+      <div class="tier__head">
+        <h2 id="tier-verified">Verified</h2>
+        <p class="tier__note">Tested against real rosters.</p>
+      </div>
+      <ul class="airline-list">
+        {
+          verified.map((a) => (
+            <li class="airline">
+              <span class="airline__code">{a.code}</span>
+              <span class="airline__name">{a.name}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="tier" aria-labelledby="tier-beta">
+      <div class="tier__head">
+        <h2 id="tier-beta">Beta</h2>
+        <p class="tier__note">{betaCaveat}</p>
+      </div>
+      <ul class="airline-list">
+        {
+          beta.map((a) => (
+            <li class="airline">
+              <span class="airline__code">{a.code}</span>
+              <span class="airline__name">{a.name}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="tier" aria-labelledby="tier-manual">
+      <div class="tier__head">
+        <h2 id="tier-manual">Manual entry</h2>
+        <p class="tier__note">
+          No parser for your airline? There are {manualNote} — add and edit any duty by
+          hand, including multi-leg flights.
+        </p>
+      </div>
+    </section>
+
+    <section class="cta-card">
+      <h2>Want your airline added?</h2>
+      <p>
+        Tell us which airline you fly for and we'll look into building a parser for it.
+        Include your <strong>airline name</strong>, the <strong>roster website</strong>
+        you sign in to, and a <strong>screenshot or sample of your roster page</strong>
+        — it helps us build the parser faster.
+      </p>
+      <a class="btn" href={requestMailto}>Request your airline</a>
+    </section>
+  </div>
+</Layout>
