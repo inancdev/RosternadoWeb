@@ -973,3 +973,38 @@ a:hover {
   min-width: 24rem;
   margin: 0;
 }
+
+/* ---------- "What you're not getting" ----------
+   Built on the same shape as .ticks, with the check inverted to a struck bar — the
+   list is an argument about absence, so the marker should not read as a checkmark. */
+
+.not-getting {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 44rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.not-getting li {
+  position: relative;
+  padding-left: 2rem;
+  color: var(--text-dim);
+}
+
+.not-getting li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.66em;
+  width: 1.1rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.not-getting strong {
+  color: var(--text);
+  font-weight: 600;
+}
