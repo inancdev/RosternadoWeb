@@ -685,20 +685,20 @@ a:hover {
 
 .cloud--1 {
   top: 12%;
-  left: -12%;
+  right: -12%;
   animation: drift 62s linear infinite;
 }
 
 .cloud--2 {
   top: 46%;
-  left: -22%;
+  right: -22%;
   opacity: 0.26;
   animation: drift 88s linear infinite 6s;
 }
 
 .cloud--3 {
   top: 72%;
-  left: -16%;
+  right: -16%;
   opacity: 0.2;
   animation: drift 74s linear infinite 14s;
 }
@@ -708,7 +708,7 @@ a:hover {
     transform: translateX(0);
   }
   to {
-    transform: translateX(145vw);
+    transform: translateX(-145vw);
   }
 }
 
@@ -728,15 +728,15 @@ a:hover {
   }
 
   .cloud--1 {
-    left: 4%;
+    right: 4%;
   }
 
   .cloud--2 {
-    left: 46%;
+    right: 46%;
   }
 
   .cloud--3 {
-    left: 70%;
+    right: 70%;
   }
 }
 
