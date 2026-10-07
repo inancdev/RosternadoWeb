@@ -1,0 +1,505 @@
+---
+/**
+ * The home page, in English (/) and Turkish (/tr.html). One template, two copy decks,
+ * so the two languages can never drift apart in structure. When you change a line of
+ * English copy below, change the Turkish line next to it.
+ *
+ * Strings rendered with set:html are our own constants (they carry a link or <strong>).
+ */
+import { Picture, Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PhoneFrame from './PhoneFrame.astro';
+import StoreButtons from './StoreButtons.astro';
+import { verified, beta, requestMailto, airlinePages } from '../content/airlines';
+
+import a320 from '../assets/brand/a320.png';
+import cloud1 from '../assets/brand/02.webp';
+import cloud2 from '../assets/brand/06.webp';
+import cloud3 from '../assets/brand/09.webp';
+
+import roster from '../assets/shots/roster.png';
+import addDuty from '../assets/shots/add-duty.png';
+import radarMap from '../assets/shots/friend-radar-map.png';
+import radarFlight from '../assets/shots/friend-radar-flight.png';
+import meetup from '../assets/shots/meetup.png';
+
+interface Props {
+  lang: 'en' | 'tr';
+}
+const { lang } = Astro.props;
+const tr = lang === 'tr';
+const prefix = tr ? '/tr' : '';
+
+// fallbackFormat webp, not the source PNG: the <img> fallback inside a <picture> is
+// never fetched by a browser that takes AVIF, but it is what ships in dist and what
+// old browsers download. A 600kB PNG fallback for a 40kB AVIF is not a trade worth
+// making when WebP is universally supported.
+const shot = {
+  formats: ['avif', 'webp'] as const,
+  fallbackFormat: 'webp' as const,
+  widths: [300, 600, 900],
+};
+const airlineCount = verified.length + beta.length;
+const guides = airlinePages.filter((p) => (tr ? p.tr : p.en));
+
+const copy = {
+  en: {
+    title: 'Rosternado — Flight roster sharing for crew',
+    description:
+      'Rosternado is a flight roster app for aviation crew. Import your roster, track your flights, and share your schedule with friends and family.',
+    hero: {
+      h1: 'Flight roster sharing for crew',
+      lede: 'Rosternado keeps your flight schedule in one place — import it from your airline, see every duty at a glance, and share it with the people who want to know where you are.',
+      meta: 'Free to use. No ads, no analytics, no tracking.',
+      alt: 'The Rosternado roster screen, showing a fortnight of duties: flights from Istanbul to London and Beirut, a simulator check, dangerous-goods training and annual leave.',
+    },
+    import: {
+      eyebrow: 'Import your roster',
+      h2: "Your airline's roster, in one tap",
+      p1: "Open your airline's roster website inside the app, sign in, and save. Your duties are parsed and laid out for you — no retyping, no copying dates across from a PDF.",
+      p2: `${airlineCount} airlines have a parser today, and around 75 more are selectable for manual entry. <a href="/airlines.html">See the full list</a>.`,
+      guides: 'How it works for',
+      and: ' and ',
+      alt: 'The Add Duty screen, with a flight leg from Istanbul to Amsterdam and departure and arrival times marked UTC.',
+    },
+    duty: {
+      eyebrow: 'Every duty, clearly',
+      h2: 'One list, colour-coded',
+      p: 'Flights, standby, training, days off, leave and office duties in a clean chronological list. Multi-leg flights group under a single card, so a three-sector day reads as one duty, not three.',
+      key: ['Flight', 'Standby', 'Training', 'Day off', 'Leave', 'Office', 'Transfer'],
+      alt: 'A roster with a multi-leg Istanbul–Beirut–Istanbul duty expanded to show both sectors under one card.',
+    },
+    radar: {
+      eyebrow: 'Friend Radar',
+      h2: 'See where they are',
+      lede: 'When a friend is flying, Friend Radar puts them on a map with their flight and an estimated arrival.',
+      mapAlt: 'A map of Türkiye and the Black Sea with four crew friends pinned at Istanbul, Ankara, Antalya, and one in the air over Romania.',
+      mapCap: "Friends you have accepted appear at their base, or along their route when they're flying.",
+      flightAlt: 'A flight card for an Istanbul to Amsterdam sector, showing progress along the route and an estimated arrival time.',
+      flightCap: 'Positions are approximate and updated every few minutes — this is a rough picture for friends and family, not a tracking or air traffic service.',
+    },
+    meetup: {
+      eyebrow: 'Plan a Meetup',
+      h2: 'Find the gap you both have free',
+      p1: "Pick a few crew friends and Rosternado reads across everyone's roster to find the windows where you are all off at the same time, in the same place — with the length of each window and the local times.",
+      p2: 'It is the part of crew life that is genuinely hard to work out by hand, especially across bases and time zones.',
+      alt: 'The Plan a Meetup sheet with two friends selected and a suggested nine hour fifty minute window in Istanbul.',
+    },
+    cards: [
+      ['Friend alerts', "Turn notifications on for the friends you actually care about and hear the moment their new roster lands. Off by default, and per friend — useful for planning a beer before either of you has worked out you're in the same city."],
+      ['Works offline', 'Your roster is cached on your device, so it is there with no signal — mid-flight, or far from a tower.'],
+      ['Aviation crew', "Pilots and cabin crew — keep your roster organised, track the flight you're on, and let the people at home see your schedule."],
+      ['Friends &amp; family', "Not crew? Follow one crew member's roster and always know when they're flying, landing, or finally home."],
+    ],
+    missing: {
+      eyebrow: 'Deliberately missing',
+      h2: "What you're not getting",
+      lede: 'Built by a pilot who got tired of the noise. Rosternado shows you your roster. That is the whole product.',
+      items: [
+        ['No weather reports', 'Look out the window, or use the iPad.'],
+        ['No METARs or NOTAMs', 'Your legal briefing belongs in official channels, not a third-party app.'],
+        ['No statistics', 'No pie charts of hours spent in a metal tube.'],
+        ['No delay notifications', "You'll find out when the gate agent looks at you sadly."],
+        ['No logbook', "We don't track block or duty times. Your company's system is the source of truth for that."],
+        ['No bloat', 'Just your schedule.'],
+      ],
+    },
+    privacy: {
+      eyebrow: 'Privacy',
+      h2: 'Nothing is watching you',
+      lede: 'Rosternado carries no ads, no analytics, no tracking SDKs, and no App Tracking Transparency prompt — because there is nothing to ask you for.',
+      ticks: [
+        'Your roster is private by default and never appears in search',
+        'Only friends you have accepted can see your schedule',
+        'No third-party advertising or analytics SDK is bundled in the app',
+        'This website loads no third-party scripts, fonts or trackers either',
+      ],
+      link: 'Read the full privacy policy',
+    },
+    pricing: {
+      eyebrow: 'Pricing',
+      h2: 'Free to follow, cheap to fly',
+      family: ['Friends &amp; family', 'Free forever', "Follow one crew friend's roster. No import."],
+      free: ['Crew — Free', 'Free', '5 duty operations a month, one lifetime roster import, unlimited viewing.'],
+      pro: ['Crew — Pro', '/ month', 'Or $20 a year. Unlimited operations and imports.'],
+      link: 'Full pricing details',
+    },
+    cta: {
+      h2: 'Want your airline added?',
+      p: "Roster import is built airline by airline. Tell us which airline you fly for and we'll look into building a parser for it — include your <strong>airline name</strong>, the <strong>roster website</strong> you sign in to, and a <strong>screenshot or sample of your roster page</strong>.",
+      btn: 'Request your airline',
+    },
+    close: { h2: 'Get Rosternado', lede: 'Free on iOS and Android.' },
+  },
+
+  tr: {
+    title: 'Rosternado — Ekipler için uçuş rosterı paylaşımı',
+    description:
+      'Rosternado, havacılık ekipleri için bir uçuş rosterı uygulamasıdır. Rosterınızı aktarın, uçuşlarınızı takip edin, programınızı arkadaşlarınız ve ailenizle paylaşın.',
+    hero: {
+      h1: 'Ekipler için uçuş rosterı paylaşımı',
+      lede: 'Rosternado uçuş programınızı tek bir yerde tutar — havayolunuzdan aktarın, her görevi bir bakışta görün ve nerede olduğunuzu merak edenlerle paylaşın.',
+      meta: 'Kullanımı ücretsiz. Reklam yok, analitik yok, takip yok.',
+      alt: "Rosternado roster ekranı, iki haftalık görevleri gösteriyor: İstanbul'dan Londra ve Beyrut uçuşları, bir simülatör kontrolü, tehlikeli madde eğitimi ve yıllık izin.",
+    },
+    import: {
+      eyebrow: 'Rosterınızı aktarın',
+      h2: 'Havayolunuzun rosterı, tek dokunuşla',
+      p1: 'Havayolunuzun roster sitesini uygulama içinde açın, giriş yapın ve kaydedin. Görevleriniz ayrıştırılıp sizin için düzenlenir — yeniden yazmak yok, PDF’ten tarih kopyalamak yok.',
+      p2: `Bugün ${airlineCount} havayolu için ayrıştırıcı var, yaklaşık 75 havayolu da elle giriş için seçilebilir. <a href="/tr/airlines.html">Tam listeyi görün</a>.`,
+      guides: 'Nasıl çalıştığına bakın:',
+      and: ' ve ',
+      alt: 'Görev Ekle ekranı: İstanbul–Amsterdam uçuş ayağı, kalkış ve varış saatleri UTC olarak işaretli.',
+    },
+    duty: {
+      eyebrow: 'Her görev, net bir şekilde',
+      h2: 'Tek liste, renk kodlu',
+      p: 'Uçuşlar, standby, eğitim, izin günleri, yıllık izin ve ofis görevleri sade, kronolojik bir listede. Çok ayaklı uçuşlar tek bir kartta toplanır; üç sektörlü bir gün üç değil, tek görev olarak okunur.',
+      key: ['Uçuş', 'Standby', 'Eğitim', 'İzin günü', 'Yıllık izin', 'Ofis', 'Transfer'],
+      alt: 'Çok ayaklı İstanbul–Beyrut–İstanbul görevi açılmış bir roster; iki sektör tek kartın altında.',
+    },
+    radar: {
+      eyebrow: 'Friend Radar',
+      h2: 'Nerede olduklarını görün',
+      lede: 'Bir arkadaşınız uçarken Friend Radar onu uçuşu ve tahmini varış saatiyle haritada gösterir.',
+      mapAlt: "Türkiye ve Karadeniz haritası: İstanbul, Ankara ve Antalya'da işaretli üç ekip arkadaşı, biri de Romanya üzerinde havada.",
+      mapCap: "Kabul ettiğiniz arkadaşlar base'lerinde ya da uçarken rotaları üzerinde görünür.",
+      flightAlt: 'İstanbul–Amsterdam sektörü için bir uçuş kartı; rota üzerindeki ilerleme ve tahmini varış saati.',
+      flightCap: 'Konumlar yaklaşıktır ve birkaç dakikada bir güncellenir — arkadaşlar ve aile için kaba bir resimdir, takip ya da hava trafik servisi değildir.',
+    },
+    meetup: {
+      eyebrow: 'Buluşma planla',
+      h2: 'İkinizin de boş olduğu aralığı bulun',
+      p1: 'Birkaç ekip arkadaşı seçin; Rosternado herkesin rosterını okuyup hepinizin aynı anda, aynı yerde boş olduğu aralıkları bulur — her aralığın süresi ve yerel saatleriyle.',
+      p2: "Ekip hayatının elle hesaplaması gerçekten zor olan kısmı bu, özellikle farklı base'ler ve saat dilimleri arasında.",
+      alt: 'Buluşma planla ekranı: iki arkadaş seçili ve İstanbul’da önerilen dokuz saat elli dakikalık bir aralık.',
+    },
+    cards: [
+      ['Arkadaş bildirimleri', 'Gerçekten önemsediğiniz arkadaşlar için bildirimleri açın; yeni rosterları geldiği anda haberiniz olsun. Varsayılan olarak kapalıdır ve arkadaş bazında açılır — ikiniz de aynı şehirde olduğunuzu fark etmeden bir bira planlamak için birebir.'],
+      ['Çevrimdışı çalışır', 'Rosterınız cihazınızda saklanır, sinyal yokken de oradadır — uçuş sırasında ya da kuleden çok uzakta.'],
+      ['Havacılık ekipleri', 'Pilotlar ve kabin ekibi — rosterınızı düzenli tutun, bulunduğunuz uçuşu takip edin ve evdekilerin programınızı görmesini sağlayın.'],
+      ['Arkadaş ve aile', 'Ekip değil misiniz? Bir ekip üyesinin rosterını takip edin; ne zaman uçtuğunu, indiğini ya da sonunda evde olduğunu her zaman bilin.'],
+    ],
+    missing: {
+      eyebrow: 'Bilerek eksik',
+      h2: 'Neler yok',
+      lede: 'Gürültüden bıkmış bir pilot tarafından yapıldı. Rosternado size rosterınızı gösterir. Ürünün tamamı bu.',
+      items: [
+        ['Hava durumu raporu yok', 'Pencereden bakın ya da iPad’i kullanın.'],
+        ["METAR veya NOTAM yok", 'Yasal brifinginiz üçüncü taraf bir uygulamada değil, resmi kanallarda olmalı.'],
+        ['İstatistik yok', 'Metal bir tüpte geçirilen saatlerin pasta grafikleri yok.'],
+        ['Rötar bildirimi yok', 'Kapı görevlisi size üzgün üzgün baktığında öğrenirsiniz.'],
+        ['Logbook yok', 'Blok ya da görev sürelerini takip etmiyoruz. Bunun için doğru kaynak şirketinizin sistemi.'],
+        ['Şişkinlik yok', 'Sadece programınız.'],
+      ],
+    },
+    privacy: {
+      eyebrow: 'Gizlilik',
+      h2: 'Sizi izleyen hiçbir şey yok',
+      lede: 'Rosternado’da reklam, analitik, takip SDK’sı ve App Tracking Transparency izni yok — çünkü sizden isteyecek hiçbir şey yok.',
+      ticks: [
+        'Rosterınız varsayılan olarak gizlidir ve aramada asla görünmez',
+        'Programınızı yalnızca kabul ettiğiniz arkadaşlar görebilir',
+        'Uygulamada üçüncü taraf reklam ya da analitik SDK’sı yok',
+        'Bu web sitesi de üçüncü taraf script, font ya da izleyici yüklemez',
+      ],
+      link: 'Gizlilik politikasının tamamını okuyun',
+    },
+    pricing: {
+      eyebrow: 'Fiyatlar',
+      h2: 'Takip etmek ücretsiz, uçmak ucuz',
+      family: ['Arkadaş ve aile', 'Sonsuza kadar ücretsiz', 'Bir ekip arkadaşının rosterını takip edin. Aktarım yok.'],
+      free: ['Ekip — Ücretsiz', 'Ücretsiz', 'Ayda 5 görev işlemi, ömür boyu bir roster aktarımı, sınırsız görüntüleme.'],
+      pro: ['Ekip — Pro', '/ ay', 'Ya da yıllık $20. Sınırsız işlem ve aktarım.'],
+      link: 'Fiyatların tüm ayrıntıları',
+    },
+    cta: {
+      h2: 'Havayolunuzun eklenmesini mi istiyorsunuz?',
+      p: 'Roster aktarımı havayolu havayolu geliştiriliyor. Hangi havayolunda uçtuğunuzu yazın, ayrıştırıcı geliştirmeye bakalım — <strong>havayolu adını</strong>, giriş yaptığınız <strong>roster web sitesini</strong> ve <strong>roster sayfanızın bir ekran görüntüsünü ya da örneğini</strong> ekleyin.',
+      btn: 'Havayolunuzu talep edin',
+    },
+    close: { h2: "Rosternado'yu edinin", lede: "iOS ve Android'de ücretsiz." },
+  },
+};
+
+const c = copy[lang];
+const dutyVars = ['flight', 'standby', 'training', 'dayoff', 'leave', 'office', 'transfer'];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Rosternado',
+  operatingSystem: 'iOS, Android',
+  applicationCategory: 'TravelApplication',
+  ...(tr && { inLanguage: 'tr' }),
+  description: c.description,
+  url: tr ? 'https://rosternado.com/tr.html' : 'https://rosternado.com',
+  // The app is free to download; Pro is an in-app subscription. A '2.00' offer here
+  // shows up as "$2.00" next to the app in search results.
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  sameAs: [
+    'https://apps.apple.com/app/rosternado/6766887800',
+    'https://play.google.com/store/apps/details?id=com.inancatil.rosternado',
+  ],
+};
+---
+
+<Layout title={c.title} description={c.description} lang={lang} alternate={tr ? '/' : '/tr.html'} wide>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__sky" aria-hidden="true">
+      <Image src={cloud1} alt="" class="cloud cloud--1" width={560} loading="eager" />
+      <Image src={cloud2} alt="" class="cloud cloud--2" width={560} loading="eager" />
+      <Image src={cloud3} alt="" class="cloud cloud--3" width={560} loading="eager" />
+      <Image src={a320} alt="" class="hero__plane" width={760} loading="eager" />
+    </div>
+
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <h1>{c.hero.h1}</h1>
+        <p class="lede">{c.hero.lede}</p>
+        <StoreButtons align="start" lang={lang} />
+        <p class="hero__meta">{c.hero.meta}</p>
+      </div>
+
+      <PhoneFrame class="hero__phone">
+        <Picture
+          src={roster}
+          {...shot}
+          sizes="(max-width: 900px) 266px, 326px"
+          alt={c.hero.alt}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Import your roster -->
+  <section class="band">
+    <div class="wrap feature feature--reverse">
+      <div class="feature__copy">
+        <p class="eyebrow">{c.import.eyebrow}</p>
+        <h2>{c.import.h2}</h2>
+        <p>{c.import.p1}</p>
+        <p set:html={c.import.p2} />
+        <p class="dim">
+          {c.import.guides}{' '}
+          {
+            guides.map((p, i) => (
+              <>
+                {i > 0 && (i === guides.length - 1 ? c.import.and : ', ')}
+                <a href={`${prefix}/airlines/${p.slug}.html`}>{(tr ? p.tr : p.en)!.name}</a>
+              </>
+            ))
+          }.
+        </p>
+      </div>
+      <PhoneFrame class="feature__shot">
+        <Picture
+          src={addDuty}
+          {...shot}
+          sizes="(max-width: 900px) 266px, 286px"
+          alt={c.import.alt}
+          loading="lazy"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Every duty, clearly -->
+  <section class="band band--alt">
+    <div class="wrap feature">
+      <div class="feature__copy">
+        <p class="eyebrow">{c.duty.eyebrow}</p>
+        <h2>{c.duty.h2}</h2>
+        <p>{c.duty.p}</p>
+        <ul class="dot-key">
+          {
+            c.duty.key.map((label, i) => (
+              <li>
+                <span class="dot" style={`--dot: var(--duty-${dutyVars[i]})`} />
+                {label}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <PhoneFrame class="feature__shot">
+        <Picture
+          src={roster}
+          {...shot}
+          sizes="(max-width: 900px) 266px, 286px"
+          alt={c.duty.alt}
+          loading="lazy"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Friend Radar -->
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head section-head--center">
+        <p class="eyebrow" style="--eyebrow: var(--radar)">{c.radar.eyebrow}</p>
+        <h2>{c.radar.h2}</h2>
+        <p class="lede">{c.radar.lede}</p>
+      </div>
+
+      <div class="shots-pair">
+        <figure>
+          <PhoneFrame>
+            <Picture
+              src={radarMap}
+              {...shot}
+              sizes="(max-width: 700px) 86vw, 338px"
+              alt={c.radar.mapAlt}
+              loading="lazy"
+            />
+          </PhoneFrame>
+          <figcaption>{c.radar.mapCap}</figcaption>
+        </figure>
+        <figure>
+          <PhoneFrame>
+            <Picture
+              src={radarFlight}
+              {...shot}
+              sizes="(max-width: 700px) 86vw, 338px"
+              alt={c.radar.flightAlt}
+              loading="lazy"
+            />
+          </PhoneFrame>
+          <figcaption>{c.radar.flightCap}</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plan a Meetup -->
+  <section class="band band--alt">
+    <div class="wrap feature feature--reverse">
+      <div class="feature__copy">
+        <p class="eyebrow">{c.meetup.eyebrow}</p>
+        <h2>{c.meetup.h2}</h2>
+        <p>{c.meetup.p1}</p>
+        <p>{c.meetup.p2}</p>
+      </div>
+      <PhoneFrame class="feature__shot">
+        <Picture
+          src={meetup}
+          {...shot}
+          sizes="(max-width: 900px) 266px, 286px"
+          alt={c.meetup.alt}
+          loading="lazy"
+        />
+      </PhoneFrame>
+    </div>
+  </section>
+
+  <!-- Works offline + Who it's for -->
+  <section class="band">
+    <div class="wrap">
+      <div class="cards">
+        {
+          c.cards.map(([h, p]) => (
+            <article class="card">
+              <h3 set:html={h} />
+              <p>{p}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- What you're not getting -->
+  <section class="band band--alt">
+    <div class="wrap wrap--narrow">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">{c.missing.eyebrow}</p>
+        <h2>{c.missing.h2}</h2>
+        <p class="lede">{c.missing.lede}</p>
+      </div>
+      <ul class="not-getting">
+        {
+          c.missing.items.map(([b, rest]) => (
+            <li>
+              <strong>{b}</strong> — {rest}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="band">
+    <div class="wrap">
+      <div class="privacy-block">
+        <p class="eyebrow">{c.privacy.eyebrow}</p>
+        <h2>{c.privacy.h2}</h2>
+        <p class="lede">{c.privacy.lede}</p>
+        <ul class="ticks ticks--wide">
+          {c.privacy.ticks.map((t) => <li>{t}</li>)}
+        </ul>
+        <p><a href="/privacy.html">{c.privacy.link}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing summary -->
+  <section class="band band--alt">
+    <div class="wrap">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">{c.pricing.eyebrow}</p>
+        <h2>{c.pricing.h2}</h2>
+      </div>
+      <div class="cards cards--3">
+        <article class="card">
+          <h3 set:html={c.pricing.family[0]} />
+          <p class="price">{c.pricing.family[1]}</p>
+          <p>{c.pricing.family[2]}</p>
+        </article>
+        <article class="card">
+          <h3>{c.pricing.free[0]}</h3>
+          <p class="price">{c.pricing.free[1]}</p>
+          <p>{c.pricing.free[2]}</p>
+        </article>
+        <article class="card card--accent">
+          <h3>{c.pricing.pro[0]}</h3>
+          <p class="price">$2 <span>{c.pricing.pro[1]}</span></p>
+          <p>{c.pricing.pro[2]}</p>
+        </article>
+      </div>
+      <p class="center-note"><a href="/pricing.html">{c.pricing.link}</a></p>
+    </div>
+  </section>
+
+  <!-- Request your airline -->
+  <section class="band">
+    <div class="wrap wrap--narrow">
+      <div class="cta-card">
+        <h2>{c.cta.h2}</h2>
+        <p set:html={c.cta.p} />
+        <a class="btn" href={requestMailto}>{c.cta.btn}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing store buttons -->
+  <section class="band band--alt band--close">
+    <div class="wrap">
+      <div class="section-head section-head--center">
+        <h2>{c.close.h2}</h2>
+        <p class="lede">{c.close.lede}</p>
+      </div>
+      <StoreButtons lang={lang} />
+    </div>
+  </section>
+</Layout>
