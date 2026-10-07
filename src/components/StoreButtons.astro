@@ -1,16 +1,18 @@
 ---
 interface Props {
   align?: 'start' | 'center';
+  lang?: 'en' | 'tr';
 }
-const { align = 'center' } = Astro.props;
+const { align = 'center', lang = 'en' } = Astro.props;
+const tr = lang === 'tr';
 ---
 
 <div class:list={['store-buttons', `store-buttons--${align}`]}>
   <a class="btn" href="https://apps.apple.com/app/rosternado/6766887800">
-    Download on the App Store
+    {tr ? "App Store'dan indirin" : 'Download on the App Store'}
   </a>
   <a class="btn btn--ghost" href="https://play.google.com/store/apps/details?id=com.inancatil.rosternado">
-    Get it on Google Play
+    {tr ? "Google Play'den edinin" : 'Get it on Google Play'}
   </a>
 </div>
 

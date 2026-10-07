@@ -1,0 +1,199 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StoreButtons from './StoreButtons.astro';
+import { airlinePages, requestMailto, type AirlinePage } from '../content/airlines';
+
+interface Props {
+  page: AirlinePage;
+  lang: 'en' | 'tr';
+}
+
+const { page, lang } = Astro.props;
+const tr = lang === 'tr';
+const c = (tr ? page.tr : page.en)!;
+const name = c.name;
+const prefix = tr ? '/tr' : '';
+const self = `${prefix}/airlines/${page.slug}.html`;
+const alternate = tr ? `/airlines/${page.slug}.html` : page.tr ? `/tr/airlines/${page.slug}.html` : undefined;
+
+const t = tr
+  ? {
+      title: `${name} ekip roster uygulaması — Rosternado`,
+      description: `${name} rosterınızı Rosternado'ya aktarın: tüm görevler tek listede, çevrimdışı erişim, ekip arkadaşları ve aileyle paylaşım. ${name} pilotları ve kabin ekibi için.`,
+      eyebrow: page.tier === 'verified' ? 'Doğrulandı — gerçek rosterlarla test edildi' : 'Beta',
+      h1: `${name} ekip roster uygulaması`,
+      howTitle: `${name} rosterınızı nasıl aktarırsınız`,
+      how: [
+        "Rosternado'yu yükleyin ve bir ekip hesabı oluşturun.",
+        `Sağ üstteki roster indirme simgesine dokunun. ${name} roster sitesi uygulama içinde açılır.`,
+        "Giriş yapın ve Kaydet'e dokunun. Görevleriniz aktarılır.",
+      ],
+      whyTitle: `${name} ekipleri için`,
+      faqTitle: 'Sık sorulan sorular',
+      faq: [
+        [`Rosternado resmi bir ${name} uygulaması mı?`, `Hayır. Rosternado bağımsız bir uygulamadır; ${name} ile bağlantılı değildir ve onun tarafından onaylanmamıştır. Ekip roster sitenizde zaten gördüğünüz rosterı okur.`],
+        [`Rosternado ${name} şifremi saklıyor mu?`, 'Hayır. Uygulama içinde havayolunun kendi roster sitesine giriş yaparsınız; Rosternado şifrenizi saklamaz.'],
+        ['Rosterımı kim görebilir?', 'Yalnızca kabul ettiğiniz arkadaşlar. Rosterlar varsayılan olarak gizlidir ve aramada asla görünmez.'],
+        ['Ücreti ne kadar?', 'Ücretsiz ekip hesabında bir roster aktarımı ve ayda 5 görev işlemi var. Pro aylık $2 veya yıllık $20; aktarım ve işlemler sınırsız. Bir arkadaşın rosterını takip etmek sonsuza kadar ücretsiz.'],
+      ],
+      others: 'Diğer havayolları',
+      all: 'Tüm desteklenen havayolları',
+      home: 'Ana sayfa',
+      airlines: 'Havayolları',
+      disclaimer: `Rosternado bağımsız bir uygulamadır ve ${name} ile bağlantılı değildir. Havayolu adı yalnızca uyumluluğu belirtmek için kullanılır.`,
+    }
+  : {
+      title: `${name} crew roster app — Rosternado`,
+      description: `Import your ${name} roster into Rosternado: every duty in one list, available offline, shared with crew friends and family. For ${name} pilots and cabin crew.`,
+      eyebrow: page.tier === 'verified' ? 'Verified — tested against real rosters' : 'Beta',
+      h1: `The roster app for ${name} crew`,
+      howTitle: `How to import your ${name} roster`,
+      how: [
+        'Install Rosternado and create a crew account.',
+        `Tap the Roster Download icon at the top right. The ${name} roster website opens inside the app.`,
+        'Sign in and tap Save. Your duties are imported.',
+      ],
+      whyTitle: `Built for ${name} crew`,
+      faqTitle: 'Questions',
+      faq: [
+        [`Is Rosternado an official ${name} app?`, `No. Rosternado is independent and is not affiliated with or endorsed by ${name}. It reads the roster you can already see on your crew roster website.`],
+        [`Does Rosternado store my ${name} password?`, "No. You sign in on the airline's own roster website inside the app, and Rosternado never stores your password."],
+        ['Who can see my roster?', 'Only friends you have accepted. Rosters are private by default and never appear in search.'],
+        ['How much does it cost?', 'A free crew account includes one roster import and 5 duty operations a month. Pro is $2 a month or $20 a year for unlimited imports and operations. Following a friend’s roster is free forever.'],
+      ],
+      others: 'Other airlines',
+      all: 'All supported airlines',
+      home: 'Home',
+      airlines: 'Airlines',
+      disclaimer: `Rosternado is an independent app and is not affiliated with ${name}. The airline name is used only to describe compatibility.`,
+    };
+
+const others = airlinePages.filter((p) => p.slug !== page.slug && (tr ? p.tr : p.en));
+const crumbs = [
+  { name: t.home, path: tr ? '/tr.html' : '/' },
+  { name: t.airlines, path: `${prefix}/airlines.html` },
+  { name, path: self },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: new URL(c.path, Astro.site).href,
+  })),
+};
+---
+
+<Layout title={t.title} description={t.description} lang={lang} alternate={alternate}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <div class="wrap wrap--narrow page">
+    <header class="page-head">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.h1}</h1>
+      <p class="lede">{c.intro}</p>
+    </header>
+    <StoreButtons align="start" lang={lang} />
+
+    <section class="block">
+      <h2>{t.howTitle}</h2>
+      <ol class="steps">{t.how.map((s) => <li>{s}</li>)}</ol>
+    </section>
+
+    <section class="block">
+      <h2>{t.whyTitle}</h2>
+      <ul class="ticks">{c.points.map((p) => <li>{p}</li>)}</ul>
+    </section>
+
+    <section class="block card faq">
+      <h2>{t.faqTitle}</h2>
+      {
+        t.faq.map(([q, a]) => (
+          <div class="faq__item">
+            <h3>{q}</h3>
+            <p>{a}</p>
+          </div>
+        ))
+      }
+    </section>
+
+    {
+      page.tier === 'beta' && !tr && (
+        <p class="block">
+          <a class="btn btn--ghost" href={requestMailto}>Report an import problem</a>
+        </p>
+      )
+    }
+
+    {
+      others.length > 0 && (
+        <section class="block">
+          <h2>{t.others}</h2>
+          <ul class="airline-list">
+            {others.map((o) => (
+              <li class="airline">
+                <span class="airline__code">{o.code}</span>
+                <a class="airline__name" href={`${prefix}/airlines/${o.slug}.html`}>
+                  {(tr ? o.tr : o.en)!.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="more"><a href={`${prefix}/airlines.html`}>{t.all} →</a></p>
+        </section>
+      )
+    }
+
+    <p class="disclaimer">{t.disclaimer}</p>
+  </div>
+</Layout>
+
+<style>
+  .block {
+    margin-top: clamp(2rem, 1.6rem + 1.5vw, 3rem);
+  }
+
+  h2 {
+    font-size: var(--step-1);
+    margin-bottom: 0.9rem;
+  }
+
+  .steps {
+    display: grid;
+    gap: 0.6rem;
+    padding-left: 1.25rem;
+    color: var(--text-dim);
+  }
+
+  .faq h2 {
+    margin-bottom: 1.1rem;
+  }
+
+  .faq__item + .faq__item {
+    margin-top: 1.1rem;
+  }
+
+  .faq h3 {
+    font-size: var(--step-0);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .faq p {
+    color: var(--text-dim);
+    font-size: var(--step--1);
+  }
+
+  .more {
+    margin-top: 1rem;
+    font-size: var(--step--1);
+  }
+
+  .disclaimer {
+    margin-top: 3rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+</style>

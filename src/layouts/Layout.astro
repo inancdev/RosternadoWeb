@@ -8,9 +8,20 @@ interface Props {
   description: string;
   ogImage?: string;
   wide?: boolean;
+  lang?: 'en' | 'tr';
+  /** The same page in the other language (site-relative .html path). Omit if none. */
+  alternate?: string;
 }
 
-const { title, description, ogImage = '/og.png', wide = false } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = '/og.png',
+  wide = false,
+  lang = 'en',
+  alternate,
+} = Astro.props;
+const tr = lang === 'tr';
 
 // build.format:'file' makes Astro.url.pathname '/index.html' on the home page.
 // The served canonical for the apex is '/', so normalise it here — every other
@@ -19,33 +30,49 @@ const pathname = Astro.url.pathname.replace(/\/index\.html$/, "/");
 const canonical = new URL(pathname, Astro.site).href;
 const ogUrl = new URL(ogImage, Astro.site).href;
 
+// hreflang: reciprocal, self-referencing, English as x-default.
+const altUrl = alternate ? new URL(alternate, Astro.site).href : undefined;
+const enUrl = tr ? altUrl : canonical;
+const trUrl = tr ? canonical : altUrl;
+
 // Every link here keeps its .html extension. Four of these URLs are hardcoded in
 // shipped app builds and in the store listings, and there is no OTA channel — moving
 // them 404s live users. See R1.
+// Turkish pages reuse the English pricing/support/legal pages — only the airline
+// pages and the home page are translated.
 const nav = [
-  { href: '/airlines.html', label: 'Airlines' },
-  { href: '/pricing.html', label: 'Pricing' },
-  { href: '/support.html', label: 'Support' },
+  { href: tr ? '/tr/airlines.html' : '/airlines.html', label: tr ? 'Havayolları' : 'Airlines' },
+  { href: '/pricing.html', label: tr ? 'Fiyatlar' : 'Pricing' },
+  { href: '/support.html', label: tr ? 'Destek' : 'Support' },
 ];
 
 const footerLinks = [
-  { href: '/privacy.html', label: 'Privacy Policy' },
-  { href: '/terms.html', label: 'Terms of Use' },
-  { href: '/support.html', label: 'Support' },
-  { href: '/delete-account.html', label: 'Delete Account' },
-  { href: 'mailto:info@rosternado.com', label: 'Contact' },
+  { href: '/privacy.html', label: tr ? 'Gizlilik Politikası' : 'Privacy Policy' },
+  { href: '/terms.html', label: tr ? 'Kullanım Koşulları' : 'Terms of Use' },
+  { href: '/support.html', label: tr ? 'Destek' : 'Support' },
+  { href: '/delete-account.html', label: tr ? 'Hesabı Sil' : 'Delete Account' },
+  { href: 'mailto:info@rosternado.com', label: tr ? 'İletişim' : 'Contact' },
 ];
 
 const path = pathname;
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {
+      altUrl && (
+        <>
+          <link rel="alternate" hreflang="en" href={enUrl} />
+          <link rel="alternate" hreflang="tr" href={trUrl} />
+          <link rel="alternate" hreflang="x-default" href={enUrl} />
+        </>
+      )
+    }
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Rosternado" />
@@ -53,6 +80,7 @@ const path = pathname;
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogUrl} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={tr ? 'tr_TR' : 'en_US'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -62,6 +90,8 @@ const path = pathname;
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- iOS Safari Smart App Banner: a native "Open / Get" bar. No script, no tracking. -->
+    <meta name="apple-itunes-app" content="app-id=6766887800" />
     <slot name="head" />
   </head>
 
@@ -70,7 +100,7 @@ const path = pathname;
 
     <header class="site-header">
       <div class="wrap site-header__inner">
-        <a class="brand" href="/" aria-label="Rosternado — home">
+        <a class="brand" href={tr ? '/tr.html' : '/'} aria-label={tr ? 'Rosternado — ana sayfa' : 'Rosternado — home'}>
           <Image src={icon} alt="" width={32} height={32} class="brand__mark" />
           <span class="brand__word">ROSTERNADO</span>
         </a>
@@ -84,6 +114,15 @@ const path = pathname;
                   </a>
                 </li>
               ))
+            }
+            {
+              alternate && (
+                <li>
+                  <a class="lang-switch" href={alternate} hreflang={tr ? 'en' : 'tr'} lang={tr ? 'en' : 'tr'}>
+                    {tr ? 'English' : 'Türkçe'}
+                  </a>
+                </li>
+              )
             }
           </ul>
         </nav>
@@ -174,6 +213,12 @@ const path = pathname;
   .site-nav a:hover,
   .site-nav a[aria-current='page'] {
     color: var(--text);
+  }
+
+  .lang-switch {
+    border: 1px solid var(--separator);
+    border-radius: 999px;
+    padding-inline: 0.7rem;
   }
 
   .site-main {

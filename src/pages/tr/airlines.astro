@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { verified, beta, requestMailto, pageFor } from '../../content/airlines';
+
+const trName = (code: string, fallback: string) => pageFor(code)?.tr?.name ?? fallback;
+const link = (code: string) => (pageFor(code)?.tr ? `/tr/airlines/${pageFor(code)!.slug}.html` : undefined);
+---
+
+<Layout
+  title="Desteklenen havayolları — Rosternado"
+  description="Rosternado'nun roster aktarabildiği havayolları: doğrulanmış ve beta destek, ayrıca yaklaşık 75 havayolu için elle görev girişi."
+  lang="tr"
+  alternate="/airlines.html"
+>
+  <div class="wrap wrap--narrow page">
+    <header class="page-head">
+      <p class="eyebrow">Roster aktarımı</p>
+      <h1>Desteklenen havayolları</h1>
+      <p class="lede">
+        Roster aktarımı havayolu havayolu geliştiriliyor. Bugün on dokuz havayolu için
+        ayrıştırıcı var; geri kalanında görevler elle girilebilir.
+      </p>
+    </header>
+
+    <section class="tier" aria-labelledby="tier-verified">
+      <div class="tier__head">
+        <h2 id="tier-verified">Doğrulandı</h2>
+        <p class="tier__note">Gerçek rosterlarla test edildi.</p>
+      </div>
+      <ul class="airline-list">
+        {
+          verified.map((a) => (
+            <li class="airline">
+              <span class="airline__code">{a.code}</span>
+              {link(a.code) ? (
+                <a class="airline__name" href={link(a.code)}>{trName(a.code, a.name)}</a>
+              ) : (
+                <span class="airline__name">{trName(a.code, a.name)}</span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="tier" aria-labelledby="tier-beta">
+      <div class="tier__head">
+        <h2 id="tier-beta">Beta</h2>
+        <p class="tier__note">
+          Bu havayolları aynı CAE ekip portalını kullanıyor, bu yüzden aktarımın çalışması
+          gerekiyor — ama henüz hepsini doğrulamadık. Çalışmazsa bize yazın, düzeltelim.
+        </p>
+      </div>
+      <ul class="airline-list">
+        {
+          beta.map((a) => (
+            <li class="airline">
+              <span class="airline__code">{a.code}</span>
+              <span class="airline__name">{a.name}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="tier" aria-labelledby="tier-manual">
+      <div class="tier__head">
+        <h2 id="tier-manual">Elle giriş</h2>
+        <p class="tier__note">
+          Havayolunuz için ayrıştırıcı yok mu? Yaklaşık 75 havayolu daha elle görev girişi
+          için seçilebilir — çok ayaklı uçuşlar dahil her görevi elle ekleyip düzenleyebilirsiniz.
+        </p>
+      </div>
+    </section>
+
+    <section class="cta-card">
+      <h2>Havayolunuzun eklenmesini mi istiyorsunuz?</h2>
+      <p>
+        Hangi havayolunda uçtuğunuzu yazın, ayrıştırıcı geliştirmeye bakalım.
+        <strong>Havayolu adını</strong>, giriş yaptığınız <strong>roster web sitesini</strong>
+        ve <strong>roster sayfanızın bir ekran görüntüsünü ya da örneğini</strong> ekleyin —
+        ayrıştırıcıyı daha hızlı geliştirmemize yardımcı olur.
+      </p>
+      <a class="btn" href={requestMailto}>Havayolunuzu talep edin</a>
+    </section>
+  </div>
+</Layout>

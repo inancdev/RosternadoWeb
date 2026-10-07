@@ -3,6 +3,14 @@ import { defineConfig } from 'astro/config';
 
 import sitemap from '@astrojs/sitemap';
 
+const withHtml = (href) => {
+  const u = new URL(href);
+  if (u.pathname !== '/' && !u.pathname.endsWith('.html')) {
+    u.pathname = `${u.pathname.replace(/\/$/, '')}.html`;
+  }
+  return u.href;
+};
+
 export default defineConfig({
   site: 'https://rosternado.com',
 
@@ -21,15 +29,14 @@ export default defineConfig({
 
   integrations: [
     sitemap({
+      // Pairs /x.html with /tr/x.html (and / with /tr.html) as hreflang alternates.
+      i18n: { defaultLocale: 'en', locales: { en: 'en', tr: 'tr' } },
       // Astro emits extensionless sitemap entries, but the site is served as flat
       // .html files and every canonical carries the extension. Keep them identical
       // so crawlers are not told about a second, non-canonical URL for each page.
       serialize(item) {
-        const u = new URL(item.url);
-        if (u.pathname !== '/' && !u.pathname.endsWith('.html')) {
-          u.pathname = `${u.pathname.replace(/\/$/, '')}.html`;
-          item.url = u.href;
-        }
+        item.url = withHtml(item.url);
+        item.links = item.links?.map((link) => ({ ...link, url: withHtml(link.url) }));
         return item;
       },
     }),

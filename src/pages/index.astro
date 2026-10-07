@@ -3,7 +3,7 @@ import { Picture, Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import PhoneFrame from '../components/PhoneFrame.astro';
 import StoreButtons from '../components/StoreButtons.astro';
-import { verified, beta, requestMailto } from '../content/airlines';
+import { verified, beta, requestMailto, airlinePages } from '../content/airlines';
 
 import a320 from '../assets/brand/a320.png';
 import cloud1 from '../assets/brand/02.webp';
@@ -36,9 +36,11 @@ const jsonLd = {
   description:
     'Rosternado is a flight roster app for aviation crew. Import your roster, track your flights, and share your schedule with friends and family.',
   url: 'https://rosternado.com',
+  // The app is free to download; Pro is an in-app subscription. A '2.00' offer here
+  // shows up as "$2.00" next to the app in search results.
   offers: {
     '@type': 'Offer',
-    price: '2.00',
+    price: '0',
     priceCurrency: 'USD',
   },
   sameAs: [
@@ -52,6 +54,7 @@ const jsonLd = {
   title="Rosternado — Flight roster sharing for crew"
   description="Rosternado is a flight roster app for aviation crew. Import your roster, track your flights, and share your schedule with friends and family."
   wide
+  alternate="/tr.html"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
 
@@ -103,6 +106,17 @@ const jsonLd = {
         <p>
           {airlineCount} airlines have a parser today, and around 75 more are selectable for
           manual entry. <a href="/airlines.html">See the full list</a>.
+        </p>
+        <p class="dim">
+          How it works for{' '}
+          {
+            airlinePages.map((p, i) => (
+              <>
+                {i > 0 && (i === airlinePages.length - 1 ? ' and ' : ', ')}
+                <a href={`/airlines/${p.slug}.html`}>{p.en.name}</a>
+              </>
+            ))
+          }.
         </p>
       </div>
       <PhoneFrame class="feature__shot">

@@ -1,0 +1,10 @@
+---
+import AirlinePage from '../../../components/AirlinePage.astro';
+import { airlinePages } from '../../../content/airlines';
+
+export function getStaticPaths() {
+  return airlinePages.filter((p) => p.tr).map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+---
+
+<AirlinePage page={Astro.props.page} lang="tr" />
