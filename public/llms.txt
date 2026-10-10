@@ -1,0 +1,37 @@
+# Rosternado
+
+> Flight roster sharing app for aviation crew. Import your roster from your airline in one tap, organize duties in a colour-coded timeline, track crew friends on a live map, and share your flight schedule with friends and family.
+
+Rosternado is built by an airline pilot who got tired of cluttered, ad-heavy aviation apps. It brings simplicity, privacy, and clarity to crew scheduling without distraction: no weather forecasts, no METARs, no NOTAMs, no ads, and no tracking.
+
+## Core Features
+
+- **One-Tap Roster Import**: Open your airline's crew portal inside the app, log in, and tap Save. Rosternado parses your roster automatically.
+- **Colour-Coded Duty Timeline**: Flights, standby, simulator/training, days off, annual leave, office duties, and transfers in a clean chronological list. Multi-leg flights are grouped into single cards so 3-sector days read as one duty.
+- **Friend Radar**: See accepted crew friends on a live map with flight progress and estimated arrivals. Positions are approximate and updated periodically for friends and family.
+- **Plan a Meetup**: Automatically finds overlapping free time windows where you and your crew friends are off at the same time in the same city or layover base.
+- **Friend Alerts**: Optional per-friend notifications the moment a friend's new roster is uploaded.
+- **Offline First**: All roster data is cached on-device for seamless access mid-flight or in layover hotels without signal.
+- **Friends & Family Mode**: Non-crew members can follow a crew friend or family member's schedule for free to know when they are flying, landing, or home.
+
+## Pages & Resources
+
+- [Home](https://rosternado.com/): Product overview, features, screenshots, and app download links for iOS and Android.
+- [Pricing](https://rosternado.com/pricing.html): Tier comparison including free tier for friends and family, free crew tier (5 operations/month), and Pro ($2/month or $20/year).
+- [Supported Airlines](https://rosternado.com/airlines.html): Full breakdown of verified airline parsers, beta CAE portal airlines, and manual entry support.
+- [Support & FAQ](https://rosternado.com/support.html): Frequently asked questions, roster upload troubleshooting, subscription management, and support contact.
+- [Privacy Policy](https://rosternado.com/privacy.html): Comprehensive privacy terms detailing our no-tracking, no-ads, friend-only visibility policies.
+- [Terms of Service](https://rosternado.com/terms.html): Terms and conditions governing the use of Rosternado.
+- [Delete Account](https://rosternado.com/delete-account.html): Step-by-step account deletion instructions with permanent data purge.
+
+## Airline Guides
+
+- [Pegasus Airlines Roster Import](https://rosternado.com/airlines/pegasus.html): Guide for Pegasus Airlines (PC) pilots and cabin crew.
+- [Turkish Airlines Roster Import](https://rosternado.com/airlines/turkish-airlines.html): Guide for Turkish Airlines (TK) pilots and cabin crew.
+- [AJet Roster Import](https://rosternado.com/airlines/ajet.html): Guide for AJet (VF) crew roster parsing and duty tracking.
+- [SunExpress Roster Import](https://rosternado.com/airlines/sunexpress.html): Guide for SunExpress (XQ) pilots and cabin crew.
+- [Air India Roster Import](https://rosternado.com/airlines/air-india.html): Beta CAE portal import guide for Air India (AI) crew.
+
+## Full Documentation
+
+- [Full Context Documentation](https://rosternado.com/llms-full.txt): Complete unabridged reference containing feature specs, pricing details, supported airlines list, and FAQs for LLMs with large context windows.

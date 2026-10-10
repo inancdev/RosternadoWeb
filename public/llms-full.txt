@@ -1,0 +1,159 @@
+# Rosternado — Full Product & Knowledge Documentation
+
+> Complete reference manual for Rosternado (https://rosternado.com), the flight roster sharing app for aviation crew (pilots and cabin crew) and their friends and family.
+
+---
+
+## 1. Product Overview
+
+Rosternado is a mobile application for iOS and Android designed specifically for airline pilots and cabin crew, as well as the family members and friends who follow their flight schedules.
+
+### Philosophy: Built by a Pilot, Free of Clutter
+Aviation apps often try to do everything at once — cramming in weather forecasts, METARs, TAFs, NOTAMs, operational documents, and invasive advertisements. Rosternado was created by an active airline pilot who wanted a clean, focused, privacy-respecting tool with one sole mission:
+- Give crew an elegant, offline-ready view of their roster.
+- Solve the real-world friction of knowing when your crew friends are free in the same city.
+- Let family at home know when you are flying, landing, or safely off duty.
+
+### What is Deliberately Missing
+- **No weather reports**: Look out the window or use official EFB tools.
+- **No METARs or NOTAMs**: Legal flight briefings belong in certified airline channels, not a social roster app.
+- **No advertisements**: Clean, focused interface without banners or popups.
+- **No analytics or surveillance trackers**: Rosternado does not sell user data or track browsing behavior.
+- **No public rosters**: Rosters are completely private and only shared with explicitly accepted friends.
+
+---
+
+## 2. Core Features
+
+### One-Tap Roster Import
+Crew members don't need to manually retype flights or copy dates across from PDFs:
+1. Open the airline's roster portal directly within the in-app secure browser view.
+2. Sign in with standard airline credentials.
+3. Tap "Save". Rosternado parses all duties and imports them into a clean chronological roster.
+
+### Colour-Coded Duty Timeline
+Every type of duty is assigned an intuitive colour so a busy month is readable at a glance:
+- **Flight**: Active flight sectors.
+- **Standby / Reserve**: Standby duties with start and release times.
+- **Training**: Simulator checks, dangerous-goods refresher, CRM courses, recurrent training.
+- **Day off**: Scheduled rest days.
+- **Leave**: Annual leave and vacation blocks.
+- **Office**: Ground duties, meetings, and office assignments.
+- **Transfer**: Positioning / deadhead flights and ground transport.
+
+#### Multi-Sector Grouping
+Multi-leg flights group automatically under a single card. A three-sector day (e.g., SAW–ADB–AYT–SAW) reads as one unified duty card with expandable sector details, rather than three disconnected items.
+
+### Friend Radar
+Friend Radar displays accepted crew friends on an interactive map:
+- Friends are pinned at their home base or layover destination.
+- When an accepted friend is currently flying an active sector, their flight route, progress, and estimated arrival time are displayed.
+- **Important note on privacy and accuracy**: Positions are approximate and refreshed periodically. It is intended as a helpful snapshot for friends and family, not as an air traffic control or surveillance radar.
+
+### Plan a Meetup
+Finding overlapping free time between crew members across changing shift patterns, different bases, and differing time zones is tedious to calculate by hand:
+- Select one or more crew friends.
+- Rosternado compares everyone's rosters and calculates the exact windows where everyone is off at the same time in the same city.
+- Shows the start time, end time, and total duration of each free window in local time.
+
+### Friend Alerts
+- Opt-in notifications per friend.
+- Get notified the moment an accepted friend's new monthly roster drops, making it easy to schedule meetups before schedules fill up.
+- Kept off by default so users are never spammed.
+
+### Offline-First Architecture
+- Every roster is locally cached on the device.
+- Roster data loads instantly without cell coverage, whether mid-flight at 38,000 feet, in airplane mode, or at overseas layover hotels with patchy Wi-Fi.
+
+### Friends & Family Companion Mode
+- Non-aviation family members and friends can create an account and follow an accepted crew member's schedule for free.
+- Family members can check whether a crew member is in the air, landing, or home without having to ask for roster screenshots.
+
+---
+
+## 3. Pricing & Membership Tiers
+
+Rosternado offers clear, transparent pricing with no hidden fees or ad-supported tiers.
+
+| Tier | Price | Features & Inclusions |
+| :--- | :--- | :--- |
+| **Friends & Family** | Free forever | • Follow and view accepted crew friends' rosters.<br>• See flight progress and arrival status.<br>• Unlimited viewing.<br>• *Note: Roster import is not included; this tier is for following, not flying.* |
+| **Crew — Free** | Free | • 5 duty operations per month (combined total of adds, edits, and deletes).<br>• Multi-leg flights count as a single operation.<br>• Counter resets on the 1st of each month.<br>• 1 roster import.<br>• Unlimited viewing of crew friends' rosters.<br>• Friend Radar and Meetup planner access. |
+| **Crew — Pro** | $2 / month<br>*(or $20 / year)* | • Unlimited duty operations (adds, edits, deletes).<br>• Unlimited roster imports for updated schedules.<br>• All features in the Free Crew tier included. |
+
+### Subscription Management
+Subscriptions are processed securely via Apple App Store or Google Play Store. Subscriptions are managed and cancelled directly in the user's Apple ID or Google Play account settings.
+
+---
+
+## 4. Airline Support & Integrations
+
+### Verified Airlines (Dedicated Parsers Tested on Real Rosters)
+1. **Pegasus Airlines** (`PC`) — Full in-app portal import for Pegasus crew operating out of Sabiha Gökçen (SAW) and other bases.
+2. **Turkish Airlines** (`TK`) — In-app crew roster portal import for Turkish Airlines pilots and cabin crew.
+3. **AJet** (`VF`) — In-app roster portal parser for AJet crew.
+4. **SunExpress** (`XQ`) — Roster import for Antalya (AYT), Izmir (ADB), and other SunExpress bases.
+
+### Beta Airlines (CAE "Crew Access" Tenant Support)
+The following 15 airlines use the CAE crew portal infrastructure and can be imported in beta:
+- Air India (`AI`)
+- Allegiant (`G4`)
+- Azul (`AD`)
+- Iberojet (`E9`)
+- Ethiopian Airlines (`ET`)
+- Garuda Indonesia (`GA`)
+- Hong Kong Airlines (`HX`)
+- Japan Airlines (`JL`)
+- Jetstar (`JQ`)
+- Jet2 (`LS`)
+- Bangkok Airways (`PG`)
+- Akasa Air (`QP`)
+- SriLankan Airlines (`UL`)
+- Wizz Air (`W6`)
+- HOP! (`A5`)
+
+*Beta Note: Because individual airline tenant configurations may vary, if an import format encounters an issue, crew can report it via info@rosternado.com and the parser will be updated.*
+
+### Manual Duty Entry
+Around 75 additional global airlines are pre-populated in the airline selector for manual duty entry.
+
+### Requesting a New Airline
+Crew can request a new airline parser by sending an email to `info@rosternado.com` with:
+- Airline Name
+- Roster website URL
+- Sample/screenshot of the roster view layout
+
+---
+
+## 5. Frequently Asked Questions (FAQ)
+
+### How do I upload my roster?
+Tap the Roster Download icon in the top right corner of the mobile app. The in-app web browser opens your airline's crew portal. Log in with your standard airline credentials and tap **Save**. Your duties will be parsed automatically.
+
+### Who can see my roster?
+Only friends whom you have explicitly accepted. Your roster is private by default, not indexed by public search engines, and never accessible to unapproved users.
+
+### What if my airline is not yet supported for automated upload?
+You can manually add, edit, and categorize duties using the pre-configured airline database. You can also contact support to request an automated parser for your airline.
+
+### How do I cancel or manage my Pro subscription?
+Subscriptions are managed directly by Apple or Google:
+- On iOS: Open Settings -> tap your Apple ID -> Subscriptions -> Rosternado.
+- On Android: Open Google Play Store -> tap Profile -> Payments & Subscriptions -> Subscriptions -> Rosternado.
+
+### How do I permanently delete my account and data?
+In the app, navigate to **Profile -> Delete Account** and confirm. This permanently purges your profile, rosters, duties, and friend connections from the server.
+
+---
+
+## 6. Official Links & Contact
+
+- **Website**: https://rosternado.com
+- **Airlines Directory**: https://rosternado.com/airlines.html
+- **Pricing**: https://rosternado.com/pricing.html
+- **Support**: https://rosternado.com/support.html
+- **Privacy Policy**: https://rosternado.com/privacy.html
+- **Terms of Use**: https://rosternado.com/terms.html
+- **Account Deletion**: https://rosternado.com/delete-account.html
+- **Support Email**: info@rosternado.com (Response time: 2–3 business days)
+- **App Store (iOS)**: App ID 6766887800
