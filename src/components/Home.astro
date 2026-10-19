@@ -18,6 +18,7 @@ import cloud2 from '../assets/brand/06.webp';
 import cloud3 from '../assets/brand/09.webp';
 
 import roster from '../assets/shots/roster.png';
+import rosterList from '../assets/shots/roster-list.png';
 import addDuty from '../assets/shots/add-duty.png';
 import radarMap from '../assets/shots/friend-radar-map.png';
 import radarFlight from '../assets/shots/friend-radar-flight.png';
@@ -51,7 +52,7 @@ const copy = {
       h1: 'Flight roster sharing for crew',
       lede: 'Rosternado keeps your flight schedule in one place — import it from your airline, see every duty at a glance, and share it with the people who want to know where you are.',
       meta: 'Free to use. No ads, no analytics, no tracking.',
-      alt: 'The Rosternado roster screen, showing a fortnight of duties: flights from Istanbul to London and Beirut, a simulator check, dangerous-goods training and annual leave.',
+      alt: 'The Rosternado roster screen under its sunset hero: an Istanbul–London flight expanded with local departure and arrival times, then the return sector, a four-sector day, a day off and a simulator check.',
     },
     import: {
       eyebrow: 'Import your roster',
@@ -60,22 +61,22 @@ const copy = {
       p2: `${airlineCount} airlines have a parser today, and around 75 more are selectable for manual entry. <a href="/airlines.html">See the full list</a>.`,
       guides: 'How it works for',
       and: ' and ',
-      alt: 'The Add Duty screen, with a flight leg from Istanbul to Amsterdam and departure and arrival times marked UTC.',
+      alt: 'The Add Duty screen with a two-leg flight, Istanbul to Vienna and back, and departure and arrival times marked UTC.',
     },
     duty: {
       eyebrow: 'Every duty, clearly',
       h2: 'One list, colour-coded',
       p: 'Flights, standby, training, days off, leave and office duties in a clean chronological list. Multi-leg flights group under a single card, so a three-sector day reads as one duty, not three.',
       key: ['Flight', 'Standby', 'Training', 'Day off', 'Leave', 'Office', 'Transfer'],
-      alt: 'A roster with a multi-leg Istanbul–Beirut–Istanbul duty expanded to show both sectors under one card.',
+      alt: 'A roster list: Istanbul–London and back, a four-sector Istanbul–Izmir–Istanbul–Ankara–Istanbul day on a single card, then a day off, a simulator check, a Barcelona turnaround, an office meeting and an airport standby.',
     },
     radar: {
       eyebrow: 'Friend Radar',
       h2: 'See where they are',
       lede: 'When a friend is flying, Friend Radar puts them on a map with their flight and an estimated arrival.',
-      mapAlt: 'A map of Türkiye and the Black Sea with four crew friends pinned at Istanbul, Ankara, Antalya, and one in the air over Romania.',
-      mapCap: "Friends you have accepted appear at their base, or along their route when they're flying.",
-      flightAlt: 'A flight card for an Istanbul to Amsterdam sector, showing progress along the route and an estimated arrival time.',
+      mapAlt: 'A map of Europe with three crew friends: one on a layover in London and two in the air, over southern Germany and over the Balkans.',
+      mapCap: "Friends you have accepted appear where they are on the ground — at base or on a layover — or along their route when they're flying.",
+      flightAlt: 'A live flight card for an Antalya to Berlin sector, showing progress along the route, the departure and arrival times and an estimated arrival.',
       flightCap: 'Positions are approximate and updated every few minutes — this is a rough picture for friends and family, not a tracking or air traffic service.',
     },
     meetup: {
@@ -83,7 +84,7 @@ const copy = {
       h2: 'Find the gap you both have free',
       p1: "Pick a few crew friends and Rosternado reads across everyone's roster to find the windows where you are all off at the same time, in the same place — with the length of each window and the local times.",
       p2: 'It is the part of crew life that is genuinely hard to work out by hand, especially across bases and time zones.',
-      alt: 'The Plan a Meetup sheet with two friends selected and a suggested nine hour fifty minute window in Istanbul.',
+      alt: 'The Plan a Meetup board with one friend selected, and a fourteen hour fifteen minute window in London opened to show where each of you is and the London times.',
     },
     cards: [
       ['Friend alerts', "Turn notifications on for the friends you actually care about and hear the moment their new roster lands. Off by default, and per friend — useful for planning a beer before either of you has worked out you're in the same city."],
@@ -140,7 +141,7 @@ const copy = {
       h1: 'Ekipler için uçuş rosterı paylaşımı',
       lede: 'Rosternado uçuş programınızı tek bir yerde tutar — havayolunuzdan aktarın, her görevi bir bakışta görün ve nerede olduğunuzu merak edenlerle paylaşın.',
       meta: 'Kullanımı ücretsiz. Reklam yok, analitik yok, takip yok.',
-      alt: "Rosternado roster ekranı, iki haftalık görevleri gösteriyor: İstanbul'dan Londra ve Beyrut uçuşları, bir simülatör kontrolü, tehlikeli madde eğitimi ve yıllık izin.",
+      alt: 'Gün batımı görselinin altında Rosternado roster ekranı: yerel kalkış ve varış saatleriyle açılmış bir İstanbul–Londra uçuşu, ardından dönüş sektörü, dört sektörlü bir gün, bir izin günü ve bir simülatör kontrolü.',
     },
     import: {
       eyebrow: 'Rosterınızı aktarın',
@@ -149,22 +150,22 @@ const copy = {
       p2: `Bugün ${airlineCount} havayolu için desteğimiz var, yaklaşık 75 havayolu da elle giriş için seçilebilir. <a href="/tr/airlines.html">Tam listeyi görün</a>.`,
       guides: 'Nasıl çalıştığına bakın:',
       and: ' ve ',
-      alt: 'Görev Ekle ekranı: İstanbul–Amsterdam uçuş ayağı, kalkış ve varış saatleri UTC olarak işaretli.',
+      alt: 'Görev Ekle ekranı: İstanbul–Viyana gidiş-dönüş iki ayaklı bir uçuş, kalkış ve varış saatleri UTC olarak işaretli.',
     },
     duty: {
       eyebrow: 'Her görev, net bir şekilde',
       h2: 'Tek liste, renk kodlu',
       p: 'Uçuşlar, standby, eğitim, izin günleri, yıllık izin ve ofis görevleri sade, kronolojik bir listede. Çok ayaklı uçuşlar tek bir kartta toplanır; üç sektörlü bir gün üç değil, tek görev olarak okunur.',
       key: ['Uçuş', 'Standby', 'Eğitim', 'İzin günü', 'Yıllık izin', 'Ofis', 'Transfer'],
-      alt: 'Çok sektörlü İstanbul–Beyrut–İstanbul görevi açılmış bir roster; iki sektör tek kartın altında.',
+      alt: "Bir roster listesi: İstanbul–Londra gidiş-dönüş, tek kartta dört sektörlü İstanbul–İzmir–İstanbul–Ankara–İstanbul günü, ardından bir izin günü, bir simülatör kontrolü, bir Barselona gidiş-dönüşü, bir ofis toplantısı ve bir havalimanı standby'ı.",
     },
     radar: {
       eyebrow: 'Friend Radar',
       h2: 'Nerede olduklarını görün',
       lede: 'Bir arkadaşınız uçarken Friend Radar onu uçuşu ve tahmini varış saatiyle haritada gösterir.',
-      mapAlt: "Türkiye ve Karadeniz haritası: İstanbul, Ankara ve Antalya'da işaretli üç ekip arkadaşı, biri de Romanya üzerinde havada.",
-      mapCap: "Kabul ettiğiniz arkadaşlar base'lerinde ya da uçarken rotaları üzerinde görünür.",
-      flightAlt: 'İstanbul–Amsterdam sektörü için bir uçuş kartı; rota üzerindeki ilerleme ve tahmini varış saati.',
+      mapAlt: "Avrupa haritasında üç ekip arkadaşı: biri Londra'da layover'da, ikisi havada — biri Güney Almanya, diğeri Balkanlar üzerinde.",
+      mapCap: "Kabul ettiğiniz arkadaşlar yerdeyken bulundukları yerde — base'de ya da layover'da — uçarken de rotaları üzerinde görünür.",
+      flightAlt: 'Antalya–Berlin sektörü için canlı bir uçuş kartı; rota üzerindeki ilerleme, kalkış ve varış saatleri ve tahmini varış.',
       flightCap: 'Konumlar yaklaşıktır ve birkaç dakikada bir güncellenir — arkadaşlar ve aile için kaba bir resimdir, takip ya da hava trafik servisi değildir.',
     },
     meetup: {
@@ -172,7 +173,7 @@ const copy = {
       h2: 'İkinizin de boş olduğu aralığı bulun',
       p1: 'Birkaç ekip arkadaşı seçin; Rosternado herkesin rosterını okuyup hepinizin aynı anda, aynı yerde boş olduğu aralıkları bulur — her aralığın süresi ve yerel saatleriyle.',
       p2: "Ekip hayatının elle hesaplaması gerçekten zor olan kısmı bu, özellikle farklı base'ler ve saat dilimleri arasında.",
-      alt: 'Buluşma planla ekranı: iki arkadaş seçili ve İstanbul’da önerilen dokuz saat elli dakikalık bir aralık.',
+      alt: "Buluşma planla ekranı: bir arkadaş seçili; Londra'daki on dört saat on beş dakikalık aralık açılmış, herkesin nerede olduğunu ve Londra saatlerini gösteriyor.",
     },
     cards: [
       ['Arkadaş bildirimleri', 'Gerçekten önemsediğiniz arkadaşlar için bildirimleri açın; yeni rosterları geldiği anda haberiniz olsun. Varsayılan olarak kapalıdır ve arkadaş bazında açılır — ikiniz de aynı şehirde olduğunuzu fark etmeden bir bira planlamak için birebir.'],
@@ -333,7 +334,7 @@ const jsonLd = {
       </div>
       <PhoneFrame class="feature__shot">
         <Picture
-          src={roster}
+          src={rosterList}
           {...shot}
           sizes="(max-width: 900px) 266px, 286px"
           alt={c.duty.alt}
