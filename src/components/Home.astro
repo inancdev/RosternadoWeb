@@ -68,6 +68,7 @@ const copy = {
       h2: 'One list, colour-coded',
       p: 'Flights, standby, training, days off, leave and office duties in a clean chronological list. Multi-leg flights group under a single card, so a three-sector day reads as one duty, not three.',
       key: ['Flight', 'Standby', 'Training', 'Day off', 'Leave', 'Office', 'Transfer'],
+      cal: 'Want it next to the rest of your life? Sync your roster to Google Calendar — Rosternado writes to a calendar of its own and never reads your other events.',
       alt: 'A roster list: Istanbul–London and back, a four-sector Istanbul–Izmir–Istanbul–Ankara–Istanbul day on a single card, then a day off, a simulator check, a Barcelona turnaround, an office meeting and an airport standby.',
     },
     radar: {
@@ -102,6 +103,7 @@ const copy = {
         ['No statistics', 'No pie charts of hours spent in a metal tube.'],
         ['No delay notifications', "You'll find out when the gate agent looks at you sadly."],
         ['No logbook', "We don't track block or duty times. Your company's system is the source of truth for that."],
+        ['No auto-sync', 'Your roster updates when you import it, not when crewing changes it. Your crew portal stays the source of truth.'],
         ['No bloat', 'Just your schedule.'],
       ],
     },
@@ -157,6 +159,7 @@ const copy = {
       h2: 'Tek liste, renk kodlu',
       p: 'Uçuşlar, standby, eğitim, izin günleri, yıllık izin ve ofis görevleri sade, kronolojik bir listede. Çok ayaklı uçuşlar tek bir kartta toplanır; üç sektörlü bir gün üç değil, tek görev olarak okunur.',
       key: ['Uçuş', 'Standby', 'Eğitim', 'İzin günü', 'Yıllık izin', 'Ofis', 'Transfer'],
+      cal: 'Hayatınızın geri kalanıyla yan yana görmek mi istiyorsunuz? Rosterınızı Google Takvim’e senkronize edin — Rosternado kendi oluşturduğu bir takvime yazar, diğer etkinliklerinizi asla okumaz.',
       alt: "Bir roster listesi: İstanbul–Londra gidiş-dönüş, tek kartta dört sektörlü İstanbul–İzmir–İstanbul–Ankara–İstanbul günü, ardından bir izin günü, bir simülatör kontrolü, bir Barselona gidiş-dönüşü, bir ofis toplantısı ve bir havalimanı standby'ı.",
     },
     radar: {
@@ -191,6 +194,7 @@ const copy = {
         ['İstatistik yok', 'Metal bir tüpte geçirilen saatlerin pasta grafikleri yok.'],
         ['Rötar bildirimi yok', 'Kapı görevlisi size üzgün üzgün baktığında öğrenirsiniz.'],
         ['Logbook yok', 'Blok ya da görev sürelerini takip etmiyoruz. Bunun için doğru kaynak şirketinizin sistemi.'],
+        ['Otomatik senkronizasyon yok', 'Rosterınız planlama değiştirdiğinde değil, siz aktardığınızda güncellenir. Doğru kaynak her zaman şirketinizin crew portalı.'],
         ['Ivır zıvır yok', 'Sadece uçuş programınız.'],
       ],
     },
@@ -331,6 +335,7 @@ const jsonLd = {
             ))
           }
         </ul>
+        <p>{c.duty.cal}</p>
       </div>
       <PhoneFrame class="feature__shot">
         <Picture

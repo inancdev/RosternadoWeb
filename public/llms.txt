@@ -10,6 +10,7 @@ Rosternado is built by an airline pilot who got tired of cluttered, ad-heavy avi
 - **Colour-Coded Duty Timeline**: Flights, standby, simulator/training, days off, annual leave, office duties, and transfers in a clean chronological list. Multi-leg flights are grouped into single cards so 3-sector days read as one duty.
 - **Friend Radar**: See accepted crew friends on a live map with flight progress and estimated arrivals. Positions are approximate and updated periodically for friends and family.
 - **Plan a Meetup**: Automatically finds overlapping free time windows where you and your crew friends are off at the same time in the same city or layover base.
+- **Google Calendar Sync**: Optionally sync your roster to a Google calendar Rosternado creates for you. It never reads your other calendars or events.
 - **Friend Alerts**: Optional per-friend notifications the moment a friend's new roster is uploaded.
 - **Offline First**: All roster data is cached on-device for seamless access mid-flight or in layover hotels without signal.
 - **Friends & Family Mode**: Non-crew members can follow a crew friend or family member's schedule for free to know when they are flying, landing, or home.

@@ -20,6 +20,7 @@ Aviation apps often try to do everything at once — cramming in weather forecas
 - **No advertisements**: Clean, focused interface without banners or popups.
 - **No analytics or surveillance trackers**: Rosternado does not sell user data or track browsing behavior.
 - **No public rosters**: Rosters are completely private and only shared with explicitly accepted friends.
+- **No auto-sync with crew portals**: The roster updates only when the user imports it again or edits duties. Rosternado is not an official or primary source for duties; the airline's crew portal remains the source of truth.
 
 ---
 
@@ -56,6 +57,12 @@ Finding overlapping free time between crew members across changing shift pattern
 - Rosternado compares everyone's rosters and calculates the exact windows where everyone is off at the same time in the same city.
 - Shows the start time, end time, and total duration of each free window in local time.
 
+### Google Calendar Sync
+- Optional: sync your roster to Google Calendar.
+- Rosternado creates a calendar of its own in the user's Google account and writes roster duties into it.
+- Uses only the `calendar.app.created` permission, so it cannot read the user's other calendars or events.
+- Can be turned off at any time in Settings -> Calendar Sync.
+
 ### Friend Alerts
 - Opt-in notifications per friend.
 - Get notified the moment an accepted friend's new monthly roster drops, making it easy to schedule meetups before schedules fill up.
@@ -82,7 +89,7 @@ Rosternado offers clear, transparent pricing with no hidden fees or ad-supported
 | **Crew — Pro** | $2 / month<br>*(or $20 / year)* | • Unlimited duty operations (adds, edits, deletes).<br>• Unlimited roster imports for updated schedules.<br>• All features in the Free Crew tier included. |
 
 ### Subscription Management
-Subscriptions are processed securely via Apple App Store or Google Play Store. Subscriptions are managed and cancelled directly in the user's Apple ID or Google Play account settings.
+Subscriptions are processed securely via Apple App Store or Google Play Store. Subscriptions are managed and cancelled directly in the user's Apple ID or Google Play account settings. Deleting a Rosternado account does **not** cancel an active subscription.
 
 ---
 
@@ -130,6 +137,9 @@ Crew can request a new airline parser by sending an email to `info@rosternado.co
 ### How do I upload my roster?
 Tap the Roster Download icon in the top right corner of the mobile app. The in-app web browser opens your airline's crew portal. Log in with your standard airline credentials and tap **Save**. Your duties will be parsed automatically.
 
+### Does Rosternado sync automatically with my airline's crew portal?
+No. Your roster only changes when you import it again (Roster Download -> Save) or edit duties yourself; changes made by crewing are not picked up automatically. Rosternado is not an official source and should not be used as your primary reference for duties. Always check your company's crew portal.
+
 ### Who can see my roster?
 Only friends whom you have explicitly accepted. Your roster is private by default, not indexed by public search engines, and never accessible to unapproved users.
 
@@ -140,6 +150,9 @@ You can manually add, edit, and categorize duties using the pre-configured airli
 Subscriptions are managed directly by Apple or Google:
 - On iOS: Open Settings -> tap your Apple ID -> Subscriptions -> Rosternado.
 - On Android: Open Google Play Store -> tap Profile -> Payments & Subscriptions -> Subscriptions -> Rosternado.
+
+### Does deleting my account cancel my subscription?
+No. Pro is billed by the App Store or Google Play and belongs to your Apple ID or Google account, so deleting your Rosternado account does not stop billing. Cancel the subscription in your store first (see above).
 
 ### How do I permanently delete my account and data?
 In the app, navigate to **Profile -> Delete Account** and confirm. This permanently purges your profile, rosters, duties, and friend connections from the server.
