@@ -4,10 +4,12 @@ import BrowserMock from '../components/BrowserMock.astro';
 import PhoneMock from '../components/PhoneMock.astro';
 
 // Linked from airline-request emails, so the copy is written for crew who are wary
-// of being asked to send anything from a company portal. Every claim about the file
-// was checked against a real saved roster page (Chrome "Webpage, Single File" vs a
-// DevTools outerHTML copy, 2026-10-30): same roster markup, no scripts, no password
-// or login data. It does contain crew and hotel names, and the page says so.
+// of being asked to send anything from a company portal. The computer route is the
+// developer panel only (Copy outerHTML, computer layout then phone layout): no portal
+// can block it, so nobody is asked twice. Checked against a real roster page
+// (2026-10-30): no password, token, session or cookie values in the copy. It does
+// contain crew and hotel names, and the page says so. Known gap: outerHTML of <html>
+// leaves out iframe documents, so a portal that frames its roster needs a follow-up.
 //
 // The phone way (view-source: + Print/PDF) saves the page's original HTML, before
 // scripts run. Portals that load the roster after the page opens (Pegasus fills
@@ -30,7 +32,7 @@ const mailBody = [
 ].join('\n');
 const mailto = `mailto:${email}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
 
-const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 KB', 'Screenshot.png'];
+const attachments = ['roster-desktop.txt · 660 KB', 'roster-phone.txt · 650 KB', 'Screenshot.png'];
 ---
 
 <Layout
@@ -42,7 +44,7 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
       <p class="eyebrow">Add your airline</p>
       <h1>Help bring Rosternado to your airline</h1>
       <p class="lede">
-        To build the roster import for your airline, I need saved copies of your roster page.
+        To build the roster import for your airline, I need two copies of your roster page.
         It takes about five minutes on a computer, and your password stays with you.
         No computer? There's an <a href="#phone">Android phone way</a> further down.
       </p>
@@ -51,7 +53,7 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
     <section class="card card--text control" aria-labelledby="control">
       <h2 id="control">You stay in control</h2>
       <ul class="ticks">
-        <li><strong>No password.</strong> I never ask for it, and a saved page doesn't contain it.</li>
+        <li><strong>No password.</strong> I never ask for it, and a copied page doesn't contain it.</li>
         <li>
           <strong>No logging in.</strong> I never sign in to your airline's systems. You do
           everything yourself, in your own browser.
@@ -65,9 +67,9 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
       <p class="eyebrow">Recommended</p>
       <h2 id="computer">On a computer</h2>
       <p class="prose">
-        You'll send two files: your roster page as a computer shows it, and the same page in
-        its phone layout. The app opens your portal in its phone layout, and some portals
-        build that differently, so I need both.
+        You'll copy your roster page twice from your browser's developer panel: once as a
+        computer shows it, and once in its phone layout. The app opens your portal in its
+        phone layout, and some portals build that differently, so I need both.
       </p>
 
       <ol class="how">
@@ -108,93 +110,22 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
         </li>
 
         <li class="step">
-          <h3>Save the page as one file</h3>
+          <h3>Open the developer panel</h3>
+          <p>Press <kbd>F12</kbd> on Windows, or <kbd>⌘ Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd> on a Mac. A panel opens beside the page.</p>
           <p>
-            Press <kbd>Ctrl</kbd> + <kbd>S</kbd> on Windows or <kbd>⌘ Cmd</kbd> + <kbd>S</kbd> on
-            a Mac. You can also right-click an empty part of the page and choose <strong>Save as…</strong>
+            It looks technical, but it's built into every browser, it only reads the page you're
+            already looking at, and closing it changes nothing.
           </p>
-          <p>
-            In the <strong>Format</strong> list (Mac) or <strong>Save as type</strong> list
-            (Windows), pick <strong>Webpage, Single File</strong>. Name it <strong>roster-desktop</strong> and save. You get one file ending in <strong>.mhtml</strong>.
-          </p>
-          <p class="note">Safari and Firefox don't have this option. Chrome and Edge are both free.</p>
-          <BrowserMock
-            class="mock"
-            url="crew.example-air.com/roster"
-            label="Illustration: the browser's Save dialog over the roster page. The file is named roster-desktop.mhtml and the format is set to Webpage, Single File."
-          >
-            <div class="saveas">
-              <div class="saveas__ghost">
-                <i></i><i></i><i></i><i></i><i></i>
-              </div>
-              <div class="dialog">
-                <div class="dialog__row"><span>Save As:</span><span class="field">roster-desktop.mhtml</span></div>
-                <div class="dialog__row"><span>Where:</span><span class="field">Desktop</span></div>
-                <div class="dialog__row">
-                  <span>Format:</span><span class="field field--pick">Webpage, Single File</span>
-                </div>
-                <p class="dialog__hint">Not "Complete" or "HTML Only"</p>
-                <div class="dialog__btns"><span class="b">Cancel</span><span class="b b--primary">Save</span></div>
-              </div>
-            </div>
-          </BrowserMock>
+          <p class="note">Use Chrome or Edge, which are both free. Safari and Firefox lay the panel out differently.</p>
         </li>
 
         <li class="step">
-          <h3>Copy the phone layout</h3>
-          <p>
-            Your browser can show the same page in its phone layout, using its developer panel.
-            The panel looks technical, but it's built into every browser, it only reads the page
-            you're already looking at, and closing it changes nothing.
-          </p>
+          <h3>Copy the computer layout</h3>
           <ol class="substeps">
-            <li>Press <kbd>F12</kbd> on Windows, or <kbd>⌘ Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd> on a Mac. A panel opens beside the page.</li>
-            <li>Click the <strong>phone-and-tablet icon</strong> at the top-left of the panel, or press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> (<kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> on a Mac). The page shrinks to phone size.</li>
-            <li>Reload the page with <kbd>F5</kbd> (<kbd>⌘ Cmd</kbd> + <kbd>R</kbd> on a Mac). If your roster disappeared, open it again.</li>
-            <li>Click <strong>Elements</strong> at the top of the panel. Right-click the very first line, which starts with <code>&lt;html</code>, and choose <strong>Copy → Copy outerHTML</strong>.</li>
-            <li>Open Notepad (Windows) or TextEdit (Mac). In TextEdit, choose <strong>Format → Make Plain Text</strong> first. Paste, and save it as <strong>roster-phone.txt</strong>.</li>
+            <li>Click <strong>Elements</strong> at the top of the panel.</li>
+            <li>Right-click the very first line, which starts with <code>&lt;html</code>, and choose <strong>Copy → Copy outerHTML</strong>.</li>
+            <li>Open Notepad (Windows) or TextEdit (Mac). In TextEdit, choose <strong>Format → Make Plain Text</strong> first. Paste, and save it as <strong>roster-desktop.txt</strong>.</li>
           </ol>
-
-          <BrowserMock
-            class="mock mock--wide"
-            url="crew.example-air.com/roster"
-            label="Illustration: the developer panel is open beside the roster page. The phone-and-tablet icon at the top-left of the panel is highlighted, and the roster now shows in a narrow phone-sized frame labelled iPhone 12 Pro, 390 by 844."
-          >
-            <div class="dt">
-              <div class="dt__page">
-                <div class="dt__device">iPhone 12 Pro ▾ <span>390 × 844</span></div>
-                <div class="dt__phone">
-                  <div class="dt__phonehead">EXAMPLE AIR</div>
-                  <div class="dt__card"><b>03 Nov</b> EX101<br />IST 06:10 → LHR 08:55</div>
-                  <div class="dt__card"><b>03 Nov</b> EX102<br />LHR 10:05 → IST 15:40</div>
-                  <div class="dt__card"><b>04 Nov</b> Day off</div>
-                </div>
-                <span class="badge badge--reload">2</span>
-                <span class="dt__reload">⟳ Reload</span>
-              </div>
-              <div class="dt__panel">
-                <div class="dt__tools">
-                  <span class="dt__icon">
-                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h9v5M2 2v9h5M8 8l6 2.5-2.5 1L10.5 14z"></path></svg>
-                  </span>
-                  <span class="dt__icon dt__icon--pick">
-                    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="3" width="9" height="11" rx="1"></rect><rect x="11.5" y="6" width="3.5" height="8" rx="0.8"></rect></svg>
-                    <span class="badge">1</span>
-                  </span>
-                  <span class="dt__tab dt__tab--on">Elements</span>
-                  <span class="dt__tab">Console</span>
-                  <span class="dt__tab">Sources</span>
-                </div>
-                <div class="dt__tree">
-                  <div>&lt;!DOCTYPE html&gt;</div>
-                  <div><span class="t">&lt;html</span> <span class="a">lang</span>=<span class="v">"en"</span><span class="t">&gt;</span></div>
-                  <div class="i">▸ <span class="t">&lt;head&gt;</span>…<span class="t">&lt;/head&gt;</span></div>
-                  <div class="i">▸ <span class="t">&lt;body&gt;</span>…<span class="t">&lt;/body&gt;</span></div>
-                  <div><span class="t">&lt;/html&gt;</span></div>
-                </div>
-              </div>
-            </div>
-          </BrowserMock>
 
           <BrowserMock
             id="copy-outerhtml"
@@ -241,14 +172,64 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
         </li>
 
         <li class="step">
+          <h3>Copy the phone layout</h3>
+          <ol class="substeps">
+            <li>Click the <strong>phone-and-tablet icon</strong> at the top-left of the panel, or press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> (<kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> on a Mac). The page shrinks to phone size.</li>
+            <li>Reload the page with <kbd>F5</kbd> (<kbd>⌘ Cmd</kbd> + <kbd>R</kbd> on a Mac). If your roster disappeared, open it again.</li>
+            <li>Copy it the same way as in <a href="#copy-outerhtml">step 3</a>, into a new plain-text file, and save it as <strong>roster-phone.txt</strong>.</li>
+          </ol>
+
+          <BrowserMock
+            class="mock mock--wide"
+            url="crew.example-air.com/roster"
+            label="Illustration: the developer panel is open beside the roster page. The phone-and-tablet icon at the top-left of the panel is highlighted, and the roster now shows in a narrow phone-sized frame labelled iPhone 12 Pro, 390 by 844."
+          >
+            <div class="dt">
+              <div class="dt__page">
+                <div class="dt__device">iPhone 12 Pro ▾ <span>390 × 844</span></div>
+                <div class="dt__phone">
+                  <div class="dt__phonehead">EXAMPLE AIR</div>
+                  <div class="dt__card"><b>03 Nov</b> EX101<br />IST 06:10 → LHR 08:55</div>
+                  <div class="dt__card"><b>03 Nov</b> EX102<br />LHR 10:05 → IST 15:40</div>
+                  <div class="dt__card"><b>04 Nov</b> Day off</div>
+                </div>
+                <span class="badge badge--reload">2</span>
+                <span class="dt__reload">⟳ Reload</span>
+              </div>
+              <div class="dt__panel">
+                <div class="dt__tools">
+                  <span class="dt__icon">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2h9v5M2 2v9h5M8 8l6 2.5-2.5 1L10.5 14z"></path></svg>
+                  </span>
+                  <span class="dt__icon dt__icon--pick">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="3" width="9" height="11" rx="1"></rect><rect x="11.5" y="6" width="3.5" height="8" rx="0.8"></rect></svg>
+                    <span class="badge">1</span>
+                  </span>
+                  <span class="dt__tab dt__tab--on">Elements</span>
+                  <span class="dt__tab">Console</span>
+                  <span class="dt__tab">Sources</span>
+                </div>
+                <div class="dt__tree">
+                  <div>&lt;!DOCTYPE html&gt;</div>
+                  <div><span class="t">&lt;html</span> <span class="a">lang</span>=<span class="v">"en"</span><span class="t">&gt;</span></div>
+                  <div class="i">▸ <span class="t">&lt;head&gt;</span>…<span class="t">&lt;/head&gt;</span></div>
+                  <div class="i">▸ <span class="t">&lt;body&gt;</span>…<span class="t">&lt;/body&gt;</span></div>
+                  <div><span class="t">&lt;/html&gt;</span></div>
+                </div>
+              </div>
+            </div>
+          </BrowserMock>
+        </li>
+
+        <li class="step">
           <h3>Email them to me</h3>
           <p>
-            Send <strong>roster-desktop.mhtml</strong> and <strong>roster-phone.txt</strong> to <a href={mailto}>{email}</a>, together with a screenshot of your roster page so I can see what it looks like for you. Tell me your airline and the address of its roster website.
+            Send <strong>roster-desktop.txt</strong> and <strong>roster-phone.txt</strong> to <a href={mailto}>{email}</a>, together with a screenshot of your roster page so I can see what it looks like for you. Tell me your airline and the address of its roster website.
           </p>
           <BrowserMock
             class="mock"
             title="New message"
-            label={`Illustration: an email to ${email} with three attachments: roster-desktop.mhtml, roster-phone.txt and Screenshot.png.`}
+            label={`Illustration: an email to ${email} with three attachments: roster-desktop.txt, roster-phone.txt and Screenshot.png.`}
           >
             <div class="mail">
               <div class="mail__row"><span>To</span>{email}</div>
@@ -270,19 +251,6 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
           </BrowserMock>
         </li>
       </ol>
-
-      <details class="fallback">
-        <summary>Saving doesn't work on my portal</summary>
-        <p>
-          A few portals block saving. Then copy the computer layout instead, the same way as in
-          step 3 but without the phone view:
-        </p>
-        <ol>
-          <li>Open the developer panel (<kbd>F12</kbd>, or <kbd>⌘ Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd> on a Mac) and make sure the phone-and-tablet icon is <strong>off</strong>.</li>
-          <li>Click <strong>Elements</strong>, right-click the first line (<code>&lt;html</code>) and choose <strong>Copy → Copy outerHTML</strong>, as in the <a href="#copy-outerhtml">picture above</a>.</li>
-          <li>Paste into Notepad or TextEdit (plain text) and save it as <strong>roster-desktop.txt</strong>. Send it in place of the .mhtml file.</li>
-        </ol>
-      </details>
     </section>
 
     <section class="block" aria-labelledby="phone">
@@ -396,8 +364,8 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
     <section class="block" aria-labelledby="inside">
       <h2 id="inside">What's inside the files</h2>
       <p class="prose">
-        Whichever way you save it, each file is your roster page: as a page you can open
-        (.mhtml) or as its code (.txt and .pdf). It holds exactly what you see on screen, plus
+        Each file is your roster page's code: a .txt from a computer, or a .pdf from a phone.
+        It holds exactly what you see on screen, plus
         the layout code that tells the browser how to draw it: table borders, fonts, colours.
         That layout is what I need. It shows me where your flight numbers, times and airports
         sit, so the import knows where to find them.
@@ -429,17 +397,16 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
           <h3>Not in the files</h3>
           <ul class="crosses">
             <li>Your password</li>
-            <li>Your login. Your browser keeps it separately, so saving a page doesn't copy it.</li>
+            <li>Your login. Your browser keeps it separately from the page, and if a portal ever tucks login details into its page code, I never use them.</li>
             <li>Anything from other pages or tabs</li>
           </ul>
         </div>
       </div>
 
       <p class="prose dim">
-        I checked a saved and a copied version of a real roster page: both held the roster and
-        its layout, and no password or login details. Want to see for yourself? Drag the .mhtml
-        file onto a Chrome or Edge window. It opens as your roster page and nothing else. The
-        .txt and .pdf files show the same page as code.
+        I checked a copy of a real roster page: it held the roster and its layout, and no
+        password or login details. Want to see for yourself? Open the .txt file before you
+        send it. It's the same code your browser reads to draw your roster page.
       </p>
     </section>
 
@@ -477,7 +444,7 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
       <div class="faq__item">
         <h3>Why not just a screenshot?</h3>
         <p>
-          A screenshot shows how your roster looks. The saved page shows where each piece of it
+          A screenshot shows how your roster looks. The copied code shows where each piece of it
           sits, which is what the import reads. I ask for both.
         </p>
       </div>
@@ -706,112 +673,6 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
     background: #e3e7f5;
     border-radius: 4px;
     padding: 0 0.3rem;
-  }
-
-  /* Save dialog over a faded page */
-  .saveas {
-    display: grid;
-    padding: 0.9rem;
-  }
-
-  .saveas > * {
-    grid-area: 1 / 1;
-  }
-
-  .saveas__ghost {
-    display: grid;
-    gap: 0.6rem;
-    align-content: start;
-    opacity: 0.6;
-  }
-
-  .saveas__ghost i {
-    height: 0.75rem;
-    border-radius: 4px;
-    background: #dfe2ec;
-  }
-
-  .saveas__ghost i:first-child {
-    width: 40%;
-    background: #0f5c7a;
-    opacity: 0.35;
-  }
-
-  /* The ghost's opacity paints it as a positioned layer, so the dialog needs a
-     stacking order of its own to sit above it. */
-  .dialog {
-    position: relative;
-    z-index: 1;
-    place-self: center;
-    width: min(100%, 19rem);
-    margin-block: 0.4rem;
-    display: grid;
-    gap: 0.45rem;
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 0.8rem;
-    box-shadow:
-      0 12px 30px -8px rgba(13, 18, 48, 0.45),
-      0 0 0 1px rgba(13, 18, 48, 0.08);
-  }
-
-  .dialog__row {
-    display: grid;
-    grid-template-columns: 4rem 1fr;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .dialog__row > span:first-child {
-    text-align: right;
-    color: #5b6385;
-  }
-
-  .field {
-    border: 1px solid #d0d4e4;
-    border-radius: 6px;
-    padding: 0.2rem 0.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .field--pick {
-    font-weight: 600;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px var(--accent);
-  }
-
-  .field--pick::after {
-    content: ' ▾';
-    color: #5b6385;
-  }
-
-  .dialog__hint {
-    margin-left: 4.4rem;
-    margin-top: -0.15rem;
-    color: #a15c00;
-    font-weight: 600;
-    font-size: 0.66rem;
-  }
-
-  .dialog__btns {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.4rem;
-    margin-top: 0.2rem;
-  }
-
-  .b {
-    border: 1px solid #d0d4e4;
-    border-radius: 6px;
-    padding: 0.15rem 0.8rem;
-  }
-
-  .b--primary {
-    background: #2563eb;
-    border-color: #2563eb;
-    color: #ffffff;
   }
 
   /* Developer panel (drawn after Chrome DevTools' light theme) */
@@ -1099,35 +960,6 @@ const attachments = ['roster-desktop.mhtml · 1.1 MB', 'roster-phone.txt · 650 
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-  }
-
-  /* ---------- Fallback ---------- */
-
-  .fallback {
-    margin-top: 2.25rem;
-    border: 1px solid var(--separator);
-    border-radius: 12px;
-    padding: 0.9rem 1.1rem;
-    color: var(--text-dim);
-    font-size: var(--step--1);
-  }
-
-  .fallback summary {
-    cursor: pointer;
-    color: var(--text);
-    font-weight: 600;
-    font-size: var(--step-0);
-  }
-
-  .fallback[open] summary {
-    margin-bottom: 0.75rem;
-  }
-
-  .fallback ol {
-    display: grid;
-    gap: 0.45rem;
-    padding-left: 1.25rem;
-    margin-top: 0.75rem;
   }
 
   /* ---------- Phone way ---------- */
