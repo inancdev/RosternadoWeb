@@ -519,6 +519,11 @@ a:hover {
   font-weight: 600;
 }
 
+/* A secondary text link under the card's button. */
+.cta-card .cta-alt {
+  margin: 1rem auto 0;
+}
+
 /* ---------- Pricing ---------- */
 
 .tiers {

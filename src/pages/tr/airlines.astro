@@ -76,12 +76,14 @@ const link = (code: string) => (pageFor(code)?.tr ? `/tr/airlines/${pageFor(code
     <section class="cta-card">
       <h2>Havayolunuzun eklenmesini mi istiyorsunuz?</h2>
       <p>
-        Hangi havayolunda uçtuğunuzu yazın, ayrıştırıcı geliştirmeye bakalım.
-        <strong>Havayolu adını</strong>, giriş yaptığınız <strong>roster web sitesini</strong>
-        ve <strong>roster sayfanızın bir ekran görüntüsünü ya da örneğini</strong> ekleyin —
+        Hangi havayolunda uçtuğunuzu yazın, ayrıştırıcı geliştirmeye bakalım. <strong>Havayolu adını</strong>,
+        giriş yaptığınız <strong>roster web sitesini</strong> ve <strong>roster sayfanızın bir ekran görüntüsünü ya da örneğini</strong> ekleyin —
         ayrıştırıcıyı daha hızlı geliştirmemize yardımcı olur.
       </p>
       <a class="btn" href={requestMailto}>Havayolunuzu talep edin</a>
+      <p class="cta-alt">
+        <a href="/add-your-airline.html" hreflang="en">Roster sayfanızı nasıl kaydedip gönderirsiniz (İngilizce)</a>
+      </p>
     </section>
   </div>
 </Layout>

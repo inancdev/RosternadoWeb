@@ -1,0 +1,89 @@
+---
+/**
+ * A drawn desktop window for step illustrations. Everything inside is fictional
+ * ("Example Air") — no real airline names or logos (see src/content/airlines.ts).
+ *
+ * The page carries the instructions as text; this is an illustration, so it is
+ * exposed to screen readers as one image with `label`.
+ */
+interface Props {
+  /** Fake address shown in the bar. Omit for a plain app window titled `title`. */
+  url?: string;
+  title?: string;
+  label: string;
+  class?: string;
+}
+
+const { url, title, label, class: className } = Astro.props;
+---
+
+<div class:list={['browser', className]} role="img" aria-label={label}>
+  <div class="browser__bar">
+    <span class="browser__dots"><i></i><i></i><i></i></span>
+    {url ? <span class="browser__url">{url}</span> : <span class="browser__title">{title}</span>}
+  </div>
+  <div class="browser__page">
+    <slot />
+  </div>
+</div>
+
+<style>
+  /* The page inside is light on purpose: it stands in for an airline's own website,
+     not for Rosternado. */
+  .browser {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #1b2148;
+    overflow: hidden;
+    box-shadow:
+      0 24px 60px -24px rgba(0, 0, 0, 0.7),
+      0 4px 14px rgba(0, 0, 0, 0.3);
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+
+  .browser__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .browser__dots {
+    display: flex;
+    gap: 0.35rem;
+    flex: none;
+  }
+
+  .browser__dots i {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .browser__url {
+    flex: 1;
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 999px;
+    padding: 0.2rem 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .browser__title {
+    flex: 1;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 600;
+    margin-right: 2.4rem; /* optically centre against the dots */
+  }
+
+  .browser__page {
+    background: #f5f6fa;
+    color: #1d2340;
+  }
+</style>

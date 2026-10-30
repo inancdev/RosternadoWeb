@@ -128,7 +128,9 @@ Around 75 additional global airlines are pre-populated in the airline selector f
 Crew can request a new airline parser by sending an email to `info@rosternado.com` with:
 - Airline Name
 - Roster website URL
-- Sample/screenshot of the roster view layout
+- A saved copy of the roster page (Chrome or Edge: Ctrl/Cmd+S → "Webpage, Single File" → .mhtml) and a screenshot of it
+
+Step-by-step guide, including what the saved file contains and how it is handled: https://rosternado.com/add-your-airline.html
 
 ---
 

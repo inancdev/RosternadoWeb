@@ -1,0 +1,781 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BrowserMock from '../components/BrowserMock.astro';
+
+// Linked from airline-request emails, so the copy is written for crew who are wary
+// of being asked to send anything from a company portal. Every claim about the file
+// was checked against a real saved roster page (Chrome "Webpage, Single File" vs a
+// DevTools outerHTML copy, 2026-10-30): same roster markup, no scripts, no password
+// or login data. It does contain crew and hotel names, and the page says so.
+
+const email = 'info@rosternado.com';
+const mailSubject = 'Roster page for my airline';
+const mailBody = [
+  'Airline:',
+  'Roster website address:',
+  'Email I use in Rosternado (if I have an account):',
+  '',
+  'Attached: my saved roster page and a screenshot of it.',
+  '',
+].join('\n');
+const mailto = `mailto:${email}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+---
+
+<Layout
+  title="Add your airline — Rosternado"
+  description="How to send your crew roster page so Rosternado can build an import for your airline: what the saved file contains, what it doesn't, and what happens to it."
+>
+  <div class="wrap wrap--narrow page">
+    <header class="page-head">
+      <p class="eyebrow">Add your airline</p>
+      <h1>Help bring Rosternado to your airline</h1>
+      <p class="lede">
+        To build the roster import for your airline, I need one saved copy of your roster page.
+        It takes about two minutes in Chrome or Edge on a computer, and your password stays
+        with you.
+      </p>
+    </header>
+
+    <section class="card card--text control" aria-labelledby="control">
+      <h2 id="control">You stay in control</h2>
+      <ul class="ticks">
+        <li><strong>No password.</strong> I never ask for it, and a saved page doesn't contain it.</li>
+        <li>
+          <strong>No logging in.</strong> I never sign in to your airline's systems. You do
+          everything yourself, in your own browser.
+        </li>
+        <li><strong>Nothing to install.</strong> No apps, no extensions, and nobody sees or controls your screen.</li>
+        <li><strong>Just the roster page.</strong> Nothing from your email, payslips or any other page.</li>
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="steps">
+      <h2 id="steps">Three steps</h2>
+      <ol class="how">
+        <li class="step">
+          <h3>Open your roster</h3>
+          <p>
+            Log in to your crew portal in <strong>Chrome</strong> or <strong>Edge</strong> on a
+            computer, and open your roster with a full month showing, the way you normally look
+            at it.
+          </p>
+          <BrowserMock
+            class="mock"
+            url="crew.example-air.com/roster"
+            label="Illustration: a crew portal for a made-up airline, Example Air, showing a roster table with flights, a day off and a standby."
+          >
+            <div class="portal">
+              <div class="portal__head">
+                <span class="portal__brand">EXAMPLE AIR</span>
+                <span>Crew Portal</span>
+                <span class="portal__user">A. Pilot</span>
+              </div>
+              <div class="portal__body">
+                <p class="portal__month">November 2026</p>
+                <table class="portal__table">
+                  <thead>
+                    <tr><th>Date</th><th>Duty</th><th>Flight</th><th>From</th><th>To</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>03 Nov</td><td><span class="code">FLT</span></td><td>EX101</td><td>IST 06:10</td><td>LHR 08:55</td></tr>
+                    <tr><td>03 Nov</td><td><span class="code">FLT</span></td><td>EX102</td><td>LHR 10:05</td><td>IST 15:40</td></tr>
+                    <tr><td>04 Nov</td><td><span class="code">OFF</span></td><td></td><td></td><td></td></tr>
+                    <tr><td>05 Nov</td><td><span class="code">STBY</span></td><td></td><td>05:00</td><td>17:00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </BrowserMock>
+        </li>
+
+        <li class="step">
+          <h3>Save the page as one file</h3>
+          <p>
+            Press <kbd>Ctrl</kbd> + <kbd>S</kbd> on Windows or <kbd>⌘ Cmd</kbd> + <kbd>S</kbd> on
+            a Mac. You can also right-click an empty part of the page and choose <strong>Save as…</strong>
+          </p>
+          <p>
+            In the <strong>Format</strong> list (Mac) or <strong>Save as type</strong> list
+            (Windows), pick <strong>Webpage, Single File</strong>, then save. You get one file
+            ending in <strong>.mhtml</strong>.
+          </p>
+          <p class="note">Safari and Firefox don't have this option. Chrome and Edge are both free.</p>
+          <BrowserMock
+            class="mock"
+            url="crew.example-air.com/roster"
+            label="Illustration: the browser's Save dialog over the roster page. The file is named Roster.mhtml and the format is set to Webpage, Single File."
+          >
+            <div class="saveas">
+              <div class="saveas__ghost">
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <div class="dialog">
+                <div class="dialog__row"><span>Save As:</span><span class="field">Roster.mhtml</span></div>
+                <div class="dialog__row"><span>Where:</span><span class="field">Desktop</span></div>
+                <div class="dialog__row">
+                  <span>Format:</span><span class="field field--pick">Webpage, Single File</span>
+                </div>
+                <p class="dialog__hint">Not "Complete" or "HTML Only"</p>
+                <div class="dialog__btns"><span class="b">Cancel</span><span class="b b--primary">Save</span></div>
+              </div>
+            </div>
+          </BrowserMock>
+        </li>
+
+        <li class="step">
+          <h3>Email it to me</h3>
+          <p>
+            Send the .mhtml file to <a href={mailto}>{email}</a>, together with a screenshot
+            of the same page so I can see what it looks like for you. Tell me your airline and
+            the address of its roster website.
+          </p>
+          <BrowserMock
+            class="mock"
+            title="New message"
+            label={`Illustration: an email to ${email} with two attachments, Roster.mhtml and Screenshot.png.`}
+          >
+            <div class="mail">
+              <div class="mail__row"><span>To</span>{email}</div>
+              <div class="mail__row"><span>Subject</span>{mailSubject}</div>
+              <div class="mail__text">
+                Airline: Example Air<br />Roster website: crew.example-air.com
+              </div>
+              <div class="mail__files">
+                <span class="file">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5 12.6 19.9a5.5 5.5 0 0 1-7.8-7.8l8.5-8.5a3.7 3.7 0 0 1 5.2 5.2l-8.5 8.5a1.8 1.8 0 0 1-2.6-2.6L15.2 7"></path></svg>
+                  Roster.mhtml · 1.1 MB
+                </span>
+                <span class="file">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5 12.6 19.9a5.5 5.5 0 0 1-7.8-7.8l8.5-8.5a3.7 3.7 0 0 1 5.2 5.2l-8.5 8.5a1.8 1.8 0 0 1-2.6-2.6L15.2 7"></path></svg>
+                  Screenshot.png
+                </span>
+              </div>
+            </div>
+          </BrowserMock>
+        </li>
+      </ol>
+
+      <details class="fallback">
+        <summary>The shortcut doesn't work on my portal</summary>
+        <p>
+          A few portals block saving. You can copy the page from the browser's built-in
+          inspector instead. It looks technical, but it only reads the page you're already
+          looking at, and closing it changes nothing.
+        </p>
+        <ol>
+          <li>Press <kbd>F12</kbd> on Windows, or <kbd>⌘ Cmd</kbd> + <kbd>Option</kbd> + <kbd>I</kbd> on a Mac. A panel opens beside the page.</li>
+          <li>Click <strong>Elements</strong> at the top of that panel.</li>
+          <li>Right-click the very first line, which starts with <code>&lt;html</code>, and choose <strong>Copy → Copy outerHTML</strong>.</li>
+          <li>
+            Open Notepad (Windows) or TextEdit (Mac), paste, and save it as <strong>roster.txt</strong>.
+            In TextEdit, choose <strong>Format → Make Plain Text</strong> before you save.
+          </li>
+          <li>Close the panel with the same keys, and email roster.txt with your screenshot.</li>
+        </ol>
+      </details>
+    </section>
+
+    <section class="block" aria-labelledby="inside">
+      <h2 id="inside">What's inside the file</h2>
+      <p class="prose">
+        The file is your roster page, saved. It holds exactly what you see on screen, plus the
+        layout code that tells the browser how to draw it: table borders, fonts, colours. That
+        layout is what I need. It shows me where your flight numbers, times and airports sit,
+        so the import knows where to find them.
+      </p>
+
+      <figure class="excerpt">
+        <pre><code><span class="tag">&lt;tr class="duty-row"&gt;</span>
+<span class="tag">  &lt;td class="date"&gt;</span><mark>03 Nov</mark><span class="tag">&lt;/td&gt;</span>
+<span class="tag">  &lt;td data-title="Flight No:"&gt;</span><mark>EX101</mark><span class="tag">&lt;/td&gt;</span>
+<span class="tag">  &lt;td data-title="Departure:"&gt;</span><mark>IST 06:10</mark><span class="tag">&lt;/td&gt;</span>
+<span class="tag">  &lt;td data-title="Arrival:"&gt;</span><mark>LHR 08:55</mark><span class="tag">&lt;/td&gt;</span>
+<span class="tag">&lt;/tr&gt;</span></code></pre>
+        <figcaption>
+          <span class="legend legend--data">What you see on the page</span>
+          <span class="legend legend--tag">Layout code that draws it</span>
+        </figcaption>
+      </figure>
+
+      <div class="split">
+        <div class="card card--text">
+          <h3>In the file</h3>
+          <ul class="ticks">
+            <li>Your duties, dates and times</li>
+            <li>Flight numbers and airports</li>
+            <li>Your name, and any crew or hotel names your roster lists</li>
+          </ul>
+        </div>
+        <div class="card card--text">
+          <h3>Not in the file</h3>
+          <ul class="crosses">
+            <li>Your password</li>
+            <li>Your login. Your browser keeps it separately, so saving a page doesn't copy it.</li>
+            <li>Anything from other pages or tabs</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="prose dim">
+        I checked this on a real roster page: the saved file held the roster and its layout,
+        and no password or login details. Want to see for yourself? Drag the file onto a Chrome
+        or Edge window. It opens as your roster page and nothing else.
+      </p>
+    </section>
+
+    <section class="block card promise" aria-labelledby="after">
+      <h2 id="after">What happens to it</h2>
+      <ul class="ticks">
+        <li>I'm the only one who opens it. Rosternado is built by one airline pilot.</li>
+        <li>It's used only to build and test your airline's import.</li>
+        <li>It's never shared, published or sold.</li>
+        <li>I delete it as soon as your airline's import is built, or straight away if it turns out it can't be.</li>
+      </ul>
+      <p class="thanks">
+        When your airline's import goes live, I'll reply to your email, and you get <strong>12 months of Pro</strong> as a thank-you.
+      </p>
+      <p class="sign">İnanç, airline pilot and developer of Rosternado</p>
+    </section>
+
+    <section class="block faq" aria-labelledby="faq">
+      <h2 id="faq">Questions</h2>
+      <div class="faq__item">
+        <h3>Is this allowed by my airline?</h3>
+        <p>
+          It's your own schedule, the same page you can already print or screenshot. Some
+          airlines have rules about sharing crew documents, so if you're unsure, check first.
+          Sending is always optional, and you can add duties by hand in the meantime.
+        </p>
+      </div>
+      <div class="faq__item">
+        <h3>Why not just a screenshot?</h3>
+        <p>
+          A screenshot shows how your roster looks. The saved page shows where each piece of it
+          sits, which is what the import reads. I ask for both.
+        </p>
+      </div>
+      <div class="faq__item">
+        <h3>Why does it need a computer?</h3>
+        <p>Most phones have no simple way to save a whole page as one file. On a computer it's a keyboard shortcut.</p>
+      </div>
+      <div class="faq__item">
+        <h3>What happens next?</h3>
+        <p>
+          I build the import from your file, and I may ask a question or two by email. When
+          it's ready, I'll ask you to try it in the app.
+        </p>
+      </div>
+    </section>
+
+    <section class="block cta-card">
+      <h2>Ready to send it?</h2>
+      <p>Email your saved page and a screenshot to <strong>{email}</strong>.</p>
+      <a class="btn" href={mailto}>Write the email</a>
+      <p class="cta-note">Attach both files yourself. Email links can't add attachments.</p>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .block {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  }
+
+  h2 {
+    font-size: var(--step-2);
+    margin-bottom: 1rem;
+  }
+
+  /* Direct children only: paragraphs inside the light mock windows keep their own colours. */
+  .prose,
+  .step > p {
+    color: var(--text-dim);
+    max-width: var(--measure);
+  }
+
+  .prose + .prose,
+  .step > p + p {
+    margin-top: 0.75rem;
+  }
+
+  strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .control h2,
+  .promise h2 {
+    font-size: var(--step-1);
+    margin-bottom: 0;
+  }
+
+  .control .ticks li,
+  .promise .ticks li {
+    font-size: var(--step-0);
+  }
+
+  kbd,
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85em;
+  }
+
+  kbd {
+    display: inline-block;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 0 0.4em;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  /* ---------- Steps ---------- */
+
+  .how {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: clamp(2rem, 1.6rem + 1.5vw, 2.75rem);
+    counter-reset: step;
+  }
+
+  .step {
+    position: relative;
+    padding-left: 2.75rem;
+    counter-increment: step;
+  }
+
+  .step::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: -0.1rem;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-on);
+    font-weight: 700;
+    font-size: var(--step--1);
+  }
+
+  .step h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .step .note {
+    font-size: var(--step--1);
+  }
+
+  .mock {
+    margin-top: 1.1rem;
+    max-width: 34rem;
+  }
+
+  @media (max-width: 520px) {
+    .step {
+      padding-left: 0;
+    }
+
+    .step::before {
+      position: static;
+      margin-bottom: 0.6rem;
+    }
+
+    /* The window spans the full column; the number no longer indents it. */
+    .mock {
+      margin-inline: calc(var(--gutter) * -0.5);
+    }
+  }
+
+  /* Example Air portal */
+  .portal__head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #0f5c7a;
+    color: #ffffff;
+    padding: 0.45rem 0.75rem;
+  }
+
+  .portal__brand {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .portal__user {
+    margin-left: auto;
+    opacity: 0.8;
+  }
+
+  .portal__body {
+    padding: 0.7rem 0.75rem 0.85rem;
+  }
+
+  .portal__month {
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .portal__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .portal__table th {
+    text-align: left;
+    font-weight: 600;
+    color: #5b6385;
+    border-bottom: 1px solid #d3d7e6;
+  }
+
+  .portal__table th,
+  .portal__table td {
+    padding: 0.28rem 0.3rem;
+    white-space: nowrap;
+  }
+
+  .portal__table td {
+    border-bottom: 1px solid #e4e6ef;
+  }
+
+  .code {
+    font-weight: 600;
+    background: #e3e7f5;
+    border-radius: 4px;
+    padding: 0 0.3rem;
+  }
+
+  /* Save dialog over a faded page */
+  .saveas {
+    display: grid;
+    padding: 0.9rem;
+  }
+
+  .saveas > * {
+    grid-area: 1 / 1;
+  }
+
+  .saveas__ghost {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    opacity: 0.6;
+  }
+
+  .saveas__ghost i {
+    height: 0.75rem;
+    border-radius: 4px;
+    background: #dfe2ec;
+  }
+
+  .saveas__ghost i:first-child {
+    width: 40%;
+    background: #0f5c7a;
+    opacity: 0.35;
+  }
+
+  /* The ghost's opacity paints it as a positioned layer, so the dialog needs a
+     stacking order of its own to sit above it. */
+  .dialog {
+    position: relative;
+    z-index: 1;
+    place-self: center;
+    width: min(100%, 19rem);
+    margin-block: 0.4rem;
+    display: grid;
+    gap: 0.45rem;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 0.8rem;
+    box-shadow:
+      0 12px 30px -8px rgba(13, 18, 48, 0.45),
+      0 0 0 1px rgba(13, 18, 48, 0.08);
+  }
+
+  .dialog__row {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .dialog__row > span:first-child {
+    text-align: right;
+    color: #5b6385;
+  }
+
+  .field {
+    border: 1px solid #d0d4e4;
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .field--pick {
+    font-weight: 600;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  .field--pick::after {
+    content: ' ▾';
+    color: #5b6385;
+  }
+
+  .dialog__hint {
+    margin-left: 4.4rem;
+    margin-top: -0.15rem;
+    color: #a15c00;
+    font-weight: 600;
+    font-size: 0.66rem;
+  }
+
+  .dialog__btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+
+  .b {
+    border: 1px solid #d0d4e4;
+    border-radius: 6px;
+    padding: 0.15rem 0.8rem;
+  }
+
+  .b--primary {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+  }
+
+  /* Email */
+  .mail {
+    padding: 0.4rem 0.85rem 0.85rem;
+  }
+
+  .mail__row {
+    display: flex;
+    gap: 0.6rem;
+    padding-block: 0.4rem;
+    border-bottom: 1px solid #e4e6ef;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .mail__row span {
+    flex: none;
+    width: 3.4rem;
+    color: #5b6385;
+  }
+
+  .mail__text {
+    padding-block: 0.7rem;
+  }
+
+  .mail__files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .file {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #e8ebf5;
+    border-radius: 6px;
+    padding: 0.2rem 0.55rem;
+    font-weight: 500;
+  }
+
+  .file svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- Fallback ---------- */
+
+  .fallback {
+    margin-top: 2.25rem;
+    border: 1px solid var(--separator);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    color: var(--text-dim);
+    font-size: var(--step--1);
+  }
+
+  .fallback summary {
+    cursor: pointer;
+    color: var(--text);
+    font-weight: 600;
+    font-size: var(--step-0);
+  }
+
+  .fallback[open] summary {
+    margin-bottom: 0.75rem;
+  }
+
+  .fallback ol {
+    display: grid;
+    gap: 0.45rem;
+    padding-left: 1.25rem;
+    margin-top: 0.75rem;
+  }
+
+  /* ---------- What's inside ---------- */
+
+  .excerpt {
+    margin-top: 1.4rem;
+    background: #070b22;
+    border: 1px solid var(--separator);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .excerpt pre {
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: clamp(0.66rem, 0.6rem + 0.4vw, 0.8rem);
+    line-height: 1.75;
+  }
+
+  .excerpt .tag {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .excerpt mark {
+    background: rgba(245, 158, 11, 0.18);
+    color: var(--accent);
+    border-radius: 3px;
+    padding: 0 0.15em;
+  }
+
+  .excerpt figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin-top: 0.9rem;
+    font-size: var(--step--1);
+    color: var(--text-dim);
+  }
+
+  .legend::before {
+    content: '';
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 3px;
+    margin-right: 0.45rem;
+    vertical-align: -0.05em;
+  }
+
+  .legend--data::before {
+    background: var(--accent);
+  }
+
+  .legend--tag::before {
+    background: rgba(255, 255, 255, 0.45);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+    margin-block: 1.4rem;
+  }
+
+  .split h3 {
+    font-size: var(--step-0);
+  }
+
+  .split .ticks,
+  .crosses {
+    margin-top: 0.8rem;
+  }
+
+  .crosses {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .crosses li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--text-dim);
+    font-size: var(--step--1);
+  }
+
+  .crosses li::before,
+  .crosses li::after {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 0.72em;
+    width: 0.8rem;
+    height: 2px;
+    background: #f87171;
+    transform: rotate(45deg);
+  }
+
+  .crosses li::after {
+    transform: rotate(-45deg);
+  }
+
+  .dim {
+    font-size: var(--step--1);
+  }
+
+  /* ---------- What happens ---------- */
+
+  .thanks {
+    margin-top: 1.25rem;
+    color: var(--text-dim);
+  }
+
+  .sign {
+    margin-top: 1rem;
+    font-size: var(--step--1);
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* ---------- FAQ ---------- */
+
+  .faq__item + .faq__item {
+    margin-top: 1.1rem;
+  }
+
+  .faq h3 {
+    font-size: var(--step-0);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .faq p {
+    color: var(--text-dim);
+    font-size: var(--step--1);
+  }
+
+  /* Scoped class beats the global `.cta-card p` margins. */
+  .cta-note {
+    margin: 1rem auto 0;
+  }
+</style>
