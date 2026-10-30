@@ -20,7 +20,7 @@ Rosternado is built by an airline pilot who got tired of cluttered, ad-heavy avi
 - [Home](https://rosternado.com/): Product overview, features, screenshots, and app download links for iOS and Android.
 - [Pricing](https://rosternado.com/pricing.html): Tier comparison including free tier for friends and family, free crew tier (5 operations/month), and Pro ($2/month or $20/year).
 - [Supported Airlines](https://rosternado.com/airlines.html): Full breakdown of verified airline parsers, beta CAE portal airlines, and manual entry support.
-- [Add Your Airline](https://rosternado.com/add-your-airline.html): How crew send a saved copy of their roster page (Chrome/Edge "Webpage, Single File") so a parser can be built for their airline, what the file contains, and how it is handled.
+- [Add Your Airline](https://rosternado.com/add-your-airline.html): How crew send saved copies of their roster page (computer: Chrome/Edge "Webpage, Single File" plus a phone-layout copy; Android phone fallback) so a parser can be built for their airline, what the files contain, and how they are handled.
 - [Support & FAQ](https://rosternado.com/support.html): Frequently asked questions, roster upload troubleshooting, subscription management, and support contact.
 - [Privacy Policy](https://rosternado.com/privacy.html): Comprehensive privacy terms detailing our no-tracking, no-ads, friend-only visibility policies.
 - [Terms of Service](https://rosternado.com/terms.html): Terms and conditions governing the use of Rosternado.

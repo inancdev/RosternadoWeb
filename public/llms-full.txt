@@ -128,7 +128,7 @@ Around 75 additional global airlines are pre-populated in the airline selector f
 Crew can request a new airline parser by sending an email to `info@rosternado.com` with:
 - Airline Name
 - Roster website URL
-- A saved copy of the roster page (Chrome or Edge: Ctrl/Cmd+S → "Webpage, Single File" → .mhtml) and a screenshot of it
+- Two saved copies of the roster page and a screenshot of it. On a computer (recommended): Chrome or Edge Ctrl/Cmd+S → "Webpage, Single File" (.mhtml), plus the phone layout via the developer panel's device toolbar → Copy outerHTML (.txt). On an Android phone: `view-source:` + Print → Save as PDF, once in the phone layout and once in desktop view; this can miss rosters that load after the page opens.
 
 Step-by-step guide, including what the saved file contains and how it is handled: https://rosternado.com/add-your-airline.html
 

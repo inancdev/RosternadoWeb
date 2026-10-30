@@ -12,12 +12,14 @@ interface Props {
   title?: string;
   label: string;
   class?: string;
+  /** Anchor target, for linking to this illustration from elsewhere on the page. */
+  id?: string;
 }
 
-const { url, title, label, class: className } = Astro.props;
+const { url, title, label, class: className, id } = Astro.props;
 ---
 
-<div class:list={['browser', className]} role="img" aria-label={label}>
+<div id={id} class:list={['browser', className]} role="img" aria-label={label}>
   <div class="browser__bar">
     <span class="browser__dots"><i></i><i></i><i></i></span>
     {url ? <span class="browser__url">{url}</span> : <span class="browser__title">{title}</span>}
