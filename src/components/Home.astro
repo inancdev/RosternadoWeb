@@ -24,6 +24,14 @@ import radarMap from '../assets/shots/friend-radar-map.png';
 import radarFlight from '../assets/shots/friend-radar-flight.png';
 import meetup from '../assets/shots/meetup.png';
 
+// The Hangar screenshot is not shot yet. To add it, drop the raw 1206×2622 iPhone capture
+// (Rosternado livery only — never airline art) at src/assets/shots/hangar.png and write
+// hangar.alt in both decks below. The glob finds the file, so no import line is needed;
+// until then the section renders as text only.
+const hangarShot = Object.values(
+  import.meta.glob<ImageMetadata>('../assets/shots/hangar.png', { eager: true, import: 'default' }),
+)[0];
+
 interface Props {
   lang: 'en' | 'tr';
 }
@@ -86,6 +94,12 @@ const copy = {
       p1: "Pick a few crew friends and Rosternado reads across everyone's roster to find the windows where you are all off at the same time, in the same place — with the length of each window and the local times.",
       p2: 'It is the part of crew life that is genuinely hard to work out by hand, especially across bases and time zones.',
       alt: 'The Plan a Meetup board with one friend selected, and a fourteen hour fifteen minute window in London opened to show where each of you is and the London times.',
+    },
+    hangar: {
+      eyebrow: 'Hangar',
+      h2: 'Your plane, your livery',
+      p: 'Pick the A320, A321 or 737 in the Hangar and swipe through liveries. Your pick flies on every roster.',
+      alt: '',
     },
     cards: [
       ['Friend alerts', "Turn notifications on for the friends you actually care about and hear the moment their new roster lands. Off by default, and per friend — useful for planning a beer before either of you has worked out you're in the same city."],
@@ -178,6 +192,12 @@ const copy = {
       p2: "Ekip hayatının elle hesaplaması gerçekten zor olan kısmı bu, özellikle farklı base'ler ve saat dilimleri arasında.",
       alt: "Buluşma planla ekranı: bir arkadaş seçili; Londra'daki on dört saat on beş dakikalık aralık açılmış, herkesin nerede olduğunu ve Londra saatlerini gösteriyor.",
     },
+    hangar: {
+      eyebrow: 'Hangar',
+      h2: 'Uçağınız, boyanız',
+      p: "Hangar'da A320, A321 veya 737'yi seçin, boyalar arasında kaydırın. Seçtiğiniz uçak her rosterda uçar.",
+      alt: '',
+    },
     cards: [
       ['Arkadaş bildirimleri', 'Gerçekten önemsediğiniz arkadaşlar için bildirimleri açın; yeni rosterları geldiği anda haberiniz olsun. Varsayılan olarak kapalıdır ve arkadaş bazında açılır — ikiniz de aynı şehirde olduğunuzu fark etmeden bir bira planlamak için birebir.'],
       ['Çevrimdışı çalışır', 'Rosterınız cihazınızda saklanır, internet yokken de oradadır — uçuş sırasında ya da kuleden çok uzakta.'],
@@ -228,6 +248,9 @@ const copy = {
 };
 
 const c = copy[lang];
+if (hangarShot && !c.hangar.alt) {
+  throw new Error(`hangar.png exists but copy.${lang}.hangar.alt is empty — write the alt text in both decks.`);
+}
 const dutyVars = ['flight', 'standby', 'training', 'dayoff', 'leave', 'office', 'transfer'];
 
 const jsonLd = {
@@ -408,8 +431,40 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- Works offline + Who it's for -->
+  <!-- Hangar -->
   <section class="band">
+    {
+      hangarShot ? (
+        <div class="wrap feature">
+          <div class="feature__copy">
+            <p class="eyebrow">{c.hangar.eyebrow}</p>
+            <h2>{c.hangar.h2}</h2>
+            <p>{c.hangar.p}</p>
+          </div>
+          <PhoneFrame class="feature__shot">
+            <Picture
+              src={hangarShot}
+              {...shot}
+              sizes="(max-width: 900px) 266px, 286px"
+              alt={c.hangar.alt}
+              loading="lazy"
+            />
+          </PhoneFrame>
+        </div>
+      ) : (
+        <div class="wrap">
+          <div class="section-head section-head--center" style="margin-bottom: 0">
+            <p class="eyebrow">{c.hangar.eyebrow}</p>
+            <h2>{c.hangar.h2}</h2>
+            <p class="lede">{c.hangar.p}</p>
+          </div>
+        </div>
+      )
+    }
+  </section>
+
+  <!-- Works offline + Who it's for -->
+  <section class="band band--alt">
     <div class="wrap">
       <div class="cards">
         {
@@ -425,7 +480,7 @@ const jsonLd = {
   </section>
 
   <!-- What you're not getting -->
-  <section class="band band--alt">
+  <section class="band">
     <div class="wrap wrap--narrow">
       <div class="section-head section-head--center">
         <p class="eyebrow">{c.missing.eyebrow}</p>
@@ -445,7 +500,7 @@ const jsonLd = {
   </section>
 
   <!-- Privacy -->
-  <section class="band">
+  <section class="band band--alt">
     <div class="wrap">
       <div class="privacy-block">
         <p class="eyebrow">{c.privacy.eyebrow}</p>
@@ -460,7 +515,7 @@ const jsonLd = {
   </section>
 
   <!-- Pricing summary -->
-  <section class="band band--alt">
+  <section class="band">
     <div class="wrap">
       <div class="section-head section-head--center">
         <p class="eyebrow">{c.pricing.eyebrow}</p>
@@ -488,7 +543,7 @@ const jsonLd = {
   </section>
 
   <!-- Request your airline -->
-  <section class="band">
+  <section class="band band--alt">
     <div class="wrap wrap--narrow">
       <div class="cta-card">
         <h2>{c.cta.h2}</h2>
@@ -499,7 +554,7 @@ const jsonLd = {
   </section>
 
   <!-- Closing store buttons -->
-  <section class="band band--alt band--close">
+  <section class="band band--close">
     <div class="wrap">
       <div class="section-head section-head--center">
         <h2>{c.close.h2}</h2>

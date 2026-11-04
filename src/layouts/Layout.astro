@@ -145,6 +145,13 @@ const path = pathname;
             ))
           }
         </ul>
+        <p class="site-footer__tm">
+          {
+            tr
+              ? 'Havayolu adları ve livery’leri ilgili sahiplerinin ticari markalarıdır. Rosternado hiçbir havayolu ile bağlantılı değildir.'
+              : 'Airline names and liveries are trademarks of their respective owners. Rosternado is not affiliated with any airline.'
+          }
+        </p>
         <p class="site-footer__copy">&copy; 2026 İnanç Atil. All rights reserved.</p>
       </div>
     </footer>
@@ -243,6 +250,11 @@ const path = pathname;
     list-style: none;
     padding: 0;
     margin: 0 0 1rem;
+  }
+
+  .site-footer__tm {
+    max-width: 40rem;
+    margin: 0 auto 0.75rem;
   }
 
   .site-footer__links a {
