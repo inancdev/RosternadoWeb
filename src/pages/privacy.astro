@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
   <div class="wrap wrap--narrow legal">
     <header class="page-head">
         <h1>Privacy Policy</h1>
-        <div class="effective">Effective date: 23 October 2026</div>
+        <div class="effective">Effective date: 16 November 2026</div>
       </header>
     
       <div class="card card--text">
@@ -75,9 +75,17 @@ import Layout from '../layouts/Layout.astro';
           <li><strong>Roster import</strong> &mdash; see Section 3 below.</li>
         </ul>
     
-        <h3>2.4 Friendships</h3>
+        <h3>2.4 Friendships, blocks &amp; reports</h3>
         <p>We store the friend requests you send and receive, their accepted/pending/rejected status, and (for non-crew
           users) which friend you have marked as a favorite.</p>
+        <p><strong>Blocks.</strong> If you block someone, we store that block so that the two of you can no longer send
+          each other friend requests. The blocked person is not told. So that a block still holds if the blocked person
+          deletes their account and registers again, we store <strong>one-way hashes</strong> of their email address and
+          Google/Apple sign-in identifier together with the block. Unblocking deletes the block and these hashes.</p>
+        <p><strong>Reports.</strong> If you report a user, we store the reason you selected, the date, who sent the
+          report, the reported person's name at that time, and the same kind of one-way hashes of their email address and
+          sign-in identifier. Reports are read only by the developer. They are never shown to the reported person or to
+          other users.</p>
     
         <h3>2.5 Device &amp; technical data</h3>
         <ul>
@@ -229,6 +237,18 @@ import Layout from '../layouts/Layout.astro';
           sign-in identifier after deletion. This value cannot be reversed to recover your email or identify you, is never
           used to contact you or to rebuild your profile, and is kept solely for fraud prevention on the basis of our
           legitimate interest.</p>
+        <p>Blocks and reports protect other users, so some of them outlive your account, also on the basis of our
+          legitimate interest in keeping the service safe:</p>
+        <ul>
+          <li>Blocks <strong>you</strong> created are deleted with your account.</li>
+          <li>If <strong>another user blocked you</strong>, the one-way hashes stored with that block are kept after you
+            delete your account, until that user unblocks you or deletes their own account. If you register again with
+            the same email address or Google/Apple account, the block applies to the new account.</li>
+          <li>A <strong>report about you</strong> is kept after you delete your account, with the name shown at the time
+            and the one-way hashes, but no longer linked to an account. If you register again with the same email address
+            or Google/Apple account, it is linked to the new account.</li>
+          <li>Reports <strong>you sent</strong> are kept, no longer linked to your account.</li>
+        </ul>
       </div>
     
       <div class="card card--text">
