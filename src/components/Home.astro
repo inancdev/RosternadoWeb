@@ -93,17 +93,20 @@ const copy = {
       h2: 'Find the gap you both have free',
       p1: "Pick a few crew friends and Rosternado reads across everyone's roster to find the windows where you are all off at the same time, in the same place — with the length of each window and the local times.",
       p2: 'It is the part of crew life that is genuinely hard to work out by hand, especially across bases and time zones.',
+      p3: 'Found a window? Share it as a boarding-pass card — the time, the place, who is coming — straight into your group chat.',
       alt: 'The Plan a Meetup board with one friend selected, and a fourteen hour fifteen minute window in London opened to show where each of you is and the London times.',
     },
     hangar: {
       eyebrow: 'Hangar',
       h2: 'Your plane, your livery',
-      p: 'Pick the A320, A321 or 737 in the Hangar and swipe through liveries. Your pick flies on every roster.',
+      p: 'Pick your aircraft in the Hangar — nine types, from the A320 and 737 to the 777, 747 and A380 — and swipe through its liveries. Your pick flies on every roster you open.',
       alt: '',
     },
     cards: [
       ['Friend alerts', "Turn notifications on for the friends you actually care about and hear the moment their new roster lands. Off by default, and per friend — useful for planning a beer before either of you has worked out you're in the same city."],
-      ['Works offline', 'Your roster is cached on your device, so it is there with no signal — mid-flight, or far from a tower.'],
+      ['Your crew, on every flight', "Open a flight to see who you're flying with — flight deck and cabin, as your airline's roster lists them — with departure and arrival in both local time and Zulu."],
+      ['You decide who sees you', 'Nobody sees your roster without a friend request that one of you sent and the other accepted. Block someone and they lose it at once, without being told. Report a profile and we look into it.'],
+      ['Works offline', 'Your roster is cached on your device, so it is there with no signal — mid-flight, or far from a tower. Duties you add or edit offline are sent when you are back online.'],
       ['Aviation crew', "Pilots and cabin crew — keep your roster organised, track the flight you're on, and let the people at home see your schedule."],
       ['Friends &amp; family', "Not crew? Follow one crew member's roster and always know when they're flying, landing, or finally home."],
     ],
@@ -190,17 +193,20 @@ const copy = {
       h2: 'İkinizin de boş olduğu aralığı bulun',
       p1: 'Birkaç ekip arkadaşı seçin; Rosternado herkesin rosterını okuyup hepinizin aynı anda, aynı yerde boş olduğu aralıkları bulur — her aralığın süresi ve yerel saatleriyle.',
       p2: "Ekip hayatının elle hesaplaması gerçekten zor olan kısmı bu, özellikle farklı base'ler ve saat dilimleri arasında.",
+      p3: 'Bir aralık mı buldunuz? Saati, yeri ve kimlerin geldiğiyle birlikte biniş kartı görünümünde paylaşın — doğrudan grup sohbetinize.',
       alt: "Buluşma planla ekranı: bir arkadaş seçili; Londra'daki on dört saat on beş dakikalık aralık açılmış, herkesin nerede olduğunu ve Londra saatlerini gösteriyor.",
     },
     hangar: {
       eyebrow: 'Hangar',
       h2: 'Uçağınız, boyanız',
-      p: "Hangar'da A320, A321 veya 737'yi seçin, boyalar arasında kaydırın. Seçtiğiniz uçak her rosterda uçar.",
+      p: "Hangar'da uçağınızı seçin — A320 ve 737'den 777, 747 ve A380'e dokuz tip — ve boyaları arasında kaydırın. Seçtiğiniz uçak açtığınız her rosterda uçar.",
       alt: '',
     },
     cards: [
       ['Arkadaş bildirimleri', 'Gerçekten önemsediğiniz arkadaşlar için bildirimleri açın; yeni rosterları geldiği anda haberiniz olsun. Varsayılan olarak kapalıdır ve arkadaş bazında açılır — ikiniz de aynı şehirde olduğunuzu fark etmeden bir bira planlamak için birebir.'],
-      ['Çevrimdışı çalışır', 'Rosterınız cihazınızda saklanır, internet yokken de oradadır — uçuş sırasında ya da kuleden çok uzakta.'],
+      ['Her uçuşta ekibiniz', 'Bir uçuşu açın, kiminle uçtuğunuzu görün — havayolunuzun rosterında yazdığı şekliyle kokpit ve kabin ekibi — kalkış ve varış saatleri hem yerel saatle hem Zulu olarak.'],
+      ['Sizi kimin göreceğine siz karar verirsiniz', 'Birinizin gönderip diğerinizin kabul ettiği bir arkadaşlık isteği olmadan kimse rosterınızı göremez. Birini engellediğinizde erişimi anında kesilir ve kendisine haber verilmez. Bir profili şikâyet ettiğinizde inceleriz.'],
+      ['Çevrimdışı çalışır', 'Rosterınız cihazınızda saklanır, internet yokken de oradadır — uçuş sırasında ya da kuleden çok uzakta. Çevrimdışıyken eklediğiniz ya da düzenlediğiniz görevler, bağlantı geldiğinde gönderilir.'],
       ['Havacılık ekipleri', 'Pilotlar ve kabin ekibi — rosterınızı düzenli tutun, bulunduğunuz uçuşu takip edin ve evdekilerin programınızı görmesini sağlayın.'],
       ['Arkadaş ve aile', 'Uçuş ekibi değil misiniz? Bir ekip üyesinin rosterını takip edin; ne zaman uçtuğunu, indiğini ya da sonunda evde olduğunu her zaman bilin.'],
     ],
@@ -418,6 +424,7 @@ const jsonLd = {
         <h2>{c.meetup.h2}</h2>
         <p>{c.meetup.p1}</p>
         <p>{c.meetup.p2}</p>
+        <p>{c.meetup.p3}</p>
       </div>
       <PhoneFrame class="feature__shot">
         <Picture
@@ -463,7 +470,7 @@ const jsonLd = {
     }
   </section>
 
-  <!-- Works offline + Who it's for -->
+  <!-- Friend alerts, crew list, blocking, offline + who it's for -->
   <section class="band band--alt">
     <div class="wrap">
       <div class="cards">

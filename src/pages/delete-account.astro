@@ -19,6 +19,8 @@ import Layout from '../layouts/Layout.astro';
           <li>All uploaded <strong>roster and schedule</strong> data.</li>
           <li>Your <strong>friend connections</strong> and sharing permissions.</li>
           <li>Push <strong>notification tokens</strong> tied to your device.</li>
+          <li>The <strong>blocks</strong> you created, and your <strong>Google Calendar sync</strong> link (the calendar
+            itself stays in your Google account until you delete it there).</li>
         </ul>
       </div>
     
@@ -61,6 +63,9 @@ import Layout from '../layouts/Layout.astro';
           recreating accounts, we retain a <strong>one-way, irreversible hash</strong> of your email address and social
           sign-in identifier. This value cannot be reversed to recover your email or identify you, and is kept solely for
           fraud prevention on the basis of our legitimate interest.</p>
+        <p>If another user blocked or reported you, that record is theirs and is not removed with your account: the
+          same kind of one-way hashes are kept with it, so that deleting and recreating an account does not undo a block
+          or erase a report. See the <a href="/privacy.html">Privacy Policy</a>, section 8.</p>
       </div>
   </div>
 </Layout>
