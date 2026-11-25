@@ -4,8 +4,10 @@
 // <Site URL>/oauth/consent.html?authorization_id=…, so the dashboard's
 // "Authorization path" must be /oauth/consent.html and the Site URL https://rosternado.com.
 //
-// Flow: sign in (email + password; Google / Apple once their web sign-in is set up in
-// the Supabase dashboard, see SOCIAL below) → show who asks and what it can read →
+// Flow: sign in (email + password only: Google / Apple web sign-in is not planned, it
+// would need a client secret and, for Apple, a key renewed every 6 months; users who
+// signed up with them add a password in the app, see the help panel) → show who asks
+// and what it can read →
 // approve or deny → back to the AI client with its code. The web session is signed out
 // locally once a decision is made, so nothing stays signed in on a shared computer.
 //
@@ -46,9 +48,27 @@ import Layout from '../../layouts/Layout.astro';
         </label>
         <p class="form-error" id="signin-error" hidden></p>
         <button class="btn" type="submit" data-t="signin">Sign in</button>
-        <p class="dim small" data-t="noPassword">
-          Signed up with Google or Apple? Add a password in the app: Profile → Connected Accounts → Email &amp; Password.
-        </p>
+        <details class="help">
+          <summary data-t="helpSummary">Signed up with Google or Apple?</summary>
+          <p data-t="helpWhy">
+            This page can only sign you in with an email and password. Add a password to your account in the app once.
+            Google or Apple sign-in in the app keeps working: the password is just another way into the same account.
+          </p>
+          <ol>
+            <li data-t="helpStep1">In the Rosternado app, open the menu → Profile.</li>
+            <li data-t="helpStep2">Under Connected Accounts, tap Link next to Email &amp; Password.</li>
+            <li data-t="helpStep3">Confirm it's you with Google or Apple (Verify Identity).</li>
+            <li data-t="helpStep4">
+              Check the email. If it ends in @privaterelay.appleid.com (Apple's Hide My Email), enter your real address
+              instead. The app sends it a confirmation link: open it on the same phone first.
+            </li>
+            <li data-t="helpStep5">Enter a password (at least 6 characters) twice and tap Save.</li>
+            <li data-t="helpStep6">Come back here and sign in with that email and password.</li>
+          </ol>
+          <p class="dim small" data-t="helpForgot">
+            Forgot your password? Reset it from the app's sign-in screen (Forgot password). The reset link opens the app.
+          </p>
+        </details>
       </form>
 
       <div data-view="ask" hidden>
@@ -96,7 +116,17 @@ import Layout from '../../layouts/Layout.astro';
     email: 'E-posta',
     password: 'Şifre',
     signin: 'Giriş yap',
-    noPassword: 'Google veya Apple ile mi kaydoldunuz? Uygulamada şifre ekleyin: Profil → Bağlı Hesaplar → E-posta ve Şifre.',
+    helpSummary: 'Google veya Apple ile mi kaydoldunuz?',
+    helpWhy:
+      'Bu sayfada yalnızca e-posta ve şifreyle giriş yapılabilir. Uygulamada hesabınıza bir kez şifre ekleyin. Uygulamadaki Google veya Apple girişiniz çalışmaya devam eder: şifre aynı hesaba girmenin bir yolu daha olur.',
+    helpStep1: 'Rosternado uygulamasında menüyü açın → Profile.',
+    helpStep2: 'Connected Accounts altında, Email & Password satırındaki Link düğmesine dokunun.',
+    helpStep3: 'Google veya Apple ile kimliğinizi doğrulayın (Verify Identity).',
+    helpStep4:
+      "E-postayı kontrol edin. @privaterelay.appleid.com ile bitiyorsa (Apple'ın E-postamı Gizle özelliği), gerçek adresinizi girin. Uygulama bu adrese bir onay bağlantısı gönderir: önce onu aynı telefonda açın.",
+    helpStep5: 'Bir şifre girin (en az 6 karakter), tekrarlayın ve Save düğmesine dokunun.',
+    helpStep6: 'Buraya dönün ve o e-posta ve şifreyle giriş yapın.',
+    helpForgot: 'Şifrenizi mi unuttunuz? Uygulamanın giriş ekranından sıfırlayın (Forgot password). Sıfırlama bağlantısı uygulamayı açar.',
     wants: 'Rosternado verilerinizi okumak istiyor',
     signedInAs: 'Giriş yapan:',
     switch: 'Siz değil misiniz?',
@@ -283,6 +313,25 @@ import Layout from '../../layouts/Layout.astro';
   }
   .consent .form-error {
     color: #fca5a5;
+  }
+  .consent .help {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--separator);
+  }
+  .consent .help summary {
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .consent .help p,
+  .consent .help ol {
+    margin: 0.75rem 0 0;
+  }
+  .consent .help ol {
+    padding-left: 1.3rem;
+  }
+  .consent .help li + li {
+    margin-top: 0.4rem;
   }
   .consent .notice {
     border-left: 3px solid var(--accent);
