@@ -1,0 +1,306 @@
+---
+// OAuth consent screen for the Rosternado AI connector (the `mcp` edge function in the
+// app repo). Supabase Auth's OAuth 2.1 server sends the browser here as
+// <Site URL>/oauth/consent.html?authorization_id=…, so the dashboard's
+// "Authorization path" must be /oauth/consent.html and the Site URL https://rosternado.com.
+//
+// Flow: sign in (email + password; Google / Apple once their web sign-in is set up in
+// the Supabase dashboard, see SOCIAL below) → show who asks and what it can read →
+// approve or deny → back to the AI client with its code. The web session is signed out
+// locally once a decision is made, so nothing stays signed in on a shared computer.
+//
+// Not indexed, not in the sitemap (astro.config.mjs filter).
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Rosternado — Connect an AI assistant"
+  description="Allow an AI assistant to read your Rosternado roster."
+>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <div class="wrap wrap--narrow legal">
+    <header class="page-head">
+      <h1 data-t="title">Connect an AI assistant</h1>
+    </header>
+
+    <div class="card card--text consent" id="consent-root" aria-live="polite">
+      <p class="dim" data-view="loading" data-t="loading">Loading…</p>
+
+      <div data-view="error" hidden>
+        <h2 data-t="errorTitle">This link can't be used</h2>
+        <p id="error-text"></p>
+        <p class="dim" data-t="errorHint">Start the connection again from your AI assistant.</p>
+      </div>
+
+      <form data-view="signin" id="signin-form" hidden>
+        <h2 data-t="signinTitle">Sign in to Rosternado</h2>
+        <p class="dim" data-t="signinLede">Use the same account as in the app.</p>
+        <div class="social" id="social"></div>
+        <label>
+          <span data-t="email">Email</span>
+          <input type="email" name="email" autocomplete="username" required />
+        </label>
+        <label>
+          <span data-t="password">Password</span>
+          <input type="password" name="password" autocomplete="current-password" required />
+        </label>
+        <p class="form-error" id="signin-error" hidden></p>
+        <button class="btn" type="submit" data-t="signin">Sign in</button>
+        <p class="dim small" data-t="noPassword">
+          Signed up with Google or Apple? Add a password in the app: Profile → Connected Accounts → Email &amp; Password.
+        </p>
+      </form>
+
+      <div data-view="ask" hidden>
+        <h2><span id="client-name"></span> <span data-t="wants">wants to read your Rosternado data</span></h2>
+        <p class="dim"><span data-t="signedInAs">Signed in as</span> <strong id="user-email"></strong>.
+          <button type="button" class="link" id="switch" data-t="switch">Not you?</button></p>
+        <p data-t="itCan">It will be able to read, without changing anything:</p>
+        <ul>
+          <li data-t="canRoster">Your roster: duties, flights, layovers and the crew lists of your flights</li>
+          <li data-t="canFriends">Your friends list, and the rosters your friends share with you (today to the end of next month)</li>
+        </ul>
+        <p class="dim" data-t="readOnly">It can't add, edit or delete duties, send friend requests or see your email address or password.</p>
+        <p class="notice" id="access-note" hidden></p>
+        <p class="dim small"><span data-t="redirect">After you decide, you go back to</span> <code id="redirect-host"></code>.</p>
+        <div class="actions">
+          <button class="btn" type="button" id="approve" data-t="approve">Allow</button>
+          <button class="btn btn--ghost" type="button" id="deny" data-t="deny">Deny</button>
+        </div>
+        <p class="dim small" data-t="revoke">
+          You can disconnect it at any time in your AI assistant's connector settings. Friends can stop AI assistants
+          reading their roster in the app: Settings → Privacy → Friends' AI assistants.
+        </p>
+      </div>
+
+      <p class="dim" data-view="leaving" hidden data-t="leaving">Taking you back…</p>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { createClient } from '@supabase/supabase-js';
+  import { SUPABASE_ANON_KEY, SUPABASE_URL } from '../../lib/supabase-public';
+
+  // Flip once that provider's web sign-in is configured in Supabase (client secret /
+  // Apple Services ID, plus https://rosternado.com/oauth/consent.html in Redirect URLs).
+  const SOCIAL: Record<'google' | 'apple', boolean> = { google: false, apple: false };
+
+  const TR: Record<string, string> = {
+    title: 'Bir yapay zekâ asistanı bağla',
+    loading: 'Yükleniyor…',
+    errorTitle: 'Bu bağlantı kullanılamıyor',
+    errorHint: 'Bağlantıyı yapay zekâ asistanınızdan yeniden başlatın.',
+    signinTitle: "Rosternado'ya giriş yap",
+    signinLede: 'Uygulamadaki hesabınızı kullanın.',
+    email: 'E-posta',
+    password: 'Şifre',
+    signin: 'Giriş yap',
+    noPassword: 'Google veya Apple ile mi kaydoldunuz? Uygulamada şifre ekleyin: Profil → Bağlı Hesaplar → E-posta ve Şifre.',
+    wants: 'Rosternado verilerinizi okumak istiyor',
+    signedInAs: 'Giriş yapan:',
+    switch: 'Siz değil misiniz?',
+    itCan: 'Hiçbir şeyi değiştirmeden şunları okuyabilecek:',
+    canRoster: 'Rosteriniz: görevler, uçuşlar, konaklamalar ve uçuşlarınızın ekip listeleri',
+    canFriends: 'Arkadaş listeniz ve arkadaşlarınızın sizinle paylaştığı rosterlar (bugünden gelecek ayın sonuna kadar)',
+    readOnly: 'Görev ekleyemez, düzenleyemez veya silemez, arkadaşlık isteği gönderemez, e-posta adresinizi veya şifrenizi göremez.',
+    redirect: 'Karar verdikten sonra şuraya dönersiniz:',
+    approve: 'İzin ver',
+    deny: 'Reddet',
+    revoke: 'Bağlantıyı istediğiniz zaman asistanınızın bağlayıcı ayarlarından kaldırabilirsiniz. Arkadaşlarınız, yapay zekâ asistanlarının rosterlarını okumasını uygulamadan kapatabilir: Ayarlar → Gizlilik → Arkadaşların yapay zekâ asistanları.',
+    leaving: 'Geri yönlendiriliyorsunuz…',
+  };
+  const isTr = navigator.language.toLowerCase().startsWith('tr');
+  const msg = {
+    missingId: isTr ? 'Bağlantıda yetkilendirme kimliği yok.' : 'The link has no authorization ID.',
+    expired: isTr ? 'Bu istek süresi dolmuş ya da zaten kullanılmış.' : 'This request has expired or was already used.',
+    signinFailed: isTr ? 'E-posta veya şifre hatalı.' : 'Wrong email or password.',
+    failed: isTr ? 'Bir şeyler ters gitti. Lütfen tekrar deneyin.' : 'Something went wrong. Please try again.',
+    needsPro: isTr
+      ? 'Ekip hesaplarında yapay zekâ bağlayıcısı Crew Pro ile çalışır. Bağlanabilirsiniz, ama araçlar Pro olana kadar size bunu söyler.'
+      : 'For crew accounts the AI connector is part of Crew Pro. You can connect now, but its tools will only say so until you subscribe.',
+    pending: isTr
+      ? 'Hesabınızın kurulumu bitmemiş. Önce uygulamada kurulumu tamamlayın.'
+      : 'Your account is not set up yet. Finish setting it up in the app first.',
+    google: isTr ? 'Google ile devam et' : 'Continue with Google',
+    apple: isTr ? 'Apple ile devam et' : 'Continue with Apple',
+  };
+  if (isTr) {
+    document.documentElement.lang = 'tr';
+    for (const el of document.querySelectorAll<HTMLElement>('[data-t]')) {
+      const t = TR[el.dataset.t!];
+      if (t) el.textContent = t;
+    }
+  }
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const show = (view: string) => {
+    for (const el of document.querySelectorAll<HTMLElement>('[data-view]')) el.hidden = el.dataset.view !== view;
+  };
+  const fail = (text: string) => {
+    $('error-text').textContent = text;
+    show('error');
+  };
+
+  const params = new URLSearchParams(location.search);
+  const authorizationId = params.get('authorization_id');
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true, storageKey: 'rosternado-consent' },
+  });
+
+  async function leave(url: string) {
+    show('leaving');
+    await supabase.auth.signOut({ scope: 'local' }).catch(() => {});
+    location.assign(url);
+  }
+
+  async function ask() {
+    if (!authorizationId) return fail(msg.missingId);
+    const { data, error } = await supabase.auth.oauth.getAuthorizationDetails(authorizationId);
+    if (error || !data) return fail(msg.expired);
+    if (!('authorization_id' in data)) return leave(data.redirect_url);
+
+    $('client-name').textContent = data.client.name || 'An AI assistant';
+    $('user-email').textContent = data.user.email;
+    try {
+      $('redirect-host').textContent = new URL(data.redirect_uri).host;
+    } catch {
+      $('redirect-host').textContent = data.redirect_uri;
+    }
+
+    const access = await supabase.rpc('mcp_access').maybeSingle();
+    const a = access.data as { user_type: string; allowed: boolean } | null;
+    if (a && !a.allowed) {
+      const note = $('access-note');
+      note.textContent = a.user_type === 'crew' ? msg.needsPro : msg.pending;
+      note.hidden = false;
+    }
+    show('ask');
+  }
+
+  async function decide(approve: boolean) {
+    if (!authorizationId) return;
+    for (const b of [$('approve'), $('deny')] as HTMLButtonElement[]) b.disabled = true;
+    const opts = { skipBrowserRedirect: true };
+    const { data, error } = approve
+      ? await supabase.auth.oauth.approveAuthorization(authorizationId, opts)
+      : await supabase.auth.oauth.denyAuthorization(authorizationId, opts);
+    if (error || !data?.redirect_url) return fail(msg.expired);
+    await leave(data.redirect_url);
+  }
+
+  function socialButtons() {
+    const box = $('social');
+    for (const provider of ['apple', 'google'] as const) {
+      if (!SOCIAL[provider]) continue;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn btn--ghost';
+      b.textContent = msg[provider];
+      b.addEventListener('click', () => {
+        const redirectTo = `${location.origin}${location.pathname}?authorization_id=${encodeURIComponent(authorizationId ?? '')}`;
+        supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
+      });
+      box.append(b);
+    }
+    box.hidden = box.childElementCount === 0;
+  }
+
+  $<HTMLFormElement>('signin-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    const fd = new FormData(form);
+    const err = $('signin-error');
+    err.hidden = true;
+    const submit = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    submit.disabled = true;
+    const { error } = await supabase.auth.signInWithPassword({
+      email: String(fd.get('email') ?? '').trim(),
+      password: String(fd.get('password') ?? ''),
+    });
+    submit.disabled = false;
+    if (error) {
+      err.textContent = error.status === 400 ? msg.signinFailed : msg.failed;
+      err.hidden = false;
+      return;
+    }
+    show('loading');
+    await ask();
+  });
+
+  $('approve').addEventListener('click', () => decide(true));
+  $('deny').addEventListener('click', () => decide(false));
+  $('switch').addEventListener('click', async () => {
+    await supabase.auth.signOut({ scope: 'local' }).catch(() => {});
+    show('signin');
+  });
+
+  (async () => {
+    if (!authorizationId) return fail(msg.missingId);
+    socialButtons();
+    // Back from a Google / Apple sign-in: the PKCE code was exchanged on load; drop it from the URL.
+    if (params.has('code')) history.replaceState(null, '', `${location.pathname}?authorization_id=${encodeURIComponent(authorizationId)}`);
+    const { data } = await supabase.auth.getSession();
+    if (data.session) await ask();
+    else show('signin');
+  })().catch(() => fail(msg.failed));
+</script>
+
+<style>
+  .consent label {
+    display: block;
+    margin: 0 0 0.9rem;
+  }
+  .consent label span {
+    display: block;
+    font-size: var(--step--1);
+    margin-bottom: 0.3rem;
+  }
+  .consent input {
+    width: 100%;
+    font: inherit;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid var(--separator);
+    background: var(--bg);
+    color: var(--text);
+  }
+  .consent input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .consent .social {
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 1.1rem;
+  }
+  .consent .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+  }
+  .consent .form-error {
+    color: #fca5a5;
+  }
+  .consent .notice {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+  }
+  .consent .small {
+    font-size: var(--step--1);
+  }
+  .consent .link {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--accent);
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  .consent code {
+    word-break: break-all;
+  }
+</style>

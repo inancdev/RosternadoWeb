@@ -29,6 +29,8 @@ export default defineConfig({
 
   integrations: [
     sitemap({
+      // The AI-connector consent screen is only reached from an OAuth redirect.
+      filter: (page) => !page.includes('/oauth/'),
       // Pairs /x.html with /tr/x.html (and / with /tr.html) as hreflang alternates.
       i18n: { defaultLocale: 'en', locales: { en: 'en', tr: 'tr' } },
       // Astro emits extensionless sitemap entries, but the site is served as flat

@@ -1,0 +1,142 @@
+---
+// The AI-connector guide (/ai.html, /tr/ai.html). The connector is the `mcp` edge
+// function in the app repo; its URL is the project's functions URL.
+import Layout from '../layouts/Layout.astro';
+import { SUPABASE_URL } from '../lib/supabase-public';
+
+interface Props {
+  lang: 'en' | 'tr';
+}
+const { lang } = Astro.props;
+const tr = lang === 'tr';
+const MCP_URL = `${SUPABASE_URL}/functions/v1/mcp`;
+---
+
+<Layout
+  lang={lang}
+  alternate={tr ? '/ai.html' : '/tr/ai.html'}
+  title={tr ? 'Rosternado — Yapay zekâ bağlayıcısı' : 'Rosternado — AI connector'}
+  description={tr
+    ? 'Rosternado rosterinizi Claude veya ChatGPT’ye bağlayın ve uçuşlarınızı, konaklamalarınızı ve arkadaşlarınızla buluşma zamanlarını sorun.'
+    : 'Connect your Rosternado roster to Claude or ChatGPT and ask about your flights, layovers and when you can meet your friends.'}
+>
+  <div class="wrap wrap--narrow legal">
+    <header class="page-head">
+      <h1>{tr ? 'Yapay zekâ bağlayıcısı' : 'AI connector'}</h1>
+    </header>
+
+    {tr ? (
+      <div class="card card--text">
+        <h2>Ne işe yarar</h2>
+        <p>Rosternado'yu Claude veya ChatGPT'ye bağlayın ve rosteriniz hakkında doğal dille soru sorun:</p>
+        <ul>
+          <li>&ldquo;Ali Kaya ile en son ne zaman uçtum?&rdquo;</li>
+          <li>&ldquo;Geçen hafta nerede konakladım?&rdquo;</li>
+          <li>&ldquo;Bu ay kaç sektör uçtum?&rdquo;</li>
+          <li>&ldquo;Ali ile gelecek ay İstanbul'da ne zaman buluşabiliriz?&rdquo;</li>
+          <li>&ldquo;Mehmet ile hangi günler ikimiz de izinliyiz?&rdquo;</li>
+        </ul>
+        <p>Bağlayıcı yalnızca okur: görev ekleyemez, düzenleyemez veya silemez, arkadaşlık isteği gönderemez. Saatler
+          rosterdaki planlanan saatlerdir, gerçekleşen saatler değil.</p>
+      </div>
+    ) : (
+      <div class="card card--text">
+        <h2>What it does</h2>
+        <p>Connect Rosternado to Claude or ChatGPT and ask about your roster in plain words:</p>
+        <ul>
+          <li>&ldquo;When did I last fly with Ali Kaya?&rdquo;</li>
+          <li>&ldquo;Where did I lay over last week?&rdquo;</li>
+          <li>&ldquo;How many sectors have I flown this month?&rdquo;</li>
+          <li>&ldquo;When can Ali and I meet in Istanbul next month?&rdquo;</li>
+          <li>&ldquo;Which days are Mehmet and I both off?&rdquo;</li>
+        </ul>
+        <p>The connector only reads: it can't add, edit or delete duties or send friend requests. Times are the
+          scheduled times on your roster, not actual flight times.</p>
+      </div>
+    )}
+
+    {tr ? (
+      <div class="card card--text">
+        <h2>Kimler kullanabilir</h2>
+        <ul>
+          <li><strong>Crew Pro</strong> abonesi ekip üyeleri: kendi rosterları, uçuş ekipleri, konaklamalar, istatistikler
+            ve arkadaşlarının rosterları.</li>
+          <li><strong>Tüm sivil hesaplar</strong>, ücretsiz: arkadaş listesi, ekip arkadaşlarının rosterları, buluşma
+            zamanları ve ortak izin günleri.</li>
+        </ul>
+      </div>
+    ) : (
+      <div class="card card--text">
+        <h2>Who can use it</h2>
+        <ul>
+          <li><strong>Crew with Crew Pro</strong>: your own roster, flight crews, layovers and stats, plus your
+            friends' rosters.</li>
+          <li><strong>Every civilian account</strong>, free: your friends list, your crew friends' rosters, meetup
+            times and shared days off.</li>
+        </ul>
+      </div>
+    )}
+
+    <div class="card card--text">
+      <h2>{tr ? 'Nasıl bağlanır' : 'How to connect'}</h2>
+      <p>{tr ? 'Asistanınıza bu adresle özel bir bağlayıcı (MCP sunucusu) ekleyin:' : 'Add a custom connector (MCP server) to your assistant with this URL:'}</p>
+      <p><code class="url">{MCP_URL}</code></p>
+      {tr ? (
+        <ul>
+          <li><strong>Claude</strong> (claude.ai veya masaüstü uygulaması): Ayarlar &rarr; Bağlayıcılar &rarr; Özel
+            bağlayıcı ekle, adresi yapıştırın ve Bağlan'a dokunun. Ücretsiz planda bir özel bağlayıcı eklenebilir.</li>
+          <li><strong>ChatGPT</strong>: planınız özel bağlayıcılara izin veriyorsa, yeni bir bağlayıcı ekleyip aynı
+            adresi girin.</li>
+        </ul>
+      ) : (
+        <ul>
+          <li><strong>Claude</strong> (claude.ai or the desktop app): Settings &rarr; Connectors &rarr; Add custom
+            connector, paste the URL and tap Connect. The Free plan allows one custom connector.</li>
+          <li><strong>ChatGPT</strong>: where your plan allows custom connectors, add a new connector with the same
+            URL.</li>
+        </ul>
+      )}
+      <p>{tr
+        ? 'Rosternado giriş sayfası açılır. Uygulamadaki hesabınızla giriş yapın ve İzin ver’e dokunun. Google veya Apple ile kaydolduysanız önce uygulamada şifre ekleyin: Profil → Bağlı Hesaplar → E-posta ve Şifre.'
+        : 'A Rosternado sign-in page opens. Sign in with your app account and tap Allow. Signed up with Google or Apple? Add a password in the app first: Profile → Connected Accounts → Email & Password.'}</p>
+    </div>
+
+    {tr ? (
+      <div class="card card--text">
+        <h2>Gizlilik</h2>
+        <ul>
+          <li>Sorularınızın cevapları seçtiğiniz asistana (Anthropic veya OpenAI) gönderilir ve onların gizlilik
+            politikasına tabidir.</li>
+          <li>Arkadaşlarınızın rosterları yalnızca sizinle paylaştıkları kadarıyla görünür: bugünden gelecek ayın sonuna
+            kadar. Bir arkadaşınız bunu kapatabilir: Ayarlar &rarr; Gizlilik &rarr; Arkadaşların yapay zekâ
+            asistanları.</li>
+          <li>Bağlantıyı istediğiniz zaman asistanınızın bağlayıcı ayarlarından kaldırabilirsiniz. Ayrıntılar:
+            <a href="/privacy.html">Gizlilik Politikası</a>.</li>
+        </ul>
+      </div>
+    ) : (
+      <div class="card card--text">
+        <h2>Privacy</h2>
+        <ul>
+          <li>The answers to your questions are sent to the assistant you chose (Anthropic or OpenAI) and fall under
+            its privacy policy.</li>
+          <li>Friends' rosters are visible only as far as they share them with you: today to the end of next month. A
+            friend can turn this off: Settings &rarr; Privacy &rarr; Friends' AI assistants.</li>
+          <li>You can disconnect at any time in your assistant's connector settings. Details:
+            <a href="/privacy.html">Privacy Policy</a>.</li>
+        </ul>
+      </div>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .url {
+    display: block;
+    word-break: break-all;
+    padding: 0.7rem 0.85rem;
+    border-radius: 10px;
+    background: var(--bg);
+    border: 1px solid var(--separator);
+  }
+</style>
