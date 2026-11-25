@@ -100,7 +100,7 @@ import Layout from '../../layouts/Layout.astro';
 
 <script>
   import { createClient } from '@supabase/supabase-js';
-  import { SUPABASE_ANON_KEY, SUPABASE_URL } from '../../lib/supabase-public';
+  import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from '../../lib/supabase-public';
 
   // Flip once that provider's web sign-in is configured in Supabase (client secret /
   // Apple Services ID, plus https://rosternado.com/oauth/consent.html in Redirect URLs).
@@ -175,7 +175,14 @@ import Layout from '../../layouts/Layout.astro';
   const params = new URLSearchParams(location.search);
   const authorizationId = params.get('authorization_id');
 
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  // A wrong key (legacy anon JWT, secret key, typo) would fail every call: stop here instead.
+  if (!SUPABASE_PUBLISHABLE_KEY.startsWith('sb_publishable_')) {
+    console.error('Consent page: SUPABASE_PUBLISHABLE_KEY is not a publishable key (sb_publishable_…).');
+    fail(msg.failed);
+    throw new Error('Invalid Supabase publishable key');
+  }
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     auth: { flowType: 'pkce', detectSessionInUrl: true, persistSession: true, storageKey: 'rosternado-consent' },
   });
 
