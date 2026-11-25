@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
   <div class="wrap wrap--narrow legal">
     <header class="page-head">
         <h1>Privacy Policy</h1>
-        <div class="effective">Effective date: 16 November 2026</div>
+        <div class="effective">Effective date: 24 November 2026</div>
       </header>
     
       <div class="card card--text">
@@ -52,11 +52,14 @@ import Layout from '../layouts/Layout.astro';
             </tr>
             <tr>
               <td>Airline, base airport, crew ID</td>
-              <td>Crew accounts only &mdash; roster context and duty pre-fill</td>
+              <td>Crew accounts only &mdash; roster context and duty pre-fill; your airline is shown in friend search
+                results; your crew ID, if you add one, recognises you in the crew list of flights other crew import
+                (Section 2.3)</td>
             </tr>
             <tr>
               <td>Profile photo (optional)</td>
-              <td>Displayed to your friends; you choose whether to add one</td>
+              <td>Shown to your friends, in friend search results and, if you add a crew ID, to crew whose roster lists
+                you on a flight (Section 2.3); you choose whether to add one</td>
             </tr>
           </table>
         </div>
@@ -74,6 +77,15 @@ import Layout from '../layouts/Layout.astro';
           <li><strong>Manual entry</strong> &mdash; you add or edit duties yourself.</li>
           <li><strong>Roster import</strong> &mdash; see Section 3 below.</li>
         </ul>
+        <p><strong>Crew lists.</strong> When your airline's roster page lists the crew of a flight, the import stores
+          that list with the flight: each crew member's name, role and crew ID as the page shows them, and whether they
+          are flight deck, cabin or positioning. Only you can see the crew lists on your roster; they are not shared
+          with your friends.</p>
+        <p>When you open a flight, the app looks for its crew among Rosternado crew accounts with the same crew ID and
+          airline. For each match it shows that person's profile photo and lets you send them a friend request. The
+          same works the other way: if you add your crew ID to your profile, crew whose roster lists you on a flight
+          see your photo there and can send you a request. No match is made between two people if either has blocked
+          the other.</p>
     
         <h3>2.4 Friendships, blocks &amp; reports</h3>
         <p>We store the friend requests you send and receive, their accepted/pending/rejected status, and (for non-crew
@@ -90,7 +102,7 @@ import Layout from '../layouts/Layout.astro';
         <h3>2.5 Device &amp; technical data</h3>
         <ul>
           <li><strong>Push notification token</strong> &mdash; a device identifier issued by Apple/Google so we can send
-            you friend-request notifications.</li>
+            you notifications about friend requests and, for friends you turn alerts on for, their new rosters.</li>
           <li><strong>Subscription status</strong> &mdash; whether you hold an active Pro subscription, and your monthly
             usage counters.</li>
           <li><strong>App preferences</strong> &mdash; theme, time-display settings and the aircraft and livery you
@@ -108,12 +120,37 @@ import Layout from '../layouts/Layout.astro';
           <li>We store the ID of the calendar the app created and your Google account ID and email, so the app can find
             the same calendar again on another device or after a reinstall.</li>
           <li>Your Google sign-in tokens stay <strong>on your device</strong> and are never stored on our servers.</li>
+          <li>Crew names go into your flight events only if you turn on <strong>Crew names</strong> in the sync
+            settings. Anyone you share that calendar with can see them.</li>
           <li>You can turn sync off at any time in <strong>Settings &rarr; Google Calendar Sync</strong>, or revoke access from
             your Google account. The stored calendar link is deleted together with your account.</li>
         </ul>
         <p>Rosternado's use and transfer of information received from Google APIs will adhere to
           the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data
             Policy</a>, including the Limited Use requirements.</p>
+
+        <h3>2.7 AI assistants (optional)</h3>
+        <p>You can connect Rosternado to an AI assistant of your choice, such as Claude (Anthropic) or ChatGPT (OpenAI),
+          through our AI connector (<a href="/ai.html">how it works</a>). You sign in on a Rosternado page and approve the
+          connection; the assistant can then <strong>read</strong>, never change:</p>
+        <ul>
+          <li>your roster, including the crew lists of your flights (Section 2.3), and simple totals worked out from it;</li>
+          <li>your friends list (names, airline, home base), and the rosters your friends share with you, from today to
+            the end of next month (Section 4).</li>
+        </ul>
+        <p>It cannot see your email address, password or payment details, or your friends' past duties.</p>
+        <ul>
+          <li>The assistant reads this data only when you ask it something, and only what that question needs. What it
+            receives is then handled by its provider under <strong>that provider's own terms and privacy policy</strong>,
+            not ours: the provider is chosen by you, and is not one of our processors (Section 6).</li>
+          <li>If a friend connects an assistant, it can read the roster you share with that friend in the same way. You
+            can stop that at any time: <strong>Settings &rarr; Privacy &rarr; Friends' AI assistants</strong>. When it is
+            off, no friend's assistant receives your roster.</li>
+          <li>We keep a count of each account's AI requests, to apply a usage limit. We do not store your questions or
+            the answers.</li>
+          <li>You can disconnect an assistant at any time in its connector settings. The connector is available to crew
+            with a Pro subscription and to all non-crew accounts.</li>
+        </ul>
       </div>
     
       <div class="card card--text">
@@ -127,8 +164,8 @@ import Layout from '../layouts/Layout.astro';
           <li>Rosternado <strong>does not collect, read, store, or transmit your airline username, password, or login
               session.</strong> Those credentials are entered on the airline's website, not into Rosternado.</li>
           <li>When you tap <strong>Save</strong>, the app reads the roster information displayed on that page and converts
-            it into duty entries. <strong>Only the resulting roster data</strong> (flights, times, duty codes) is sent to
-            our servers.</li>
+            it into duty entries. <strong>Only the resulting roster data</strong> (flights, times, duty codes and, where
+            the page shows one, each flight's crew list &mdash; see Section 2.3) is sent to our servers.</li>
           <li>We do not access your airline email, payslips, personal messages, or any page other than the roster you are
             viewing.</li>
         </ul>
@@ -145,7 +182,8 @@ import Layout from '../layouts/Layout.astro';
             already ended are not shared.</li>
           <li><strong>Accepting a friend request is your consent</strong> to share your active and future roster with that
             person. If you do not want someone to see your roster, do not accept (or remove) the friendship.</li>
-          <li>In friend search, other users can find you by <strong>first and last name only</strong>. Your <strong>email
+          <li>In friend search, other users can find you by <strong>first and last name only</strong>. A result shows
+            your name, your profile photo and your airline (&ldquo;Civilian&rdquo; for a non-crew account). Your <strong>email
               address is never shown in search</strong> or exposed to other users.</li>
           <li>Non-crew users do not have a roster and only view the roster of crew friends who have accepted them.</li>
         </ul>
@@ -156,8 +194,10 @@ import Layout from '../layouts/Layout.astro';
         <ul>
           <li>Create and operate your account and authenticate you at login.</li>
           <li>Store and display your roster, and share it with friends you have approved.</li>
+          <li>Show the crew of your flights, and recognise crew on them who use Rosternado (Section 2.3).</li>
           <li>Operate the friend-request and friend-search features.</li>
-          <li>Send push notifications for friend requests and acceptances.</li>
+          <li>Send push notifications for friend requests, acceptances and, if you turn on alerts for a friend, their
+            new rosters.</li>
           <li>Manage subscriptions and enforce free-tier usage limits.</li>
           <li>Provide account recovery (password reset, email change) and respond to support requests.</li>
           <li>Protect the security and integrity of the service.</li>
@@ -204,7 +244,7 @@ import Layout from '../layouts/Layout.astro';
             <tr>
               <td>Google Calendar API</td>
               <td>Optional Google Calendar sync</td>
-              <td>Your roster duties, written to a calendar the app creates in your Google account, only if you turn sync on</td>
+              <td>Your roster duties (crew names only if you turn that option on), written to a calendar the app creates in your Google account, only if you turn sync on</td>
             </tr>
           </table>
         </div>
@@ -232,6 +272,9 @@ import Layout from '../layouts/Layout.astro';
           personal data &mdash; profile, roster, friendships and associated records &mdash; is permanently removed from our
           systems. Some records may persist briefly in encrypted backups before being overwritten. Subscription/payment
           records held by Apple or Google are retained by them under their own policies.</p>
+        <p>Crew lists are part of the roster they were imported with and are deleted with it. If you appear in the crew
+          list of another user's roster, that list is part of their roster and stays when you delete your account; your
+          profile photo is no longer shown in it.</p>
         <p>To prevent abuse of one-time free benefits (such as the free roster upload) by repeatedly deleting and
           recreating accounts, we retain a <strong>one-way, irreversible hash</strong> of your email address and social
           sign-in identifier after deletion. This value cannot be reversed to recover your email or identify you, is never

@@ -8,11 +8,15 @@ Rosternado is built by an airline pilot who got tired of cluttered, ad-heavy avi
 
 - **One-Tap Roster Import**: Open your airline's crew portal inside the app, log in, and tap Save. Rosternado parses your roster automatically.
 - **Colour-Coded Duty Timeline**: Flights, standby, simulator/training, days off, annual leave, office duties, and transfers in a clean chronological list. Multi-leg flights are grouped into single cards so 3-sector days read as one duty.
+- **Your Crew on Every Flight**: Open a flight to see the flight deck and cabin crew as the airline's roster lists them, with departure and arrival in both local time and Zulu.
 - **Friend Radar**: See accepted crew friends on a live map with flight progress and estimated arrivals. Positions are approximate and updated periodically for friends and family.
-- **Plan a Meetup**: Automatically finds overlapping free time windows where you and your crew friends are off at the same time in the same city or layover base.
-- **Google Calendar Sync**: Optionally sync your roster to a Google calendar Rosternado creates for you. It never reads your other calendars or events.
+- **Plan a Meetup**: Automatically finds overlapping free time windows where you and your crew friends are off at the same time in the same city or layover base. Share a window as a boarding-pass card straight into a group chat.
+- **Google Calendar Sync**: Crew can sync their roster to a Google calendar Rosternado creates for them and choose which duty types go in. It never reads other calendars or events.
+- **AI Connector**: Connect Rosternado to Claude or ChatGPT and ask about your roster, layovers, crew and meetup times. Read-only; for Pro crew and all non-crew accounts.
 - **Friend Alerts**: Optional per-friend notifications the moment a friend's new roster is uploaded.
-- **Offline First**: All roster data is cached on-device for seamless access mid-flight or in layover hotels without signal.
+- **Hangar**: Pick the aircraft that flies over your roster (nine types, from the A320 and 737 to the 777, 747 and A380) and swipe through its liveries. The pick is saved on the device only.
+- **Blocking & Reporting**: Rosters are visible only to accepted friends. Block someone and they lose access at once, without being told; report a profile and it is reviewed.
+- **Offline First**: All roster data is cached on-device for seamless access mid-flight or in layover hotels without signal. Duties added or edited offline are sent when the device is back online.
 - **Friends & Family Mode**: Non-crew members can follow a crew friend or family member's schedule for free to know when they are flying, landing, or home.
 
 ## Pages & Resources
@@ -21,8 +25,9 @@ Rosternado is built by an airline pilot who got tired of cluttered, ad-heavy avi
 - [Pricing](https://rosternado.com/pricing.html): Tier comparison including free tier for friends and family, free crew tier (5 operations/month), and Pro ($2/month or $20/year).
 - [Supported Airlines](https://rosternado.com/airlines.html): Full breakdown of verified airline parsers, beta CAE portal airlines, and manual entry support.
 - [Add Your Airline](https://rosternado.com/add-your-airline.html): How crew send copies of their roster page (computer: developer panel Copy outerHTML in the computer and phone layouts; Android phone fallback) so a parser can be built for their airline, what the files contain, and how they are handled.
-- [Support & FAQ](https://rosternado.com/support.html): Frequently asked questions, roster upload troubleshooting, subscription management, and support contact.
-- [Privacy Policy](https://rosternado.com/privacy.html): Comprehensive privacy terms detailing our no-tracking, no-ads, friend-only visibility policies.
+- [Support & FAQ](https://rosternado.com/support.html): Frequently asked questions (roster upload, blocking and reporting, Google Calendar sync, offline use, time zones, the Hangar, subscriptions) and support contact.
+- [AI Connector](https://rosternado.com/ai.html): How to connect Rosternado to Claude or ChatGPT, who can use it, and what it can read.
+- [Privacy Policy](https://rosternado.com/privacy.html): What data is collected and why, what other users can see (rosters only by accepted friends), blocks and reports, and no tracking or ads.
 - [Terms of Service](https://rosternado.com/terms.html): Terms and conditions governing the use of Rosternado.
 - [Delete Account](https://rosternado.com/delete-account.html): Step-by-step account deletion instructions with permanent data purge.
 

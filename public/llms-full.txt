@@ -45,6 +45,10 @@ Every type of duty is assigned an intuitive colour so a busy month is readable a
 #### Multi-Sector Grouping
 Multi-leg flights group automatically under a single card. A three-sector day (e.g., SAW–ADB–AYT–SAW) reads as one unified duty card with expandable sector details, rather than three disconnected items.
 
+### Your Crew on Every Flight
+- Open a flight to see who is flying it: flight deck and cabin, as the airline's roster lists them.
+- Departure and arrival times are shown in both the airport's local time and Zulu.
+
 ### Friend Radar
 Friend Radar displays accepted crew friends on an interactive map:
 - Friends are pinned at their home base or layover destination.
@@ -56,21 +60,42 @@ Finding overlapping free time between crew members across changing shift pattern
 - Select one or more crew friends.
 - Rosternado compares everyone's rosters and calculates the exact windows where everyone is off at the same time in the same city.
 - Shows the start time, end time, and total duration of each free window in local time.
+- Share a window as a boarding-pass card (the time, the place, who is coming) straight into a group chat.
 
 ### Google Calendar Sync
-- Optional: sync your roster to Google Calendar.
+- Optional, for crew: sync your roster to Google Calendar.
 - Rosternado creates a calendar of its own in the user's Google account and writes roster duties into it.
 - Uses only the `calendar.app.created` permission, so it cannot read the user's other calendars or events.
-- Can be turned off at any time in Settings -> Calendar Sync.
+- The user chooses which duty types are synced. Crew names in flight events are optional.
+- Can be turned off at any time in Settings -> Google Calendar Sync.
+
+### AI Connector
+- Optional: connect Rosternado to an AI assistant such as Claude or ChatGPT (an MCP connector) and ask about your roster in plain words, e.g. "When did I last fly with Ali?", "Where did I lay over last week?", "When can Ali and I meet in Istanbul?".
+- Read-only: it cannot add, edit or delete duties or send friend requests. Times are scheduled roster times.
+- Available to crew with Pro and to every non-crew account. Friends' rosters are visible only from today to the end of next month, and any user can stop friends' assistants reading their roster (Settings -> Privacy -> Friends' AI assistants).
+- Setup guide: https://rosternado.com/ai.html
 
 ### Friend Alerts
 - Opt-in notifications per friend.
 - Get notified the moment an accepted friend's new monthly roster drops, making it easy to schedule meetups before schedules fill up.
 - Kept off by default so users are never spammed.
 
+### Hangar
+- Pick the aircraft that flies over your roster: nine types, from the A320 and 737 to the 777, 747 and A380.
+- Swipe through each aircraft's liveries, or leave it on Auto.
+- The pick is saved on the device only and flies on every roster the user opens.
+
+### Blocking & Reporting
+- Nobody sees a roster without a friend request that one person sent and the other accepted.
+- Blocking someone removes the friendship, hides the roster from them at once and stops their friend requests. They are not told.
+- Reporting a profile sends it to the developer for review. The reported person is not told.
+- Blocks can be undone in Settings -> Privacy -> Blocked Users.
+
 ### Offline-First Architecture
 - Every roster is locally cached on the device.
 - Roster data loads instantly without cell coverage, whether mid-flight at 38,000 feet, in airplane mode, or at overseas layover hotels with patchy Wi-Fi.
+- Duties added, edited or deleted offline are sent when the device is back online.
+- Roster import, Friend Radar and Google Calendar sync need a connection.
 
 ### Friends & Family Companion Mode
 - Non-aviation family members and friends can create an account and follow an accepted crew member's schedule for free.
@@ -85,7 +110,7 @@ Rosternado offers clear, transparent pricing with no hidden fees or ad-supported
 | Tier | Price | Features & Inclusions |
 | :--- | :--- | :--- |
 | **Friends & Family** | Free forever | • Follow and view accepted crew friends' rosters.<br>• See flight progress and arrival status.<br>• Unlimited viewing.<br>• *Note: Roster import is not included; this tier is for following, not flying.* |
-| **Crew — Free** | Free | • 5 duty operations per month (combined total of adds, edits, and deletes).<br>• Multi-leg flights count as a single operation.<br>• Counter resets on the 1st of each month.<br>• 1 roster import.<br>• Unlimited viewing of crew friends' rosters.<br>• Friend Radar and Meetup planner access. |
+| **Crew — Free** | Free | • 5 duty operations per month (combined total of adds, edits, and deletes).<br>• Multi-leg flights count as a single operation.<br>• Counter resets on the 1st of each month.<br>• 1 roster import.<br>• Unlimited viewing of crew friends' rosters.<br>• Friend Radar, Plan a Meetup and Google Calendar sync included. |
 | **Crew — Pro** | $2 / month<br>*(or $20 / year)* | • Unlimited duty operations (adds, edits, deletes).<br>• Unlimited roster imports for updated schedules.<br>• All features in the Free Crew tier included. |
 
 ### Subscription Management
@@ -144,6 +169,21 @@ No. Your roster only changes when you import it again (Roster Download -> Save) 
 
 ### Who can see my roster?
 Only friends whom you have explicitly accepted. Your roster is private by default, not indexed by public search engines, and never accessible to unapproved users.
+
+### How do I block or report someone?
+Tap the "…" button on their friend request or search result, or swipe a friend's row to the left. Blocking removes them from your friends, hides your roster from them and stops their requests; they are not told. A report goes only to the developer. To undo a block: Settings -> Privacy -> Blocked Users.
+
+### Can I see my roster in Google Calendar?
+Yes, if you are crew: Settings -> Google Calendar Sync. Rosternado creates its own calendar in your Google account and writes your duties into it. It cannot read your other calendars or events. You choose which duty types are synced.
+
+### Does it work without a connection?
+Yes. Your roster and your friends' rosters are stored on your device. Duties you add, edit or delete offline are sent when you are back online. Roster import, Friend Radar and Google Calendar sync need a connection.
+
+### Which time zone are the times in?
+Your choice, in Settings -> Time Display: UTC, the local time of each airport, your base, or your device. Opening a flight always shows both the airport's local time and Zulu.
+
+### How do I change the aircraft at the top of my roster?
+Settings -> Hangar. Pick an aircraft and a livery, or leave it on Auto. The choice is saved on your device only.
 
 ### What if my airline is not yet supported for automated upload?
 You can manually add, edit, and categorize duties using the pre-configured airline database. You can also contact support to request an automated parser for your airline.
