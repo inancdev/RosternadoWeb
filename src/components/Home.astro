@@ -102,6 +102,19 @@ const copy = {
       p: 'Pick your aircraft in the Hangar — nine types, from the A320 and 737 to the 777, 747 and A380 — and swipe through its liveries. Your pick flies on every roster you open.',
       alt: '',
     },
+    ai: {
+      eyebrow: 'AI connector',
+      h2: 'Ask Claude or ChatGPT about your roster',
+      lede: 'Connect Rosternado to your AI assistant and ask in plain words. It only reads — it never changes your roster.',
+      examples: [
+        'When did I last fly with Ali Kaya?',
+        'Where did I lay over last week?',
+        'How many sectors have I flown this month?',
+        'When can Ali and I meet in Istanbul next month?',
+      ],
+      note: 'Crew Pro for your own roster; free for friends &amp; family.',
+      btn: 'Details',
+    },
     cards: [
       ['Friend alerts', "Turn notifications on for the friends you actually care about and hear the moment their new roster lands. Off by default, and per friend — useful for planning a beer before either of you has worked out you're in the same city."],
       ['Your crew, on every flight', "Open a flight to see who you're flying with — flight deck and cabin, as your airline's roster lists them — with departure and arrival in both local time and Zulu."],
@@ -201,6 +214,19 @@ const copy = {
       h2: 'Uçağınız, boyanız',
       p: "Hangar'da uçağınızı seçin — A320 ve 737'den 777, 747 ve A380'e dokuz tip — ve boyaları arasında kaydırın. Seçtiğiniz uçak açtığınız her rosterda uçar.",
       alt: '',
+    },
+    ai: {
+      eyebrow: 'Yapay zekâ bağlayıcısı',
+      h2: 'Rosterınızı Claude veya ChatGPT’ye sorun',
+      lede: 'Rosternado’yu yapay zekâ asistanınıza bağlayın ve doğal dille sorun. Yalnızca okur — rosterınızı asla değiştirmez.',
+      examples: [
+        'Ali Kaya ile en son ne zaman uçtum?',
+        'Geçen hafta nerede konakladım?',
+        'Bu ay kaç sektör uçtum?',
+        'Ali ile gelecek ay İstanbul’da ne zaman buluşabiliriz?',
+      ],
+      note: 'Kendi rosterınız için Crew Pro; arkadaş ve aile için ücretsiz.',
+      btn: 'Ayrıntılar',
     },
     cards: [
       ['Arkadaş bildirimleri', 'Gerçekten önemsediğiniz arkadaşlar için bildirimleri açın; yeni rosterları geldiği anda haberiniz olsun. Varsayılan olarak kapalıdır ve arkadaş bazında açılır — ikiniz de aynı şehirde olduğunuzu fark etmeden bir bira planlamak için birebir.'],
@@ -486,8 +512,32 @@ const jsonLd = {
     </div>
   </section>
 
-  <!-- What you're not getting -->
+  <!-- AI connector -->
   <section class="band">
+    <div class="wrap">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">{c.ai.eyebrow}</p>
+        <h2>{c.ai.h2}</h2>
+        <p class="lede">{c.ai.lede}</p>
+      </div>
+      <div class="cards ai-examples">
+        {
+          c.ai.examples.map((q) => (
+            <article class="card">
+              <p>&ldquo;{q}&rdquo;</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="center-note" set:html={c.ai.note} />
+      <p class="ai-cta">
+        <a class="btn" href={tr ? '/tr/ai.html' : '/ai.html'}>{c.ai.btn}</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- What you're not getting -->
+  <section class="band band--alt">
     <div class="wrap wrap--narrow">
       <div class="section-head section-head--center">
         <p class="eyebrow">{c.missing.eyebrow}</p>
@@ -507,7 +557,7 @@ const jsonLd = {
   </section>
 
   <!-- Privacy -->
-  <section class="band band--alt">
+  <section class="band">
     <div class="wrap">
       <div class="privacy-block">
         <p class="eyebrow">{c.privacy.eyebrow}</p>
@@ -522,7 +572,7 @@ const jsonLd = {
   </section>
 
   <!-- Pricing summary -->
-  <section class="band">
+  <section class="band band--alt">
     <div class="wrap">
       <div class="section-head section-head--center">
         <p class="eyebrow">{c.pricing.eyebrow}</p>
@@ -550,7 +600,7 @@ const jsonLd = {
   </section>
 
   <!-- Request your airline -->
-  <section class="band band--alt">
+  <section class="band">
     <div class="wrap wrap--narrow">
       <div class="cta-card">
         <h2>{c.cta.h2}</h2>
@@ -571,3 +621,20 @@ const jsonLd = {
     </div>
   </section>
 </Layout>
+
+<style>
+  .ai-examples {
+    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+  .ai-examples .card p {
+    color: var(--text);
+    font-size: var(--step-0);
+    font-style: italic;
+  }
+  .ai-cta {
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+</style>
