@@ -23,7 +23,7 @@ const claudeSteps: Step[] = tr
       { text: 'Sağ üstteki <strong>+</strong> düğmesine, ardından <strong>Add custom connector</strong>’a (Özel bağlayıcı ekle) dokunun.', shots: [shot(2, 659, 'Bağlayıcılar ekranı, + düğmesi işaretli'), shot(3, 253, 'Açılan menü, Add custom connector işaretli')] },
       { text: 'Ad olarak <strong>Rosternado</strong> yazın, yukarıdaki adresi yapıştırın ve <strong>Continue</strong>’ya dokunun.', shots: [shot(4, 680, 'Ad ve adres girilmiş özel bağlayıcı formu')] },
       { text: 'Seçenekleri olduğu gibi bırakın (<em>Sign in now</em> ve <em>Register automatically</em>) ve <strong>Add</strong>’e dokunun.', shots: [shot(5, 1632, 'Kimlik doğrulama seçenekleri, Add düğmesi işaretli')] },
-      { text: 'Rosternado giriş sayfası açılır. Uygulamadaki hesabınızla giriş yapın ve <strong>İzin ver</strong>’e dokunun. Google veya Apple ile kaydolduysanız önce uygulamada şifre ekleyin: Profil → Bağlı Hesaplar → E-posta ve Şifre.', shots: [] },
+      { text: 'Rosternado giriş sayfası açılır. Uygulamadaki e-posta ve şifrenizle giriş yapın ve <strong>İzin ver</strong>’e dokunun. Şifreniz yok mu? <a href="#password">Başlamadan önce</a> bölümüne bakın.', shots: [] },
       { text: 'Rosternado bağlayıcılar listesinde görünür. Ona dokunarak 9 aracı görebilir ve her birinin izinlerini ayarlayabilirsiniz. “This connector isn’t verified by Anthropic” uyarısı tüm özel bağlayıcılarda görünür.', shots: [shot(6, 742, 'Bağlayıcılar listesinde Rosternado'), shot(7, 1217, 'Rosternado bağlayıcısının araçları')] },
     ]
   : [
@@ -31,27 +31,53 @@ const claudeSteps: Step[] = tr
       { text: 'Tap <strong>+</strong> at the top right, then <strong>Add custom connector</strong>.', shots: [shot(2, 659, 'Connectors screen with the + button highlighted'), shot(3, 253, 'Menu with Add custom connector highlighted')] },
       { text: 'Enter <strong>Rosternado</strong> as the name, paste the URL above and tap <strong>Continue</strong>.', shots: [shot(4, 680, 'Custom connector form with the name and URL filled in')] },
       { text: 'Leave the options as they are (<em>Sign in now</em> and <em>Register automatically</em>) and tap <strong>Add</strong>.', shots: [shot(5, 1632, 'Authentication options with the Add button highlighted')] },
-      { text: 'A Rosternado sign-in page opens. Sign in with your app account and tap <strong>Allow</strong>. Signed up with Google or Apple? Add a password in the app first: Profile → Connected Accounts → Email &amp; Password.', shots: [] },
+      { text: 'A Rosternado sign-in page opens. Sign in with your app email and password and tap <strong>Allow</strong>. No password yet? See <a href="#password">Before you start</a>.', shots: [] },
       { text: 'Rosternado now shows in your connectors. Tap it to see its 9 tools and set permissions for each. The “This connector isn’t verified by Anthropic” notice appears on every custom connector.', shots: [shot(6, 742, 'Rosternado in the connectors list'), shot(7, 1217, 'The Rosternado connector’s tools')] },
     ];
 
 const chatgptSteps: Step[] = tr
   ? [
-      { text: '<strong>chatgpt.com</strong>’da <strong>Ayarlar</strong>’ı açın ve Integrations altında <strong>Plugins</strong>’e dokunun.', shots: [gpt(1, 510, 'ChatGPT ayarları, Plugins işaretli', 602)] },
+      { text: 'Tarayıcınızda <strong>chatgpt.com</strong>’u açıp giriş yapın, <strong>Ayarlar</strong>’ı açın ve Integrations altında <strong>Plugins</strong>’e dokunun.', shots: [gpt(1, 510, 'ChatGPT ayarları, Plugins işaretli', 602)] },
       { text: '<strong>Browse directory</strong>’ye dokunun.', shots: [gpt(2, 742, 'Plugins sayfası, Browse directory işaretli')] },
       { text: 'Sağ üstteki <strong>+</strong> düğmesine, ardından <strong>Add custom MCP server</strong>’a dokunun.', shots: [gpt(3, 534, 'Plugins dizini, + düğmesi işaretli'), gpt(4, 534, 'Açılan menü, Add custom MCP server işaretli')] },
       { text: 'Name alanına <strong>Rosternado</strong> yazın, Connection altında <em>Server URL</em> seçiliyken yukarıdaki adresi yapıştırın. Authentication <em>OAuth</em> olarak kalsın.', shots: [gpt(5, 933, 'Ad ve adres girilmiş MCP sunucusu formu')] },
       { text: 'Aşağı kaydırın, <strong>I understand and want to continue</strong> kutusunu işaretleyin ve <strong>Create as a plugin</strong>’e dokunun.', shots: [gpt(6, 933, 'Onay kutusu ve Create as a plugin düğmesi işaretli')] },
-      { text: 'Rosternado giriş sayfası açılır. Uygulamadaki hesabınızla giriş yapın ve <strong>İzin ver</strong>’e dokunun. Google veya Apple ile kaydolduysanız önce uygulamada şifre ekleyin (yukarıdaki 5. adım).', shots: [] },
+      { text: 'Rosternado giriş sayfası açılır. Uygulamadaki e-posta ve şifrenizle giriş yapın ve <strong>İzin ver</strong>’e dokunun. Şifreniz yok mu? <a href="#password">Başlamadan önce</a> bölümüne bakın.', shots: [] },
+      { text: 'Hepsi bu. Rosternado artık ChatGPT uygulamasında da çalışır.', shots: [] },
     ]
   : [
-      { text: 'On <strong>chatgpt.com</strong>, open <strong>Settings</strong> and tap <strong>Plugins</strong> under Integrations.', shots: [gpt(1, 510, 'ChatGPT settings with Plugins highlighted', 602)] },
+      { text: 'Open <strong>chatgpt.com</strong> in your browser and sign in, then open <strong>Settings</strong> and tap <strong>Plugins</strong> under Integrations.', shots: [gpt(1, 510, 'ChatGPT settings with Plugins highlighted', 602)] },
       { text: 'Tap <strong>Browse directory</strong>.', shots: [gpt(2, 742, 'Plugins page with Browse directory highlighted')] },
       { text: 'Tap <strong>+</strong> at the top right, then <strong>Add custom MCP server</strong>.', shots: [gpt(3, 534, 'Plugin directory with the + button highlighted'), gpt(4, 534, 'Menu with Add custom MCP server highlighted')] },
       { text: 'Enter <strong>Rosternado</strong> as the name and, with <em>Server URL</em> selected under Connection, paste the URL above. Leave Authentication as <em>OAuth</em>.', shots: [gpt(5, 933, 'MCP server form with the name and URL filled in')] },
       { text: 'Scroll down, tick <strong>I understand and want to continue</strong> and tap <strong>Create as a plugin</strong>.', shots: [gpt(6, 933, 'Consent checkbox and Create as a plugin button highlighted')] },
-      { text: 'A Rosternado sign-in page opens. Sign in with your app account and tap <strong>Allow</strong>. Signed up with Google or Apple? Add a password in the app first (see Claude step 5).', shots: [] },
+      { text: 'A Rosternado sign-in page opens. Sign in with your app email and password and tap <strong>Allow</strong>. No password yet? See <a href="#password">Before you start</a>.', shots: [] },
+      { text: 'That’s it. Rosternado now works in the ChatGPT app too.', shots: [] },
     ];
+
+// The two setup guides, shown as dropdowns (closed; #claude / #chatgpt in the URL opens one).
+const guides = [
+  {
+    id: 'claude',
+    name: 'Claude',
+    hint: tr ? 'Uygulama, claude.ai veya masaüstü' : 'App, claude.ai or desktop',
+    callout: '',
+    note: tr ? 'Ücretsiz planda bir özel bağlayıcı eklenebilir.' : 'The Free plan allows one custom connector.',
+    steps: claudeSteps,
+  },
+  {
+    id: 'chatgpt',
+    name: 'ChatGPT',
+    hint: tr ? 'Tarayıcıda chatgpt.com’dan eklenir' : 'Add it on chatgpt.com in a browser',
+    callout: tr
+      ? '<strong>Bağlayıcıyı tarayıcıda chatgpt.com üzerinden ekleyin</strong> (telefon veya bilgisayar). ChatGPT uygulamasından eklenemez. Eklendikten sonra uygulamada da çalışır.'
+      : '<strong>Add it on chatgpt.com in a browser</strong> (phone or computer). You can’t add it in the ChatGPT app. Once it’s added, it works in the app too.',
+    note: tr
+      ? 'Özel MCP sunucusu eklemek her ChatGPT planında olmayabilir.'
+      : 'Adding a custom MCP server may not be available on every ChatGPT plan.',
+    steps: chatgptSteps,
+  },
+];
 ---
 
 <Layout
@@ -66,6 +92,44 @@ const chatgptSteps: Step[] = tr
     <header class="page-head">
       <h1>{tr ? 'Yapay zekâ bağlayıcısı' : 'AI connector'}</h1>
     </header>
+
+    {tr ? (
+      <div class="card card--text callout" id="password">
+        <h2>Başlamadan önce: şifre ekleyin</h2>
+        <p><strong>Google veya Apple ile mi kaydoldunuz?</strong> Claude ve ChatGPT’nin açtığı Rosternado giriş
+          sayfasında yalnızca e-posta ve şifreyle giriş yapılabilir. Uygulamada hesabınıza bir kez şifre ekleyin.
+          Google veya Apple girişiniz çalışmaya devam eder: şifre aynı hesaba girmenin bir yolu daha olur.</p>
+        <ol>
+          <li>Rosternado uygulamasında menüyü açın → <strong>Profile</strong>.</li>
+          <li><strong>Connected Accounts</strong> altında, <strong>Email &amp; Password</strong> satırındaki
+            <strong>Link</strong> düğmesine dokunun.</li>
+          <li>Google veya Apple ile kimliğinizi doğrulayın (Verify Identity).</li>
+          <li>E-postayı kontrol edin. @privaterelay.appleid.com ile bitiyorsa (Apple’ın E-postamı Gizle özelliği),
+            gerçek adresinizi girin. Uygulama bu adrese bir onay bağlantısı gönderir: önce onu aynı telefonda açın.</li>
+          <li>Bir şifre girin (en az 6 karakter), tekrarlayın ve <strong>Save</strong> düğmesine dokunun.</li>
+        </ol>
+        <p class="small">Şifrenizi mi unuttunuz? Uygulamanın giriş ekranından sıfırlayın (Forgot password). Sıfırlama
+          bağlantısı uygulamayı açar.</p>
+      </div>
+    ) : (
+      <div class="card card--text callout" id="password">
+        <h2>Before you start: add a password</h2>
+        <p><strong>Signed up with Google or Apple?</strong> The Rosternado sign-in page that Claude and ChatGPT open
+          only accepts an email and password. Add a password to your account in the app once. Google or Apple
+          sign-in keeps working: the password is just another way into the same account.</p>
+        <ol>
+          <li>In the Rosternado app, open the menu → <strong>Profile</strong>.</li>
+          <li>Under <strong>Connected Accounts</strong>, tap <strong>Link</strong> next to <strong>Email &amp;
+            Password</strong>.</li>
+          <li>Confirm it’s you with Google or Apple (Verify Identity).</li>
+          <li>Check the email. If it ends in @privaterelay.appleid.com (Apple’s Hide My Email), enter your real
+            address instead. The app sends it a confirmation link: open it on the same phone first.</li>
+          <li>Enter a password (at least 6 characters) twice and tap <strong>Save</strong>.</li>
+        </ol>
+        <p class="small">Forgot your password? Reset it from the app’s sign-in screen (Forgot password). The reset
+          link opens the app.</p>
+      </div>
+    )}
 
     {tr ? (
       <div class="card card--text">
@@ -124,33 +188,28 @@ const chatgptSteps: Step[] = tr
       <p>{tr ? 'Asistanınıza bu adresle özel bir bağlayıcı (MCP sunucusu) ekleyin:' : 'Add a custom connector (MCP server) to your assistant with this URL:'}</p>
       <p><code class="url">{MCP_URL}</code></p>
 
-      <h3 id="claude">Claude</h3>
-      <p>{tr ? 'Ücretsiz planda bir özel bağlayıcı eklenebilir.' : 'The Free plan allows one custom connector.'}</p>
-      <ol class="steps">
-        {claudeSteps.map((step) => (
-          <li>
-            <p set:html={step.text} />
-            {step.shots.map((s) => (
-              <img class="shot" src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
-            ))}
-          </li>
-        ))}
-      </ol>
+      <p>{tr ? 'Asistanınıza dokunarak adımları açın:' : 'Tap your assistant to see the steps:'}</p>
 
-      <h3 id="chatgpt">ChatGPT</h3>
-      <p>{tr
-        ? 'Özel MCP sunucusu eklemek her ChatGPT planında olmayabilir.'
-        : 'Adding a custom MCP server may not be available on every ChatGPT plan.'}</p>
-      <ol class="steps">
-        {chatgptSteps.map((step) => (
-          <li>
-            <p set:html={step.text} />
-            {step.shots.map((s) => (
-              <img class="shot" src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
+      {guides.map((g) => (
+        <details class="guide" id={g.id}>
+          <summary>
+            <span class="guide-name">{g.name}</span>
+            <span class="guide-hint">{g.hint}</span>
+          </summary>
+          {g.callout && <p class="callout-note" set:html={g.callout} />}
+          <p>{g.note}</p>
+          <ol class="steps">
+            {g.steps.map((step) => (
+              <li>
+                <p set:html={step.text} />
+                {step.shots.map((s) => (
+                  <img class="shot" src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
+                ))}
+              </li>
             ))}
-          </li>
-        ))}
-      </ol>
+          </ol>
+        </details>
+      ))}
     </div>
 
     {tr ? (
@@ -182,7 +241,94 @@ const chatgptSteps: Step[] = tr
   </div>
 </Layout>
 
+<script>
+  // Open the guide named in the URL hash (/ai.html#chatgpt) and bring it into view.
+  function openFromHash() {
+    const el = location.hash && document.getElementById(location.hash.slice(1));
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      // Instant: the page's smooth scrolling gets cut short while the opened guide lays out.
+      requestAnimationFrame(() => el.scrollIntoView({ block: 'start', behavior: 'instant' }));
+    }
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+</script>
+
 <style>
+  .card.callout {
+    border-left: 4px solid var(--accent);
+  }
+
+  .small {
+    font-size: 0.85em;
+  }
+
+  .callout-note {
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+  }
+
+  .callout-note :global(strong) {
+    color: var(--text);
+  }
+
+  .guide {
+    border-top: 1px solid var(--separator);
+    scroll-margin-top: 6rem;
+  }
+
+  .guide:last-of-type {
+    border-bottom: 1px solid var(--separator);
+  }
+
+  .guide summary {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.75rem;
+    padding: 0.95rem 2rem 0.95rem 0;
+    position: relative;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .guide summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .guide summary::after {
+    content: '';
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid var(--text-dim);
+    border-bottom: 2px solid var(--text-dim);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.15s;
+  }
+
+  .guide[open] summary::after {
+    transform: translateY(-30%) rotate(-135deg);
+  }
+
+  .guide-name {
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--text);
+  }
+
+  .guide-hint {
+    color: var(--text-dim);
+    font-size: var(--step--1);
+  }
+
+  .guide[open] {
+    padding-bottom: 0.4rem;
+  }
+
   .url {
     display: block;
     word-break: break-all;
