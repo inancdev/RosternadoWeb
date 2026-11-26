@@ -78,16 +78,70 @@ const guides = [
     steps: chatgptSteps,
   },
 ];
+
+// Structured data: one HowTo per guide plus the password question, so search engines
+// and AI crawlers can read the steps without the dropdowns.
+const site = 'https://rosternado.com';
+const pageUrl = `${site}${tr ? '/tr/ai.html' : '/ai.html'}`;
+const plain = (html: string) => html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    ...guides.map((g) => ({
+      '@type': 'HowTo',
+      '@id': `${pageUrl}#${g.id}`,
+      name: tr ? `Rosternado’yu ${g.name}’a bağlama` : `How to add Rosternado to ${g.name}`,
+      inLanguage: lang,
+      url: `${pageUrl}#${g.id}`,
+      supply: [{ '@type': 'HowToSupply', name: MCP_URL }],
+      step: g.steps.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        text: plain(s.text),
+        ...(s.shots[0] && { image: `${site}${s.shots[0].src}` }),
+      })),
+    })),
+    {
+      '@type': 'FAQPage',
+      inLanguage: lang,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: tr ? 'Rosterim hakkında Claude veya ChatGPT’ye soru sorabilir miyim?' : 'Can I ask Claude or ChatGPT about my roster?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: tr
+              ? `Evet. Rosternado’yu ${MCP_URL} adresiyle özel bir MCP bağlayıcısı olarak ekleyin. ChatGPT’de tarayıcıdan chatgpt.com üzerinden eklenir, sonra uygulamada da çalışır. Bağlayıcı yalnızca okur.`
+              : `Yes. Add Rosternado as a custom MCP connector with ${MCP_URL}. In ChatGPT it has to be added on chatgpt.com in a browser; it then works in the app too. The connector only reads.`,
+          },
+        },
+        {
+          '@type': 'Question',
+          name: tr ? 'Google veya Apple ile kaydoldum, neden şifre gerekiyor?' : 'I signed up with Google or Apple. Why do I need a password?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: tr
+              ? 'Asistanın açtığı Rosternado giriş sayfası yalnızca e-posta ve şifre kabul eder. Uygulamada bir kez şifre ekleyin: Profile → Connected Accounts → Email & Password → Link. Google veya Apple girişi çalışmaya devam eder.'
+              : 'The Rosternado sign-in page the assistant opens only accepts email and password. Add a password once in the app: Profile → Connected Accounts → Email & Password → Link. Google or Apple sign-in keeps working.',
+          },
+        },
+      ],
+    },
+  ],
+};
 ---
 
 <Layout
   lang={lang}
   alternate={tr ? '/ai.html' : '/tr/ai.html'}
-  title={tr ? 'Rosternado — Yapay zekâ bağlayıcısı' : 'Rosternado — AI connector'}
+  title={tr
+    ? 'Rosternado yapay zekâ bağlayıcısı — Claude ve ChatGPT için ekip rosteri (MCP)'
+    : 'Rosternado AI connector — your crew roster in Claude & ChatGPT (MCP)'}
   description={tr
-    ? 'Rosternado rosterinizi Claude veya ChatGPT’ye bağlayın ve uçuşlarınızı, konaklamalarınızı ve arkadaşlarınızla buluşma zamanlarını sorun.'
-    : 'Connect your Rosternado roster to Claude or ChatGPT and ask about your flights, layovers and when you can meet your friends.'}
+    ? 'Rosternado rosterinizi MCP bağlayıcısıyla Claude veya ChatGPT’ye bağlayın; uçuşlarınızı, konaklamalarınızı ve arkadaşlarınızla buluşma zamanlarını sorun. Ekran görüntülü adım adım kurulum.'
+    : 'Connect your Rosternado crew roster to Claude or ChatGPT with an MCP connector and ask about flights, layovers and when you can meet friends. Step-by-step setup with screenshots.'}
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
   <div class="wrap wrap--narrow legal">
     <header class="page-head">
       <h1>{tr ? 'Yapay zekâ bağlayıcısı' : 'AI connector'}</h1>

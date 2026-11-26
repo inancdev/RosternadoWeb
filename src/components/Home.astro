@@ -301,6 +301,18 @@ const jsonLd = {
     price: '0',
     priceCurrency: 'USD',
   },
+  // English only; the Turkish page keeps its translated description instead.
+  ...(!tr && {
+    featureList: [
+      'One-tap roster import from airline crew portals',
+      'Colour-coded duty timeline',
+      'Crew list on every flight',
+      'Friend Radar live map of crew friends',
+      'Meetup planner for overlapping days off',
+      'Google Calendar sync',
+      'AI connector for Claude and ChatGPT (MCP): https://rosternado.com/ai.html',
+    ],
+  }),
   sameAs: [
     'https://apps.apple.com/app/rosternado/6766887800',
     'https://play.google.com/store/apps/details?id=com.inancatil.rosternado',

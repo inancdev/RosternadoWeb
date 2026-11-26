@@ -12,12 +12,25 @@ Rosternado is built by an airline pilot who got tired of cluttered, ad-heavy avi
 - **Friend Radar**: See accepted crew friends on a live map with flight progress and estimated arrivals. Positions are approximate and updated periodically for friends and family.
 - **Plan a Meetup**: Automatically finds overlapping free time windows where you and your crew friends are off at the same time in the same city or layover base. Share a window as a boarding-pass card straight into a group chat.
 - **Google Calendar Sync**: Crew can sync their roster to a Google calendar Rosternado creates for them and choose which duty types go in. It never reads other calendars or events.
-- **AI Connector**: Connect Rosternado to Claude or ChatGPT and ask about your roster, layovers, crew and meetup times. Read-only; for Pro crew and all non-crew accounts.
+- **AI Connector (MCP)**: Connect Rosternado to Claude or ChatGPT as a custom MCP connector and ask about your roster, layovers, crew and meetup times in plain words. Read-only; for Pro crew and all non-crew accounts. See "AI Connector" below.
 - **Friend Alerts**: Optional per-friend notifications the moment a friend's new roster is uploaded.
 - **Hangar**: Pick the aircraft that flies over your roster (nine types, from the A320 and 737 to the 777, 747 and A380) and swipe through its liveries. The pick is saved on the device only.
 - **Blocking & Reporting**: Rosters are visible only to accepted friends. Block someone and they lose access at once, without being told; report a profile and it is reviewed.
 - **Offline First**: All roster data is cached on-device for seamless access mid-flight or in layover hotels without signal. Duties added or edited offline are sent when the device is back online.
 - **Friends & Family Mode**: Non-crew members can follow a crew friend or family member's schedule for free to know when they are flying, landing, or home.
+
+## AI Connector
+
+Rosternado is a remote MCP server (OAuth 2.1 sign-in) that Claude and ChatGPT can use to read a user's crew roster.
+
+- **Server URL**: `https://gwvmlvahihjzcdjqulws.supabase.co/functions/v1/mcp`
+- **Sign-in**: the assistant opens a Rosternado page; the user signs in with their app email and password and taps Allow. Users who signed up with Google or Apple must first add a password in the app: Profile -> Connected Accounts -> Email & Password -> Link.
+- **Claude** (mobile app, claude.ai or desktop): Settings -> Connectors -> + -> Add custom connector, name "Rosternado", paste the URL, Continue, keep the default options (Sign in now, Register automatically), Add. The Free plan allows one custom connector.
+- **ChatGPT**: must be added on chatgpt.com in a web browser (phone or computer), not in the ChatGPT app; once added it also works in the app. Settings -> Plugins -> Browse directory -> + -> Add custom MCP server, name "Rosternado", Server URL, Authentication OAuth, tick "I understand and want to continue", Create as a plugin.
+- **Tools (9, all read-only)**: My roster, My roster stats, My layovers, Where was I, Flights with a crew member, My friends, A friend's roster, Find meetups, Days off together.
+- **Example questions**: "When did I last fly with Ali Kaya?", "Where did I lay over last week?", "How many sectors have I flown this month?", "When can Ali and I meet in Istanbul next month?", "Which days are Mehmet and I both off?"
+- **Limits**: times are scheduled roster times, not actual flight times. Friends' rosters are visible only from today to the end of next month, and a friend can turn off AI access to their roster (Settings -> Privacy -> Friends' AI assistants).
+- Step-by-step guide with screenshots: [English](https://rosternado.com/ai.html) ([Claude](https://rosternado.com/ai.html#claude), [ChatGPT](https://rosternado.com/ai.html#chatgpt)), [Türkçe](https://rosternado.com/tr/ai.html).
 
 ## Pages & Resources
 
@@ -26,7 +39,7 @@ Rosternado is built by an airline pilot who got tired of cluttered, ad-heavy avi
 - [Supported Airlines](https://rosternado.com/airlines.html): Full breakdown of verified airline parsers, beta CAE portal airlines, and manual entry support.
 - [Add Your Airline](https://rosternado.com/add-your-airline.html): How crew send copies of their roster page (computer: developer panel Copy outerHTML in the computer and phone layouts; Android phone fallback) so a parser can be built for their airline, what the files contain, and how they are handled.
 - [Support & FAQ](https://rosternado.com/support.html): Frequently asked questions (roster upload, blocking and reporting, Google Calendar sync, offline use, time zones, the Hangar, subscriptions) and support contact.
-- [AI Connector](https://rosternado.com/ai.html): How to connect Rosternado to Claude or ChatGPT, who can use it, and what it can read.
+- [AI Connector](https://rosternado.com/ai.html): Step-by-step guides with screenshots for adding the Rosternado MCP connector to Claude and ChatGPT, the password requirement for Google/Apple sign-ups, who can use it, and what it can read. Turkish: https://rosternado.com/tr/ai.html
 - [Privacy Policy](https://rosternado.com/privacy.html): What data is collected and why, what other users can see (rosters only by accepted friends), blocks and reports, and no tracking or ads.
 - [Terms of Service](https://rosternado.com/terms.html): Terms and conditions governing the use of Rosternado.
 - [Delete Account](https://rosternado.com/delete-account.html): Step-by-step account deletion instructions with permanent data purge.
