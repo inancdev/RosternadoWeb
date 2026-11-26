@@ -10,6 +10,48 @@ interface Props {
 const { lang } = Astro.props;
 const tr = lang === 'tr';
 const MCP_URL = `${SUPABASE_URL}/functions/v1/mcp`;
+
+// Setup steps with screenshots in public/ai/: claude-N.webp (Claude Android app),
+// chatgpt-N.webp (chatgpt.com in a phone browser). Most are 640px wide.
+type Shot = { src: string; w: number; h: number; alt: string };
+type Step = { text: string; shots: Shot[] };
+const shot = (n: number, h: number, alt: string, w = 640): Shot => ({ src: `/ai/claude-${n}.webp`, w, h, alt });
+const gpt = (n: number, h: number, alt: string, w = 640): Shot => ({ src: `/ai/chatgpt-${n}.webp`, w, h, alt });
+const claudeSteps: Step[] = tr
+  ? [
+      { text: 'Claude’da <strong>Ayarlar → Bağlayıcılar</strong>’ı açın. Mobil uygulamada, claude.ai’de ve masaüstü uygulamasında adımlar aynıdır.', shots: [shot(1, 747, 'Claude ayarları, Bağlayıcılar satırı işaretli')] },
+      { text: 'Sağ üstteki <strong>+</strong> düğmesine, ardından <strong>Add custom connector</strong>’a (Özel bağlayıcı ekle) dokunun.', shots: [shot(2, 659, 'Bağlayıcılar ekranı, + düğmesi işaretli'), shot(3, 253, 'Açılan menü, Add custom connector işaretli')] },
+      { text: 'Ad olarak <strong>Rosternado</strong> yazın, yukarıdaki adresi yapıştırın ve <strong>Continue</strong>’ya dokunun.', shots: [shot(4, 680, 'Ad ve adres girilmiş özel bağlayıcı formu')] },
+      { text: 'Seçenekleri olduğu gibi bırakın (<em>Sign in now</em> ve <em>Register automatically</em>) ve <strong>Add</strong>’e dokunun.', shots: [shot(5, 1632, 'Kimlik doğrulama seçenekleri, Add düğmesi işaretli')] },
+      { text: 'Rosternado giriş sayfası açılır. Uygulamadaki hesabınızla giriş yapın ve <strong>İzin ver</strong>’e dokunun. Google veya Apple ile kaydolduysanız önce uygulamada şifre ekleyin: Profil → Bağlı Hesaplar → E-posta ve Şifre.', shots: [] },
+      { text: 'Rosternado bağlayıcılar listesinde görünür. Ona dokunarak 9 aracı görebilir ve her birinin izinlerini ayarlayabilirsiniz. “This connector isn’t verified by Anthropic” uyarısı tüm özel bağlayıcılarda görünür.', shots: [shot(6, 742, 'Bağlayıcılar listesinde Rosternado'), shot(7, 1217, 'Rosternado bağlayıcısının araçları')] },
+    ]
+  : [
+      { text: 'In Claude, open <strong>Settings → Connectors</strong>. The steps are the same in the mobile app, on claude.ai and in the desktop app.', shots: [shot(1, 747, 'Claude settings with the Connectors row highlighted')] },
+      { text: 'Tap <strong>+</strong> at the top right, then <strong>Add custom connector</strong>.', shots: [shot(2, 659, 'Connectors screen with the + button highlighted'), shot(3, 253, 'Menu with Add custom connector highlighted')] },
+      { text: 'Enter <strong>Rosternado</strong> as the name, paste the URL above and tap <strong>Continue</strong>.', shots: [shot(4, 680, 'Custom connector form with the name and URL filled in')] },
+      { text: 'Leave the options as they are (<em>Sign in now</em> and <em>Register automatically</em>) and tap <strong>Add</strong>.', shots: [shot(5, 1632, 'Authentication options with the Add button highlighted')] },
+      { text: 'A Rosternado sign-in page opens. Sign in with your app account and tap <strong>Allow</strong>. Signed up with Google or Apple? Add a password in the app first: Profile → Connected Accounts → Email &amp; Password.', shots: [] },
+      { text: 'Rosternado now shows in your connectors. Tap it to see its 9 tools and set permissions for each. The “This connector isn’t verified by Anthropic” notice appears on every custom connector.', shots: [shot(6, 742, 'Rosternado in the connectors list'), shot(7, 1217, 'The Rosternado connector’s tools')] },
+    ];
+
+const chatgptSteps: Step[] = tr
+  ? [
+      { text: '<strong>chatgpt.com</strong>’da <strong>Ayarlar</strong>’ı açın ve Integrations altında <strong>Plugins</strong>’e dokunun.', shots: [gpt(1, 510, 'ChatGPT ayarları, Plugins işaretli', 602)] },
+      { text: '<strong>Browse directory</strong>’ye dokunun.', shots: [gpt(2, 742, 'Plugins sayfası, Browse directory işaretli')] },
+      { text: 'Sağ üstteki <strong>+</strong> düğmesine, ardından <strong>Add custom MCP server</strong>’a dokunun.', shots: [gpt(3, 534, 'Plugins dizini, + düğmesi işaretli'), gpt(4, 534, 'Açılan menü, Add custom MCP server işaretli')] },
+      { text: 'Name alanına <strong>Rosternado</strong> yazın, Connection altında <em>Server URL</em> seçiliyken yukarıdaki adresi yapıştırın. Authentication <em>OAuth</em> olarak kalsın.', shots: [gpt(5, 933, 'Ad ve adres girilmiş MCP sunucusu formu')] },
+      { text: 'Aşağı kaydırın, <strong>I understand and want to continue</strong> kutusunu işaretleyin ve <strong>Create as a plugin</strong>’e dokunun.', shots: [gpt(6, 933, 'Onay kutusu ve Create as a plugin düğmesi işaretli')] },
+      { text: 'Rosternado giriş sayfası açılır. Uygulamadaki hesabınızla giriş yapın ve <strong>İzin ver</strong>’e dokunun. Google veya Apple ile kaydolduysanız önce uygulamada şifre ekleyin (yukarıdaki 5. adım).', shots: [] },
+    ]
+  : [
+      { text: 'On <strong>chatgpt.com</strong>, open <strong>Settings</strong> and tap <strong>Plugins</strong> under Integrations.', shots: [gpt(1, 510, 'ChatGPT settings with Plugins highlighted', 602)] },
+      { text: 'Tap <strong>Browse directory</strong>.', shots: [gpt(2, 742, 'Plugins page with Browse directory highlighted')] },
+      { text: 'Tap <strong>+</strong> at the top right, then <strong>Add custom MCP server</strong>.', shots: [gpt(3, 534, 'Plugin directory with the + button highlighted'), gpt(4, 534, 'Menu with Add custom MCP server highlighted')] },
+      { text: 'Enter <strong>Rosternado</strong> as the name and, with <em>Server URL</em> selected under Connection, paste the URL above. Leave Authentication as <em>OAuth</em>.', shots: [gpt(5, 933, 'MCP server form with the name and URL filled in')] },
+      { text: 'Scroll down, tick <strong>I understand and want to continue</strong> and tap <strong>Create as a plugin</strong>.', shots: [gpt(6, 933, 'Consent checkbox and Create as a plugin button highlighted')] },
+      { text: 'A Rosternado sign-in page opens. Sign in with your app account and tap <strong>Allow</strong>. Signed up with Google or Apple? Add a password in the app first (see Claude step 5).', shots: [] },
+    ];
 ---
 
 <Layout
@@ -81,24 +123,34 @@ const MCP_URL = `${SUPABASE_URL}/functions/v1/mcp`;
       <h2>{tr ? 'Nasıl bağlanır' : 'How to connect'}</h2>
       <p>{tr ? 'Asistanınıza bu adresle özel bir bağlayıcı (MCP sunucusu) ekleyin:' : 'Add a custom connector (MCP server) to your assistant with this URL:'}</p>
       <p><code class="url">{MCP_URL}</code></p>
-      {tr ? (
-        <ul>
-          <li><strong>Claude</strong> (claude.ai veya masaüstü uygulaması): Ayarlar &rarr; Bağlayıcılar &rarr; Özel
-            bağlayıcı ekle, adresi yapıştırın ve Bağlan'a dokunun. Ücretsiz planda bir özel bağlayıcı eklenebilir.</li>
-          <li><strong>ChatGPT</strong>: planınız özel bağlayıcılara izin veriyorsa, yeni bir bağlayıcı ekleyip aynı
-            adresi girin.</li>
-        </ul>
-      ) : (
-        <ul>
-          <li><strong>Claude</strong> (claude.ai or the desktop app): Settings &rarr; Connectors &rarr; Add custom
-            connector, paste the URL and tap Connect. The Free plan allows one custom connector.</li>
-          <li><strong>ChatGPT</strong>: where your plan allows custom connectors, add a new connector with the same
-            URL.</li>
-        </ul>
-      )}
+
+      <h3 id="claude">Claude</h3>
+      <p>{tr ? 'Ücretsiz planda bir özel bağlayıcı eklenebilir.' : 'The Free plan allows one custom connector.'}</p>
+      <ol class="steps">
+        {claudeSteps.map((step) => (
+          <li>
+            <p set:html={step.text} />
+            {step.shots.map((s) => (
+              <img class="shot" src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
+            ))}
+          </li>
+        ))}
+      </ol>
+
+      <h3 id="chatgpt">ChatGPT</h3>
       <p>{tr
-        ? 'Rosternado giriş sayfası açılır. Uygulamadaki hesabınızla giriş yapın ve İzin ver’e dokunun. Google veya Apple ile kaydolduysanız önce uygulamada şifre ekleyin: Profil → Bağlı Hesaplar → E-posta ve Şifre.'
-        : 'A Rosternado sign-in page opens. Sign in with your app account and tap Allow. Signed up with Google or Apple? Add a password in the app first: Profile → Connected Accounts → Email & Password.'}</p>
+        ? 'Özel MCP sunucusu eklemek her ChatGPT planında olmayabilir.'
+        : 'Adding a custom MCP server may not be available on every ChatGPT plan.'}</p>
+      <ol class="steps">
+        {chatgptSteps.map((step) => (
+          <li>
+            <p set:html={step.text} />
+            {step.shots.map((s) => (
+              <img class="shot" src={s.src} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
+            ))}
+          </li>
+        ))}
+      </ol>
     </div>
 
     {tr ? (
@@ -138,5 +190,24 @@ const MCP_URL = `${SUPABASE_URL}/functions/v1/mcp`;
     border-radius: 10px;
     background: var(--bg);
     border: 1px solid var(--separator);
+  }
+
+  .steps > li {
+    margin-bottom: 1.4rem;
+  }
+
+  .steps > li p {
+    margin-bottom: 0.6rem;
+  }
+
+  .shot {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 0 0 0.6rem;
+    border-radius: 14px;
+    border: 1px solid var(--separator);
+    background: #151515;
   }
 </style>
